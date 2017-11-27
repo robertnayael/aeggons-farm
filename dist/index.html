@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <title>Game</title>
+  <style>
+    body {
+      background: #111;
+    }
+
+    #init-message {
+      color: white;
+    }
+
+    #platformer {
+      position:absolute;
+      top:50%;
+      left:50%;
+      padding: 0;
+      -ms-transform: translateX(-50%) translateY(-50%);
+      -webkit-transform: translate(-50%,-50%);
+      transform: translate(-50%,-50%);
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="platformer">
+
+    <div id="init-message">Downloading resources.....</div>
+    <div id="error-message">ERROR!</div>
+
+    <canvas id="canvas">
+      <div class="unsupported">
+        ----canvas not supported----
+      </div>
+    </canvas>
+
+  </div>
+
+
+  <script src="bundle.js"></script>
+</body>
+</html>
