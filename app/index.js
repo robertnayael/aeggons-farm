@@ -9,7 +9,7 @@ import Player from './player';
 import Sprites from './sprites';
 import {Renderer} from './renderer';
 
-/******************************************************************************/
+/**************************************************************************/
 
 function timestamp() {
   if (window.performance && window.performance.now)
@@ -18,6 +18,8 @@ function timestamp() {
     return new Date().getTime();
 }
 
+/*------------------------------------------------------------------------*/
+
 let delta = 0,                                   // delta between now and last
     now,
     last = timestamp(),
@@ -25,6 +27,8 @@ let delta = 0,                                   // delta between now and last
     canvas,
     ctx,
     activeRenderers;
+
+/*------------------------------------------------------------------------*/
 
 function frameLoop() {
   now = timestamp();                            // time at the start of this loop
@@ -39,17 +43,14 @@ function frameLoop() {
 
 }
 
-
-/*******************************************************************************
-| Main objects
-*******************************************************************************/
+/**************************************************************************/
 
 let map,
     renderer,
     player,
     sprites;
 
-/******************************************************************************/
+/**************************************************************************/
 
 function initialize(config) {
 
@@ -61,7 +62,7 @@ function initialize(config) {
     .then(() => frameLoop())
     .catch(error => showErrorMessage(error, config.errorMessageID, config.debug))
 
-  /****************************************************************************/
+  /*----------------------------------------------------------------------*/
 
   function loadDataFiles(filelist, contents) {
 
@@ -83,21 +84,23 @@ function initialize(config) {
 
   };
 
-  /****************************************************************************/
+  /*----------------------------------------------------------------------*/
 
   function hideWaitMessage(id) {
     const waitMessage = document.getElementById(id);
     waitMessage.style.display = 'none';
   };
 
+  /*----------------------------------------------------------------------*/
+
   function showErrorMessage(error, id, debug) {
     const errorMessage = document.getElementById(id);
     errorMessage.style.display = 'block';
 
-  //  if(debug) {
-      console.error(error)
-  //  }
+    if(debug) console.error(error)
   }
+
+  /*----------------------------------------------------------------------*/
 
   function initializeObjects(mapData, mapEntitiesData, spritesData) {
 
@@ -110,9 +113,9 @@ function initialize(config) {
     canvas.width = config.viewportWidth * config.tileSize;
     canvas.height = config.viewportHeight * config.tileSize;
 
-    map = new Map(mapData, mapEntitiesData, config);
-    renderer = new Renderer();
+    renderer = new Renderer(config);
     sprites = new Sprites(spritesData);
+    map = new Map(mapData, mapEntitiesData, config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
 
     if (config.debug === true) globalizeObjects()
@@ -120,7 +123,7 @@ function initialize(config) {
     return sprites.loadImages(config.spritesDir); // Returns promise
   };
 
-  /************************************************************************/
+  /*----------------------------------------------------------------------*/
 
   // Globalize some the key objects for development purposes
   function globalizeObjects() {
@@ -131,10 +134,10 @@ function initialize(config) {
     window._sprites = sprites;
   }
 
-  /************************************************************************/
+  /*----------------------------------------------------------------------*/
 
   function getTileSize(baseSize) {
-    return baseSize;
+    return baseSize
   }
 
 };
@@ -144,7 +147,4 @@ function initialize(config) {
 var controls = {}
 document.addEventListener('keydown', function(event) { return onkey(event, event.keyCode, true, controls);  }, false);
 document.addEventListener('keyup', function(event) { return onkey(event, event.keyCode, false, controls);  }, false);
-
-/******************************************************************************/
-
 document.addEventListener("DOMContentLoaded", initialize(config));

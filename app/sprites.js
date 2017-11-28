@@ -12,12 +12,20 @@ export default class Sprites {
 
 /******************************************************************************/
 
-  getSprite(type, variant = null) {
+  getSprite(type, variant, defaultVariant = false) {
 
-    const sprite = this.spritemaps[type][variant];
+    // TODO: add default variant handler
+
+    const props = this.spritemaps[type][variant];
 
     return {
-
+      image: this.images[props.image],
+      width: props.dimensions[0],
+      height: props.dimensions[1],
+      drawOffsetX: props.drawOffset[0],
+      drawOffsetY: props.drawOffset[1],
+      x: props.coords[0],
+      y: props.coords[1]
     };
   }
 
