@@ -55,7 +55,7 @@ export default {
       renderers: [],
       updateEntities: false,
       controlsLocked: false
-    }
+    };
   },
 
 /******************************************************************************/
@@ -66,7 +66,7 @@ export default {
       renderers: ['welcomeScreen'],
       updateEntities: false,
       controlsLocked: false
-    }
+    };
 
     if(controls.accept)              // The user pressed <ENTER> while in the welcome screen; start the game
       props.nextState = 'gameplayIntro';
@@ -82,14 +82,14 @@ export default {
       renderers: ['gameplay', 'gameplayIntro'],
       updateEntities: true,
       controlsLocked: true
-    }
+    };
 
     let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
 
     if (waitFinished)
       props.nextState = 'gameplay';
 
-    return props
+    return props;
   },
 
 /******************************************************************************/
@@ -100,7 +100,7 @@ export default {
       renderers: ['gameplay'],
       updateEntities: true,
       controlsLocked: false
-    }
+    };
 
     if (controls.exit)               // Return to the welcome screen on <ESC>
       props.nextState = 'initialization';
@@ -116,7 +116,7 @@ export default {
       renderers: ['gameplay', 'awaitingRespawnOverlay'],
       updateEntities: true,
       controlsLocked: true
-    }
+    };
 
     let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
 
@@ -134,7 +134,7 @@ export default {
       renderers: ['gameplay', 'gameOverOverlay'],
       updateEntities: true,
       controlsLocked: true
-    }
+    };
 
     if (controls.accept || controls.exit)
       props.nextState = 'initialization';
@@ -150,7 +150,7 @@ export default {
       renderers: ['gameplay', 'gameWonOverlay'],
       updateEntities: true,
       controlsLocked: true
-    }
+    };
 
     if (controls.accept || controls.exit)
       props.nextState = 'initialization';
@@ -160,4 +160,4 @@ export default {
 
 /******************************************************************************/
 
-}
+};

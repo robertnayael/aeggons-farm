@@ -47,7 +47,7 @@ export default class Sprites {
       drawOffsetY: props.drawOffset[1],
     };
 
-    return this.frameIterator(frames, firstFrame, spritePropertiesPartial)
+    return this.frameIterator(frames, firstFrame, spritePropertiesPartial);
   }
 
 /******************************************************************************/
@@ -79,15 +79,15 @@ export default class Sprites {
       const image = new Image();
       image.src = url;
       this.images[filename] = image;
-    }
+    };
 
     const fetchFile = file => fetch(spritesDir + file)
       .then(
         function(response) {
           if (response.status >= 200 && response.status < 300) {
-            return Promise.resolve(response)
+            return Promise.resolve(response);
           } else {
-            return Promise.reject(new Error(response.statusText))
+            return Promise.reject(new Error(response.statusText));
           }
         }
       )

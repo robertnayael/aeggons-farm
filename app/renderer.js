@@ -50,7 +50,7 @@ export function Renderer (config) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = '#6bc2d8';
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   /*  for (let type in rendererState) {
       if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
@@ -59,7 +59,7 @@ export function Renderer (config) {
     }
 */
 
-    activeRenderers.forEach(renderer => renderers[renderer](ctx, controls, game, map, player))
+    activeRenderers.forEach(renderer => renderers[renderer](ctx, controls, game, map, player));
   };
 
   /*****************************************************************************

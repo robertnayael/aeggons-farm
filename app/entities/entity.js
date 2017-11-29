@@ -25,12 +25,12 @@ export default class Entity {
         if (x !== null) this.x += x;
         if (y !== null)this.y += y;
       }
-    }
+    };
 
     this.dimensions = {
       width: props.width * tileSize,
       height: props.height * tileSize
-    }
+    };
 
   }
 
@@ -65,7 +65,7 @@ export default class Entity {
     return !(((x1 + width1 - 1) < x2) ||
              ((x2 + width2 - 1) < x1) ||
              ((y1 + height1 - 1) < y2) ||
-             ((y2 + height2 - 1) < y1))
+             ((y2 + height2 - 1) < y1));
   }
 
 }

@@ -3,6 +3,7 @@
   "platforms": [
 
     {
+      "description": "platform 1",
       "initialPosition": {
         "x": 10,
         "y": 5
@@ -16,6 +17,7 @@
     },
 
     {
+      "description": "platform 2",
       "initialPosition": {
         "x": 15,
         "y": 2
@@ -27,6 +29,25 @@
       "height": 0.5,
       "speed": 1.5
 
+    }
+
+  ],
+
+  "mobs": [
+
+    {
+      "description": "snail 1",
+      "type": "snail",
+      "initialPosition": {
+        "x": 12,
+        "y": 4
+      },
+      "finalPosition": {
+        "x": 5
+      },
+      "width": 1,
+      "height": 1,
+      "speed": 1
     }
 
   ]

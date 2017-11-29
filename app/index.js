@@ -6,6 +6,7 @@ import game from './game';
 import {onkey} from './keylistener';
 import Map from './map';
 import Player from './player';
+import Mob from './mob';
 import Sprites from './sprites';
 import {Renderer} from './renderer';
 
@@ -60,7 +61,7 @@ function initialize(config) {
     .then(() => initializeObjects(data[config.mapData], data[config.mapEntitiesData], data[config.spritesData]))
     .then(() => hideWaitMessage(config.initMessageID))
     .then(() => frameLoop())
-    .catch(error => showErrorMessage(error, config.errorMessageID, config.debug))
+    .catch(error => showErrorMessage(error, config.errorMessageID, config.debug));
 
   /*----------------------------------------------------------------------*/
 
@@ -70,9 +71,9 @@ function initialize(config) {
       .then(
         function(response) {
           if (response.status >= 200 && response.status < 300) {
-            return Promise.resolve(response)
+            return Promise.resolve(response);
           } else {
-            return Promise.reject(new Error(response.statusText))
+            return Promise.reject(new Error(response.statusText));
           }
         }
       )
@@ -97,7 +98,7 @@ function initialize(config) {
     const errorMessage = document.getElementById(id);
     errorMessage.style.display = 'block';
 
-    if(debug) console.error(error)
+    if(debug) console.error(error);
   }
 
   /*----------------------------------------------------------------------*/
@@ -105,7 +106,7 @@ function initialize(config) {
   function initializeObjects(mapData, mapEntitiesData, spritesData) {
 
     config.tileSize = getTileSize(config.baseTileSize);
-    config.scale = config.tileSize / config.baseTileSize
+    config.scale = config.tileSize / config.baseTileSize;
 
     step = 1 / config.FPS;
     canvas = document.getElementById(config.canvasID);
@@ -118,7 +119,7 @@ function initialize(config) {
     map = new Map(mapData, mapEntitiesData, config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
 
-    if (config.debug === true) globalizeObjects()
+    if (config.debug === true) globalizeObjects();
 
     return sprites.loadImages(config.spritesDir); // Returns promise
   };
@@ -137,14 +138,14 @@ function initialize(config) {
   /*----------------------------------------------------------------------*/
 
   function getTileSize(baseSize) {
-    return baseSize
+    return baseSize;
   }
 
 };
 
 /**************************************************************************/
 
-var controls = {}
+var controls = {};
 document.addEventListener('keydown', function(event) { return onkey(event, event.keyCode, true, controls);  }, false);
 document.addEventListener('keyup', function(event) { return onkey(event, event.keyCode, false, controls);  }, false);
 document.addEventListener("DOMContentLoaded", initialize(config));

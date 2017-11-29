@@ -13,7 +13,7 @@ export default class Player extends AnimatedEntity {
 
   initialize(tileSize, scale) {
 
-    const props = this.initialProps
+    const props = this.initialProps;
 
     this.position.x = props.initialPosition.x;
     this.position.y = props.initialPosition.y;
@@ -109,7 +109,7 @@ export default class Player extends AnimatedEntity {
     this.is.moving = (this.motion.x !== 0);
 
     // Update the player position:
-    this.position.offset(this.motion.x * step, this.motion.y * step)
+    this.position.offset(this.motion.x * step, this.motion.y * step);
 
     /*
     | If the player is standing in a platform, apply the platform offset.
@@ -225,7 +225,7 @@ export default class Player extends AnimatedEntity {
     const overlapping = {
       x: x%tileSize,
       y: y%tileSize
-    }
+    };
     // change name to "solidTiles" or "isSolidTile"
     const tiles = map.getOverlappingTiles(x, y);
 
@@ -254,7 +254,7 @@ export default class Player extends AnimatedEntity {
       if ((tiles['SE'] && !tiles['NE'] && notFromBelow) ||
           (tiles['SW'] && !tiles['NW'] && overlapping.x && notFromBelow)) {
         this.motion.y = 0;
-        this.position.y = (Math.floor(this.position.y/tileSize))*tileSize
+        this.position.y = (Math.floor(this.position.y/tileSize))*tileSize;
         this.is.falling = false;
         this.is.jumping = false;
         overlapping.y = 0;
@@ -265,7 +265,7 @@ export default class Player extends AnimatedEntity {
       if ((tiles['NE'] && !tiles['SE']) ||
           (tiles['NW'] && !tiles['SW'] && overlapping.x)) {
         this.motion.y = 0;
-        this.position.y = (Math.floor(this.position.y/tileSize)+1)*tileSize
+        this.position.y = (Math.floor(this.position.y/tileSize)+1)*tileSize;
         tiles['NE'] = tiles['SE'];
         tiles['NW'] = tiles['SW'];
         overlapping.y = 0;
@@ -275,7 +275,7 @@ export default class Player extends AnimatedEntity {
     if (this.motion.x > 0 || this.is.onPlatform) {
       if ((tiles['NW'] && !tiles['NE']) ||
           (tiles['SW'] && !tiles['SE'] && overlapping.y)) {
-        this.position.x = (Math.floor(this.position.x/tileSize))*tileSize
+        this.position.x = (Math.floor(this.position.x/tileSize))*tileSize;
         this.motion.x = 0;
       }
     }
@@ -308,7 +308,7 @@ export default class Player extends AnimatedEntity {
   | be checked, instead of all the entities in the viewing range.
   *****************************************************************************/
   resolveEntityInteraction(entities) {
-    entities.platforms.some(this.resolvePlatformInteraction.bind(this))
+    entities.platforms.some(this.resolvePlatformInteraction.bind(this));
     // TODO: Handle other types of entities.
   }
 
@@ -331,7 +331,7 @@ export default class Player extends AnimatedEntity {
       }
       // Hitting the platform from below:
       else if (jumping) {
-        this.position.y = platform.y + platform.height
+        this.position.y = platform.y + platform.height;
         this.is.falling = true;
       }
 

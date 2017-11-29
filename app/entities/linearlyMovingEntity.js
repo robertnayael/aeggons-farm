@@ -11,7 +11,7 @@ export default class LinearlyMovingEntity extends AnimatedEntity {
     this.position.initial = {
       x: props.initialPosition.x * tileSize,
       y: props.initialPosition.y * tileSize
-    }
+    };
 
     this.position.final = {};
     if(props.finalPosition.x) this.position.final.x = props.finalPosition.x * tileSize;
