@@ -19,7 +19,7 @@ export default class Map {
         px: config.viewportHeight * this.tileSize,
         tiles: config.viewportHeight
       }
-    }
+    };
 
     this.collisionTiles =
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -115,7 +115,7 @@ export default class Map {
     };
 
     this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, tileSize, scale)));
-  //  entityProps.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (mob)));
+    this.data.entities.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (platform, tileSize, scale)));
   //  entityProps.spikes      .forEach(spike       => this.entities.spikes      .push(new Spike      (spike)));
   //  entityProps.collectibles.forEach(collectible => this.entities.collectibles.push(new Collectible(collectible)));
   }
@@ -206,7 +206,7 @@ export default class Map {
       NW: this.collisionTiles[this.getTileIndexFromPixelCoords(x + xSize, y)],
       SE: this.collisionTiles[this.getTileIndexFromPixelCoords(x, y + ySize)],
       SW: this.collisionTiles[this.getTileIndexFromPixelCoords(x + xSize, y + ySize)]
-    }
+    };
   }
 
 /******************************************************************************/
@@ -239,7 +239,7 @@ export default class Map {
     return {
       x: i % this.width.tiles,
       y: Math.floor(i / this.width.tiles)
-    }
+    };
   }
 
 /******************************************************************************/
@@ -249,7 +249,7 @@ export default class Map {
     return {
       x: (i % this.width.tiles) * this.tileSize,
       y: Math.floor(i / this.width.tiles) * this.tileSize
-    }
+    };
   }
 
   /*****************************************************************************
@@ -277,7 +277,7 @@ export default class Map {
         right: (object.x) - (center.x),
         top: (center.y) - (object.y + object.height),
         bottom: (object.y) - (center.y)
-      }
+      };
 
       // Returns false if any distance exceeds the respective range, true otherwise
       return !(
@@ -291,7 +291,7 @@ export default class Map {
       offset,
       object,
       this.tileSize * 2
-    )
+    );
   }
 
   /*****************************************************************************
