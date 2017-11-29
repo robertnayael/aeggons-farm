@@ -7,7 +7,6 @@ export default class Player extends AnimatedEntity {
   constructor(props, tileSize, scale, sprites) {
     super(props, tileSize, scale, sprites);
     this.initialProps = props;
-  //  this.initialize(tileSize, scale);
   }
 
   /****************************************************************************/
@@ -64,6 +63,7 @@ export default class Player extends AnimatedEntity {
     this.checkIfCanMove();
     this.move(step, controls);
     this.resolveMapColission(map);
+    this.resolveEntityInteraction(map.entities);
   }
 
   /****************************************************************************/
@@ -83,12 +83,7 @@ export default class Player extends AnimatedEntity {
   getSprite() {
 
     let animation = 'walking_' + (this.is.facingRight ? 'right' : 'left');
-    let temp = this.getSpriteFrame('player', animation);
-    //console.log(temp)
-
-
-        return temp;
-        return this.getSpriteFrame('player', animation);
+    return this.getSpriteFrame('player', animation);
 
   /*  let currentSpriteType = function(is){
       if(!is.jumping && !is.falling && is.moving)   return 'walking';
@@ -121,11 +116,11 @@ export default class Player extends AnimatedEntity {
     | (Note: <this.is.onPlatform> is either false or a reference to the
     | relevant platform object.)
     */
-    if(this.is.onPlatform) {
+    /*if(this.is.onPlatform) {
       let offset = this.is.onPlatform.getOffset();  // This is how much the platform has moved during this cycle.
       this.position.x += offset.x;
       this.position.y += offset.y;
-    }
+    }*/
   }
 
   /****************************************************************************/
@@ -304,67 +299,61 @@ export default class Player extends AnimatedEntity {
   }
 
   /*****************************************************************************
-  | Cycle through all map objects (platforms, mobs, treasure, spikes). Give the
-  | player's position and other details to the resolveInteraction() method of the
-  | corresponding object and take the appropriate action based on the results.
+  | Cycles through all entities (platforms, mobs, spikes, collectibles) in the
+  | viewing range and triggers the corresponding method to resolve resolve
+  | interaction with the player.
+  | Note that with "Array.prototype.some" the check loop will break once
+  | interaction is identified.
+  | TODO: Only entities close to the player (say, within 1 tile) could
+  | be checked, instead of all the entities in the viewing range.
   *****************************************************************************/
-  resolveObjectInteraction() {
-    let colission = objects.areColliding(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE, platform.x, platform.y, platform.width, platform.height);
+  resolveEntityInteraction(entities) {
+    entities.platforms.some(this.resolvePlatformInteraction.bind(this))
+    // TODO: Handle other types of entities.
+  }
 
-    if(colission) {
+  /*****************************************************************************
+  | Checks if the player is standing on a moving platform; and if necessary,
+  | also modifies the player's position.
+  *****************************************************************************/
+  resolvePlatformInteraction(platform) {
 
-      // Player hits the platform from below
-      if(this.motion.y < 0 && (this.position.y > (platform.y + platform.height/2))) {
-        this.motion.y = 0;
-        this.position.y = platform.y + platform.height;
-        this.is.jumping = this.is.falling = true;
-      }
+    this.is.onPlatform = false;
+    const falling = this.is.falling,
+          jumping = this.is.jumping;
 
-      // Player hits the platform from above
-      else if(this.motion.y > 0 && (this.position.y + TILE_SIZE <= platform.y + platform.height/2)) {
-        this.motion.y = 0;
+    if (platform.collidesWith(this)) {
+
+      // Falling on top of the platform:
+      if (falling) {
+        this.position.y = platform.y - this.height;
         this.is.jumping = this.is.falling = false;
-        this.is.onPlatform = platform;
-        this.position.y = platform.y - TILE_SIZE;
       }
+      // Hitting the platform from below:
+      else if (jumping) {
+        this.position.y = platform.y + platform.height
+        this.is.falling = true;
+      }
+
+      this.motion.y = 0;
+      this.is.onPlatform = true;
     }
-    else if(objects.isOnPlatform(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE, platform.x, platform.y, platform.width, platform.height)) {
-      this.is.onPlatform = platform;
+
+    else if(platform.isDirectlyUnder(this)) {
       this.motion.y = 0;
       this.is.jumping = this.is.falling = false;
-      this.position.y = platform.y - TILE_SIZE;
-
-
+      this.position.y = platform.y - this.height;
+      this.is.onPlatform = true;
     }
-    else {
-      this.is.onPlatform = false;
+
+    /* If the platform slides horizontally, offset the player's position
+       by how much the platform has moved in this cycle.                      */
+    if (this.is.onPlatform && platform.getMovementAxis() === 'x') {
+      const offset = platform.getOffset();
+      this.position.x += offset.x;
     }
-  }
 
-/******************************************************************************/
-
-  resolvePlatformInteraction(platform, player) {
-
-    return {
-      position: {
-        x: player.x,
-        y: player.y
-      },
-      isOnPlatform: true
-    }
-  }
-
-/******************************************************************************/
-
-  bindPlatform(platform) {
-
-
-  }
-
-/******************************************************************************/
-
-  unbindPlatform() {
-
+    return this.is.onPlatform; // If true, the interaction check loop will break.
   }
 
 /******************************************************************************/

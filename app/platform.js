@@ -17,8 +17,19 @@ export default class Platform extends LinearlyMovingEntity {
     };
   }
 
-  isDirectlyUnder(otherX, otherY, otherWidth, otherHeight) {
+  isDirectlyUnder(object) {
 
+    const x1 = this.x,
+          y1 = this.y,
+          width1 = this.width,
+          height1 = this.height,
+
+          x2 = object.x,
+          y2 = object.y,
+          width2 = object.width,
+          height2 = object.height;
+
+    return ((y2 + height2 == y1) && (x2 <= x1 + width1) && (x2 + width2 >= x1));
   }
 
 }

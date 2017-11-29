@@ -64,7 +64,7 @@ export default class Map {
          1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
          1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,
          1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'C',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'C',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -97,7 +97,10 @@ export default class Map {
     this.data = {
       map: mapData,
       entities: entitiesData
-    }
+    };
+
+    this.entities = {};
+    this.entitiesInRange = {};
   }
 
 /******************************************************************************/
@@ -108,9 +111,8 @@ export default class Map {
       platforms: [],
       mobs: [],
       spikes: [],
-      collectibles: [],
-      inRange: {}
-    }
+      collectibles: []
+    };
 
     this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, tileSize, scale)));
   //  entityProps.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (mob)));
@@ -129,27 +131,59 @@ export default class Map {
 
   updateVisibilityRange(player) {
     const offset = this.getOffset(player);
-    const tiles = this.collisionTiles.length;
-    const tileDimensions = {width: this.tileSize, height: this.tileSize};
-    let tilesInRange = [];
 
-    for (let i = 0; i < tiles; i++) {
-      let tile = this.getPixelCoordsFromTileIndex(i);
-      if (this.isInRange(offset.map, Object.assign(tile, tileDimensions))) {
-        tilesInRange.push(i);
-      }
-    }
-
-    this.tiles.inRange = tilesInRange;
+    this.tiles.inRange = this.updateTilesInRange(offset.map, this.collisionTiles.length);
+    this.entitiesInRange = this.updateEntitiesInRange(offset.map, this.entities);
   }
 
 /******************************************************************************/
 
+  updateTilesInRange(offset, tilesCount) {
 
+    const tileDimensions = {width: this.tileSize, height: this.tileSize};
+    let tilesInRange = [];
+
+    for (let i = 0; i < tilesCount; i++) {
+      let tile = this.getPixelCoordsFromTileIndex(i);
+      if (this.isInRange(offset, Object.assign(tile, tileDimensions))) {
+        tilesInRange.push(i);
+      }
+    }
+
+    return tilesInRange;
+  }
 
 /******************************************************************************/
 
-  getObjectsInRange() {
+  updateEntitiesInRange(offset, entities) {
+
+    let entitiesInRange = {
+      platforms: [],
+      mobs: [],
+      spikes: [],
+      collectibles: []
+    };
+
+    Object.getOwnPropertyNames(entities).forEach(type => {
+      this.entities[type].forEach(entity => {
+        if (this.isInRange(offset, entity)) {
+          entitiesInRange[type].push(entity);
+        }
+      });
+    });
+
+    return entitiesInRange;
+  }
+
+/******************************************************************************/
+
+  getTilesInRange() {
+
+  }
+
+/******************************************************************************/
+
+  getEntitiesInRange() {
 
   }
 
