@@ -12,8 +12,8 @@ export default class Platform extends LinearlyMovingEntity {
 
   getOffset() {
     return {
-      x: this.position.x - this.position.previous.x,
-      y: this.position.y - this.position.previous.y
+      x: this.position.previous.x !== null ? (this.position.x - this.position.previous.x) : 0,
+      y: this.position.previous.y !== null ? (this.position.y - this.position.previous.y) : 0
     };
   }
 

@@ -348,9 +348,10 @@ export default class Player extends AnimatedEntity {
 
     /* If the platform slides horizontally, offset the player's position
        by how much the platform has moved in this cycle.                      */
-    if (this.is.onPlatform && platform.getMovementAxis() === 'x') {
+    if (this.is.onPlatform) {
       const offset = platform.getOffset();
       this.position.x += offset.x;
+      this.position.y += offset.y;
     }
 
     return this.is.onPlatform; // If true, the interaction check loop will break.
