@@ -126,12 +126,11 @@ const TILE_SIZE = 70;
 
 
     this._drawMapLayer(ctx, 0, offset.map, map);
-    this._drawEntities(ctx, 'platforms', offset.map);
+    //this._drawEntities(ctx, 'platforms', offset.map, map.entitiesInRange.platforms);
+    this._drawEntities(ctx, 'mobs', offset.map, map.entitiesInRange.mobs);
     this._drawPlayer(ctx, offset.player, player);
     this._drawMapLayer(ctx, 1, offset.map, map);
     this._drawOSD(ctx);
-
-  //  ctx.strokeRect(offset.player.x, offset.player.y, TILE_SIZE, TILE_SIZE);
 
   };
 
@@ -141,11 +140,9 @@ const TILE_SIZE = 70;
 
   renderers._drawMapLayer = function(ctx, layer, offset, map) {
 
-    let drawn = 0;
     map.tiles.inRange.forEach(tile => {
       const sprite = map.getTileSprite(tile, layer);
       if (sprite) {
-        drawn++;
         const coords = map.getPixelCoordsFromTileIndex(tile);
         ctx.drawImage(
           sprite.image,
@@ -161,10 +158,25 @@ const TILE_SIZE = 70;
   |
   */
 
-  renderers._drawEntities = function(ctx, type, offset) {
+  renderers._drawEntities = function(ctx, type, offset, entities) {
+    entities.forEach(entity => {
+      const sprite = entity.getSprite();
+      if (sprite) {
 
-    // TODO
 
+      /*  ctx.fillStyle = '#A1744D';
+
+        ctx.fillRect(entity.x - offset.x, entity.y - offset.y, entity.width, entity.height);*/
+
+
+        ctx.drawImage(
+          sprite.image,
+          sprite.x, sprite.y,
+          sprite.width, sprite.height,
+          entity.x - offset.x + sprite.drawOffsetX, entity.y - offset.y + sprite.drawOffsetY,
+          sprite.width * scale, sprite.height * scale);
+      }
+    });
   };
 
   /*****************************************************************************

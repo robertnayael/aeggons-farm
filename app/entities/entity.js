@@ -10,20 +10,6 @@ export default class Entity {
       previous: {
         x: null,
         y: null
-      },
-
-      overwrite: function(x, y) {
-        this.previous.x = this.x;
-        this.previous.y = this.y;
-        if (x !== null) this.x = x;
-        if (y !== null)this.y = y;
-      },
-
-      offset: function(x, y) {
-        this.previous.x = this.x;
-        this.previous.y = this.y;
-        if (x !== null) this.x += x;
-        if (y !== null)this.y += y;
       }
     };
 
@@ -32,7 +18,42 @@ export default class Entity {
       height: props.height * tileSize
     };
 
+    this.updateEdges();
+
   }
+
+  /******************************************************************************/
+
+  moveTo(x, y) {
+    this.position.previous.x = this.position.x;
+    this.position.previous.y = this.position.y;
+    if (x !== null) this.position.x = x;
+    if (y !== null) this.position.y = y;
+    this.updateEdges();
+  }
+
+  /******************************************************************************/
+
+  moveBy(x, y) {
+    this.position.previous.x = this.position.x;
+    this.position.previous.y = this.position.y;
+    if (x !== null) this.position.x += x;
+    if (y !== null) this.position.y += y;
+    this.updateEdges();
+  }
+
+  /******************************************************************************/
+
+  updateEdges() {
+    this.edge = {
+      top: this.y,
+      right: this.x + this.width,
+      bottom: this.y + this.height,
+      left: this.x
+    };
+  }
+
+  /******************************************************************************/
 
   get x() {
     return this.position.x;
@@ -49,6 +70,24 @@ export default class Entity {
   get height() {
     return this.dimensions.height;
   }
+
+  get top() {
+    return this.edge.top;
+  }
+
+  get right() {
+    return this.edge.right;
+  }
+
+  get bottom() {
+    return this.edge.bottom;
+  }
+
+  get left() {
+    return this.edge.left;
+  }
+
+  /******************************************************************************/
 
   collidesWith(object) {
 
@@ -68,25 +107,8 @@ export default class Entity {
              ((y2 + height2 - 1) < y1));
   }
 
+  /******************************************************************************/
+
 }
 
 /******************************************************************************/
-
-
-
-/******************************************************************************/
-
-
-
-/******************************************************************************/
-
-
-
-/******************************************************************************/
-/******************************************************************************/
-
-/*class Mob extends LinearlyMovingEntity {}
-
-class Spike extends AnimatedEntity {}
-
-class Collectible extends AnimatedEntity {}*/

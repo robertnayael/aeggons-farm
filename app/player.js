@@ -45,7 +45,6 @@ export default class Player extends AnimatedEntity {
       onPlatform: false,
       facingRight: true,
       facingLeft: false,
-      holdingKey: false,
       moving: false
     };
 
@@ -53,22 +52,21 @@ export default class Player extends AnimatedEntity {
 
     this.dimensions.width = tileSize;
     this.dimensions.height = tileSize;
+
+    this.updateEdges();
   }
 
   /****************************************************************************/
 
 
   update(step, controls, map) {
+    //    console.log(this.y > this.position.previous.y)
     this.motion.step = step;
     this.checkIfCanMove();
     this.move(step, controls);
     this.resolveMapColission(map);
     this.resolveEntityInteraction(map.entities);
-  }
 
-  /****************************************************************************/
-
-  checkIfCanMove() {
 
   }
 
@@ -109,24 +107,13 @@ export default class Player extends AnimatedEntity {
     this.is.moving = (this.motion.x !== 0);
 
     // Update the player position:
-    this.position.offset(this.motion.x * step, this.motion.y * step);
-
-    /*
-    | If the player is standing in a platform, apply the platform offset.
-    | (Note: <this.is.onPlatform> is either false or a reference to the
-    | relevant platform object.)
-    */
-    /*if(this.is.onPlatform) {
-      let offset = this.is.onPlatform.getOffset();  // This is how much the platform has moved during this cycle.
-      this.position.x += offset.x;
-      this.position.y += offset.y;
-    }*/
+    this.moveBy(this.motion.x * step, this.motion.y * step);
   }
 
   /****************************************************************************/
 
-  sendJumping() {
-    this.motion.y -= this.movementParams.jumpForce * this.motion.step;
+  sendJumping(forceFactor = 1) {
+    this.motion.y = 0 - (this.movementParams.jumpForce * forceFactor) * this.motion.step;
     this.is.jumping = true;
   }
 
@@ -254,7 +241,7 @@ export default class Player extends AnimatedEntity {
       if ((tiles['SE'] && !tiles['NE'] && notFromBelow) ||
           (tiles['SW'] && !tiles['NW'] && overlapping.x && notFromBelow)) {
         this.motion.y = 0;
-        this.position.y = (Math.floor(this.position.y/tileSize))*tileSize;
+        y = Math.floor(y / tileSize) * tileSize;
         this.is.falling = false;
         this.is.jumping = false;
         overlapping.y = 0;
@@ -265,7 +252,7 @@ export default class Player extends AnimatedEntity {
       if ((tiles['NE'] && !tiles['SE']) ||
           (tiles['NW'] && !tiles['SW'] && overlapping.x)) {
         this.motion.y = 0;
-        this.position.y = (Math.floor(this.position.y/tileSize)+1)*tileSize;
+        y = (Math.floor(y / tileSize) + 1) * tileSize;
         tiles['NE'] = tiles['SE'];
         tiles['NW'] = tiles['SW'];
         overlapping.y = 0;
@@ -275,7 +262,7 @@ export default class Player extends AnimatedEntity {
     if (this.motion.x > 0 || this.is.onPlatform) {
       if ((tiles['NW'] && !tiles['NE']) ||
           (tiles['SW'] && !tiles['SE'] && overlapping.y)) {
-        this.position.x = (Math.floor(this.position.x/tileSize))*tileSize;
+        x = (Math.floor(x / tileSize)) * tileSize;
         this.motion.x = 0;
       }
     }
@@ -283,19 +270,19 @@ export default class Player extends AnimatedEntity {
     if (this.motion.x < 0 || this.is.onPlatform) {
       if ((tiles['NE'] && !tiles['NW']) ||
           (tiles['SE'] && !tiles['SW'] && overlapping.y)) {
-        this.position.x = (Math.floor(this.position.x/tileSize)+1)*tileSize;
+        x = (Math.floor(x / tileSize) + 1) * tileSize;
         this.motion.x = 0;
       }
     }
 
     // Set the "falling" status if the bottom blocks are free
-    //  if(!this.is.onPlatform) {
-    let midAir = !(tiles['SE'] || (overlapping.x && tiles['SW']));
+    const midAir = !(tiles['SE'] || (overlapping.x && tiles['SW']));
     if(midAir && this.motion.y > 0) {
       this.is.jumping = false;
       this.is.falling = true;
     }
-    //  }
+
+    this.moveTo(x, y);
   }
 
   /*****************************************************************************
@@ -309,7 +296,7 @@ export default class Player extends AnimatedEntity {
   *****************************************************************************/
   resolveEntityInteraction(entities) {
     entities.platforms.some(this.resolvePlatformInteraction.bind(this));
-    // TODO: Handle other types of entities.
+    entities.mobs.some(this.resolveMobInteraction.bind(this));
   }
 
   /*****************************************************************************
@@ -322,16 +309,22 @@ export default class Player extends AnimatedEntity {
     const falling = this.is.falling,
           jumping = this.is.jumping;
 
+    let x = this.x,
+        y = this.y;
+
     if (platform.collidesWith(this)) {
 
-      // Falling on top of the platform:
-      if (falling) {
-        this.position.y = platform.y - this.height;
+      // Falling on top of the platform.
+      // Note: "y < platform.top" takes care of some rare cases when the player
+      // is already falling but
+      if (falling && y < platform.top) {
+    //    console.log('spadam')
+        y = platform.y - this.height;
         this.is.jumping = this.is.falling = false;
       }
       // Hitting the platform from below:
       else if (jumping) {
-        this.position.y = platform.y + platform.height;
+        y = platform.y + platform.height;
         this.is.falling = true;
       }
 
@@ -340,9 +333,10 @@ export default class Player extends AnimatedEntity {
     }
 
     else if(platform.isDirectlyUnder(this)) {
+      console.log('stoje');
       this.motion.y = 0;
       this.is.jumping = this.is.falling = false;
-      this.position.y = platform.y - this.height;
+      y = platform.y - this.height;
       this.is.onPlatform = true;
     }
 
@@ -350,11 +344,39 @@ export default class Player extends AnimatedEntity {
        by how much the platform has moved in this cycle.                      */
     if (this.is.onPlatform) {
       const offset = platform.getOffset();
-      this.position.x += offset.x;
-      this.position.y += offset.y;
+      x += offset.x;
+      y += offset.y;
     }
 
+    this.moveTo(x, y);
     return this.is.onPlatform; // If true, the interaction check loop will break.
+  }
+
+/******************************************************************************/
+
+  resolveMobInteraction(mob) {
+    if (!mob.collidesWith(this) || mob.is.dead) return false;
+
+    // Player falling from above - squash the mob entity
+    if (this.is.falling && (this.x + this.height) > mob.x ) {
+      if (!mob.is.squashed) this.sendJumping(0.75);
+      mob.squash();
+      return;
+    }
+
+    if (this.right > mob.left && this.right < mob.right ) {
+      this.pushLeft();
+      this.sendJumping(0.5);
+      return;
+    }
+
+    if (this.left < mob.right && this.left > mob.left) {
+      this.pushRight();
+      this.sendJumping(0.5);
+      return;
+    }
+
+    return true;
   }
 
 /******************************************************************************/

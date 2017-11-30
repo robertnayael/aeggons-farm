@@ -6,7 +6,6 @@ import game from './game';
 import {onkey} from './keylistener';
 import Map from './map';
 import Player from './player';
-import Mob from './mob';
 import Sprites from './sprites';
 import {Renderer} from './renderer';
 

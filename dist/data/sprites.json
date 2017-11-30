@@ -2,6 +2,7 @@
 
   "FILELIST": [
     "player.png",
+    "snail.png",
     "tiles.png",
     "tiles2.png",
     "tiles3.png",
@@ -41,6 +42,31 @@
       "drawingOffset": [0,0],
       "dimensions": [0,0],
       "coords": [0,0]
+    }
+  },
+
+  "mobs":
+  {
+    "moving_right":
+    {
+      "image": "snail.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "frames": [[0,0]]
+    },
+    "moving_left":
+    {
+      "image": "snail.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "frames": [[0,70]]
+    },
+    "squashed":
+    {
+      "image": "snail.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "frames": [[0,140]]
     }
   },
 

@@ -2,8 +2,8 @@ import LinearlyMovingEntity from './entities/LinearlyMovingEntity';
 
 export default class Platform extends LinearlyMovingEntity {
 
-  constructor(props, tileSize) {
-    super(props, tileSize);
+  constructor(props, tileSize, scale, sprites) {
+    super(props, tileSize, scale, sprites);
   }
 
   update(step) {

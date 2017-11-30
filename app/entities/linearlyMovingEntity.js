@@ -2,8 +2,8 @@ import AnimatedEntity from './animatedEntity';
 
 export default class LinearlyMovingEntity extends AnimatedEntity {
 
-  constructor(props, tileSize, scale) {
-    super(props, tileSize, scale);
+  constructor(props, tileSize, scale, sprites) {
+    super(props, tileSize, scale, sprites);
 
     this.position.x = props.initialPosition.x * tileSize;
     this.position.y = props.initialPosition.y * tileSize;
@@ -45,18 +45,20 @@ export default class LinearlyMovingEntity extends AnimatedEntity {
     newPos = current + direction * (speed * step);
 
     // If necessary, clamp the position so the entity doesn's exceed the starting or target position:
-    newPos = this.clampPosition(newPos, start, end);
+    newPos = this.clampExtremePosition(newPos, start, end);
 
     // Store the previous position and update the current position:
     this.position.previous[axis] = this.position[axis];
     this.position[axis] = newPos;
+
+    this.updateEdges();
   }
 
   getMovementDirection() {
 
   }
 
-  clampPosition(position, start, end) {
+  clampExtremePosition(position, start, end) {
 
     let clampedPos = position;
 

@@ -1,4 +1,5 @@
 import Platform from './platform';
+import Mob from './mob';
 
 export default class Map {
 
@@ -7,8 +8,8 @@ export default class Map {
   constructor(mapData, entitiesData, config, sprites) {
 
     this.sprites = sprites;
-
     this.tileSize = config.tileSize;
+    this.scale = config.scale;
 
     this.viewport = {
       width: {
@@ -105,7 +106,7 @@ export default class Map {
 
 /******************************************************************************/
 
-  initializeEntities(tileSize, scale) {
+  initializeEntities() {
 
     this.entities = {
       platforms: [],
@@ -114,8 +115,8 @@ export default class Map {
       collectibles: []
     };
 
-    this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, tileSize, scale)));
-    this.data.entities.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (platform, tileSize, scale)));
+    this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, this.tileSize, this.scale, this.sprites)));
+    this.data.entities.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (mob, this.tileSize, this.scale, this.sprites)));
   //  entityProps.spikes      .forEach(spike       => this.entities.spikes      .push(new Spike      (spike)));
   //  entityProps.collectibles.forEach(collectible => this.entities.collectibles.push(new Collectible(collectible)));
   }
@@ -124,6 +125,7 @@ export default class Map {
 
   updateEntities(step) {
     this.entities.platforms.forEach(platform => platform.update(step));
+    this.entities.mobs.forEach(mob => mob.update(step));
   //  this.entities.collectibles.forEach(collectibles => collectible.update(step));
   }
 
