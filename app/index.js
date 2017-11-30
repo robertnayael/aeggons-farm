@@ -1,5 +1,5 @@
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+import "es6-promise/auto";
+import 'isomorphic-fetch';
 
 import config from './config';
 import game from './game';

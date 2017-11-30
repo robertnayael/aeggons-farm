@@ -72,6 +72,12 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
+  checkIfCanMove() {
+
+  }
+
+  /****************************************************************************/
+
   lockMovement() {
 
   }
@@ -213,7 +219,7 @@ export default class Player extends AnimatedEntity {
       x: x%tileSize,
       y: y%tileSize
     };
-    // change name to "solidTiles" or "isSolidTile"
+    // TODO: change name to "solidTiles" or "isSolidTile", or another meaningful name.
     const tiles = map.getOverlappingTiles(x, y);
 
     const xOverlap = x%tileSize;         // Specifies if the player overlaps to the tile(s) on the right (NW, SW)
@@ -221,9 +227,10 @@ export default class Player extends AnimatedEntity {
 
     /*--------------------------------------------------------------------------
     | In some casese need to make sure that while falling, the player is actually
-    | coming FROM ABOVE a tile (roughly). Otherwise, strange behaviour occurs
-    | when approaching "ground" tiles from below.
-    | It's not the cleanest code out there, admittedly...
+    | coming FROM ABOVE a tile (more or less). Otherwise, strange behaviour occurs
+    | when approaching "solid" tiles from below.
+    | There doesn't seem to be a cleaner solution given this
+    | colission detection algorithm.
     | 1) Calculate the player's top position, padded to the nearest tile;
     | 2) Determine if the player's bottom edge is not lower than 1/4 of the tile below.
     */
@@ -333,7 +340,6 @@ export default class Player extends AnimatedEntity {
     }
 
     else if(platform.isDirectlyUnder(this)) {
-      console.log('stoje');
       this.motion.y = 0;
       this.is.jumping = this.is.falling = false;
       y = platform.y - this.height;

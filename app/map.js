@@ -296,13 +296,13 @@ export default class Map {
     );
   }
 
-  /*****************************************************************************
-  | Calculates:
-  | 1) the map offset (relative to the absolute [0,0]), so that all map objects
-  |    can be drawn relative to the player's position;
-  | 2) the player offset (relative to the viewport center), which occurs if the
-  |    player happens to be too close to a map edge.
-  */
+  /**
+   * Calculates:
+   * 1) the map offset (relative to the absolute [0,0]), so that all map objects
+   *    can be drawn relative to the player's position;
+   * 2) the player offset (relative to the viewport center), which occurs if the
+   *    player happens to be too close to a map edge.
+   */
   getOffset(player) {
 
     return (function(viewport, player, map) {
