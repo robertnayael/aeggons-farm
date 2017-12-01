@@ -14,21 +14,22 @@ export default class Player extends AnimatedEntity {
   initialize(tileSize, scale) {
 
     const props = this.initialProps;
+    const movementParams = props.movementParams;
 
-    this.position.x = props.initialPosition.x;
-    this.position.y = props.initialPosition.y;
+    this.position.x = props.initialPosition.x * tileSize;
+    this.position.y = props.initialPosition.y * tileSize;
 
     this.movementParams = {  // Movement parameters
       vMax: {
-        x: 350 * scale,
-        y: 1100 * scale
+        x: movementParams.vMax.x * scale,
+        y: movementParams.vMax.y * scale
       },
-      midAirControl:  1,      // Caps horizontal vMax while in the air. Ranges from 0 (no horizontal velocity) to 1 (full horizontal velocity).
-      acceleration:   0.05,   // Horizontal acceleration. Ranges from 0 (no acceleration) to 1 (instant acceleration)
-      gravity:        3500 * scale,
-      jumpForce:      100000 * scale,  // Instantaneous jump force
-      pushForce:      55000 * scale,  // Instantaneous push force (when the player is pushed away sideways by an enemy)
-      friction:       1500 * scale,   // Slows down any horizontal movement if the left/right key is not pressed.
+      midAirControl:  movementParams.midAirControl,
+      acceleration:   movementParams.acceleration,
+      gravity:        movementParams.gravity * scale,
+      jumpForce:      movementParams.jumpForce * scale,
+      pushForce:      movementParams.pushForce * scale,
+      friction:       movementParams.friction * scale,
     };
 
     // Movement vector
