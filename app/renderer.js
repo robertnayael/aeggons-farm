@@ -176,14 +176,18 @@ const TILE_SIZE = 70;
   */
 
   renderers._drawPlayer = function(ctx, offset, player) {
-    //player.getSprite();
+
     const sprite = player.getSprite();
+    if (sprite.opacity) ctx.globalAlpha = sprite.opacity;
+
     ctx.drawImage(
       sprite.image,
       sprite.x, sprite.y,
       sprite.width, sprite.height,
       offset.x + sprite.drawOffsetX, offset.y + sprite.drawOffsetY,
       sprite.width * scale, sprite.height * scale);
+
+    ctx.globalAlpha = 1;
   };
 
   /*****************************************************************************

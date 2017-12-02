@@ -18,6 +18,10 @@ export default class Player extends AnimatedEntity {
 
     this.lives = props.lives;
 
+    this.invulnerabilityOnHit = props.invulnerabilityOnHit;
+    this.opacityPulsingOnHit = props.opacityPulsingOnHit;
+    this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
+
     this.position.x = props.initialPosition.x * tileSize;
     this.position.y = props.initialPosition.y * tileSize;
 
@@ -48,7 +52,8 @@ export default class Player extends AnimatedEntity {
       onPlatform: false,
       facingRight: true,
       facingLeft: false,
-      moving: false
+      moving: false,
+      hit: false
     };
 
     this.canMove = true;
@@ -91,7 +96,15 @@ export default class Player extends AnimatedEntity {
   getSprite() {
 
     let animation = 'walking_' + (this.is.facingRight ? 'right' : 'left');
-    return this.getSpriteFrame('player', animation);
+
+    let sprite = this.getSpriteFrame('player', animation);
+    if (this.is.hit) {
+      sprite.opacity = this.opacityPulser.next().value;
+    }
+
+
+
+    return sprite;
 
   /*  let currentSpriteType = function(is){
       if(!is.jumping && !is.falling && is.moving)   return 'walking';
@@ -100,6 +113,18 @@ export default class Player extends AnimatedEntity {
       if(is.falling)                                return 'falling';
       return 'standing';
     }(this.is) + '_' + (this.is.facingRight ? 'right' : 'left');*/
+  }
+
+  /****************************************************************************/
+
+  *getOpacityPulser(frames) {
+    let index = 0;
+    while (index < frames.length) {
+      let i = index;
+      index++;
+      if (index === frames.length) index = 0;
+      yield frames[i];
+    }
   }
 
   /*****************************************************************************
@@ -142,12 +167,22 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
   gotHit() {
-    this.lives--;
-    this.nextGameState = 'playerGotHit';
-
     if (this.lives === 0) {
       this.nextGameState = 'gameOver';
+      return;
     }
+
+    this.lives--;
+    this.is.hit = true;
+    this.nextGameState = 'playerGotHit';
+    this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
+    setTimeout(this.recuperateAfterHit.bind(this), this.invulnerabilityOnHit);
+  }
+
+  /****************************************************************************/
+
+  recuperateAfterHit() {
+    this.is.hit = false;
   }
 
   /****************************************************************************/
@@ -384,14 +419,14 @@ export default class Player extends AnimatedEntity {
       return;
     }
 
-    if (this.right > mob.left && this.right < mob.right ) {
+    if (this.right > mob.left && this.right < mob.right && !this.is.hit) {
       this.pushLeft();
       this.sendJumping(0.5);
       this.gotHit();
       return;
     }
 
-    if (this.left < mob.right && this.left > mob.left) {
+    if (this.left < mob.right && this.left > mob.left && !this.is.hit) {
       this.pushRight();
       this.sendJumping(0.5);
       this.gotHit();

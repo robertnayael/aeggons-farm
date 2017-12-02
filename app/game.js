@@ -122,7 +122,6 @@ export default {
 
     if (waitFinished) {
       props.nextState = 'gameplay';
-      console.log('koniec playerGotHit')
     }
 
     return props;
