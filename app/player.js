@@ -414,7 +414,7 @@ export default class Player extends AnimatedEntity {
         this.currentPlatform = platform;
       }
       // Hitting the platform from below:
-      else if (this.is.jumping) {
+      else if (this.is.jumping && this.top > platform.top) {
         this.moveTo(this.x, platform.y + platform.height);
         this.is.jumping = false;
         this.is.falling = true;
