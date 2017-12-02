@@ -95,24 +95,30 @@ export default class Player extends AnimatedEntity {
 
   getSprite() {
 
-    let animation = 'walking_' + (this.is.facingRight ? 'right' : 'left');
+    const type = this.getSpriteType(this.is);
 
-    let sprite = this.getSpriteFrame('player', animation);
+    let sprite = this.getSpriteFrame('player', type);
     if (this.is.hit) {
       sprite.opacity = this.opacityPulser.next().value;
     }
 
-
-
     return sprite;
+  }
 
-  /*  let currentSpriteType = function(is){
-      if(!is.jumping && !is.falling && is.moving)   return 'walking';
-      if(!is.jumping && !is.falling && !is.moving)  return 'standing';
-      if(is.jumping)                                return 'jumping';
-      if(is.falling)                                return 'falling';
-      return 'standing';
-    }(this.is) + '_' + (this.is.facingRight ? 'right' : 'left');*/
+  /****************************************************************************/
+
+  getSpriteType(is) {
+      const type = function(is){
+      /*  if(!is.jumping && !is.falling && is.moving)   return 'walking';
+        if(!is.jumping && !is.falling && !is.moving)  return 'standing';
+        if(is.jumping)                                return 'jumping';
+        if(is.falling)                                return 'falling';*/
+        if(is.moving && !is.jumping && !is.falling) return 'walking';
+        /* default */ return 'standing';
+        return 'standing';
+      }(is) + '_' + (is.facingRight ? 'right' : 'left');
+
+      return type;
   }
 
   /****************************************************************************/

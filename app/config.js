@@ -31,7 +31,9 @@ export default {
       jumpForce:      100000,   // Instantaneous jump force
       pushForce:      55000,    // Instantaneous push force (when the player is pushed away sideways by an enemy)
       friction:       1500,     // Slows down any horizontal movement if the left/right key is not pressed.
-    }
+    },
+    invulnerabilityOnHit:  5000, // How long the player cannot move if hit by mobs [ms]
+    opacityPulsingOnHit: [1, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
   }
 
 };
