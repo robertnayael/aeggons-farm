@@ -10,24 +10,23 @@ export default {
 
   run: function(step, config, controls, sprites, map, player) {
 
-    let props = this[this.state](config, controls, map, player);
-
-    // Register renderers
-    //renderer.disable();
-    //props.renderers.forEach(rendererType => renderer.enable(rendererType));
-
-    // Update the game state if necessary
-    this.changeState(props.nextState);
+    const props = this[this.state](config, controls, map, player);
+    const defaultNextState = props.nextState;
+    let nextState;
 
     // Update (move) all entities on the map
     if (props.updateEntities) {
-
       map.updateEntities(step);
-      player.update(step, controls, map);
+      nextState = player.update(step, controls, map);
     }
 
     map.updateVisibilityRange(player);
 
+    // Update the game state if necessary:
+    this.changeState(nextState ? nextState : defaultNextState);
+
+    // This will be returned to the frame loop function to determine what
+    // should be drawn on the canvas.
     return props.renderers;
   },
 
@@ -35,12 +34,11 @@ export default {
 
   changeState: function(newState) {
 
-    if (!newState || newState === this.state)
+    if (!newState || (newState === this.state))
       return false;
 
     this.state = newState;
     this.stateChanged = new Date().getTime();
-
   },
 
 /******************************************************************************/
@@ -97,6 +95,7 @@ export default {
   gameplay: function(config, controls) {
 
     let props = {
+      nextState: 'gameplay',
       renderers: ['gameplay'],
       updateEntities: true,
       controlsLocked: false
@@ -110,18 +109,21 @@ export default {
 
 /******************************************************************************/
 
-  awaitingRespawn: function(config) {
+  playerGotHit: function(config) {
 
     let props = {
-      renderers: ['gameplay', 'awaitingRespawnOverlay'],
+      nextState: 'playerGotHit',
+      renderers: ['gameplay', 'playerGotHitOverlay'],
       updateEntities: true,
       controlsLocked: true
     };
 
     let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
 
-    if (waitFinished)
+    if (waitFinished) {
       props.nextState = 'gameplay';
+      console.log('koniec playerGotHit')
+    }
 
     return props;
   },

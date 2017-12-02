@@ -6,7 +6,7 @@ export function Renderer (config) {
     gameplay: false,
     debugOverlay: true,
     gameplayIntro: false,
-    awaitingRespawnOverlay: false,
+    playerGotHitOverlay: false,
     gameOverOverlay: false,
     gameWonOverlay: false,
   };
@@ -16,28 +16,22 @@ export function Renderer (config) {
   const scale = config.scale;
 
   /*****************************************************************************
-  |  Toggles the specified renderer enabled
+  |
   */
-  this.enable = function(type) {
-    if(rendererState[type] === false)
-      rendererState[type] = true;
-  };
+  this.register = function(activeRenderers) {
 
-  /*****************************************************************************
-  |  Toggles the specified renderer/all renderers  disabled
-  */
-  this.disable = function(type) {
-    if(rendererState[type] === true)
-      rendererState[type] = false;
-
-    // No arguments passed: disable all renderers (but not the debug overlay)
-    if(type === undefined) {
-      for (let property in rendererState) {
-        if (rendererState.hasOwnProperty(property) && property !== 'debugOverlay') {
-          rendererState[property] = false;
-        }
+    // First, deregister all renderers except debugOverlay:
+    for (let property in rendererState) {
+      if (rendererState.hasOwnProperty(property) && property !== 'debugOverlay') {
+        rendererState[property] = false;
       }
     }
+
+    activeRenderers.forEach(renderer => {
+      if (rendererState.hasOwnProperty(renderer)) {
+        rendererState[renderer] = true;
+      }
+    });
   };
 
   /*****************************************************************************
@@ -52,14 +46,11 @@ export function Renderer (config) {
     ctx.fillStyle = '#6bc2d8';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  /*  for (let type in rendererState) {
+    for (let type in rendererState) {
       if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
         renderers[type](ctx, controls, game, map, player);
       }
     }
-*/
-
-    activeRenderers.forEach(renderer => renderers[renderer](ctx, controls, game, map, player));
   };
 
   /*****************************************************************************
@@ -73,8 +64,9 @@ export function Renderer (config) {
   | This overlay is drawn on top of the game while the player is waiting to be
   | respawned after losing a life.
   */
-  renderers.awaitingRespawnOverlay = function(ctx) {
+  renderers.playerGotHitOverlay = function(ctx) {
     // TODO
+    //console.log('1')
   };
 
   /*****************************************************************************

@@ -16,6 +16,8 @@ export default class Player extends AnimatedEntity {
     const props = this.initialProps;
     const movementParams = props.movementParams;
 
+    this.lives = props.lives;
+
     this.position.x = props.initialPosition.x * tileSize;
     this.position.y = props.initialPosition.y * tileSize;
 
@@ -61,14 +63,15 @@ export default class Player extends AnimatedEntity {
 
 
   update(step, controls, map) {
-    //    console.log(this.y > this.position.previous.y)
+    this.nextGameState = null;
+
     this.motion.step = step;
     this.checkIfCanMove();
     this.move(step, controls);
     this.resolveMapColission(map);
     this.resolveEntityInteraction(map.entities);
 
-
+    return this.nextGameState;
   }
 
   /****************************************************************************/
@@ -138,6 +141,16 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
+  gotHit() {
+    this.lives--;
+    this.nextGameState = 'playerGotHit';
+
+    if (this.lives === 0) {
+      this.nextGameState = 'gameOver';
+    }
+  }
+
+  /****************************************************************************/
 
   getNewVerticalVector(params, y, is, step, controls) {
     // Perform jump unless the player's already mid-air:
@@ -374,12 +387,14 @@ export default class Player extends AnimatedEntity {
     if (this.right > mob.left && this.right < mob.right ) {
       this.pushLeft();
       this.sendJumping(0.5);
+      this.gotHit();
       return;
     }
 
     if (this.left < mob.right && this.left > mob.left) {
       this.pushRight();
       this.sendJumping(0.5);
+      this.gotHit();
       return;
     }
 

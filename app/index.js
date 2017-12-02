@@ -37,6 +37,7 @@ function frameLoop() {
     delta = delta - step;
     activeRenderers = game.run(step, config, controls, sprites, map, player);
   }
+  renderer.register(activeRenderers);
   renderer.drawFrame(activeRenderers, ctx, canvas, controls, game, map, player);
   last = now;                                   // time at the start of the previous loop
   requestAnimationFrame(frameLoop, canvas);
