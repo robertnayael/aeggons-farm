@@ -4,6 +4,8 @@ export default class Platform extends LinearlyMovingEntity {
 
   constructor(props, tileSize, scale, sprites) {
     super(props, tileSize, scale, sprites);
+
+    this.description = props.description;
   }
 
   update(step) {

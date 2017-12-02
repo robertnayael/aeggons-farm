@@ -3,7 +3,7 @@
   "platforms": [
 
     {
-      "description": "platform 1",
+      "description": "platform VER",
       "initialPosition": {
         "x": 10,
         "y": 5
@@ -17,7 +17,7 @@
     },
 
     {
-      "description": "platform 2",
+      "description": "platform HOR",
       "initialPosition": {
         "x": 15,
         "y": 2

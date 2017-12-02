@@ -366,62 +366,74 @@ export default class Player extends AnimatedEntity {
   | be checked, instead of all the entities in the viewing range.
   *****************************************************************************/
   resolveEntityInteraction(entities) {
-    entities.platforms.some(this.resolvePlatformInteraction.bind(this));
+
+    if (!this.isStillOnLastPlatform()) {
+      entities.platforms.some(this.resolvePlatformInteraction.bind(this));
+    }
+
     if (!this.is.dead) {
       entities.mobs.some(this.resolveMobInteraction.bind(this));
     }
   }
 
   /*****************************************************************************
-  | Checks if the player is standing on a moving platform; and if necessary,
-  | also modifies the player's position.
+  | Checks if the player is still standing on the last platform (the one from
+  | the previous frame). If so, offset the player's position by how much the
+  | platform has already moved during the current cycle and return true.
   *****************************************************************************/
+
+  isStillOnLastPlatform() {
+
+    if (!this.is.onPlatform) return false;
+
+    const platform = this.currentPlatform; // Reference to the last platform the player was standing on
+    this.moveBy(platform.getOffset().x, platform.getOffset().y);
+
+    if (platform.isDirectlyUnder(this)) {
+      return true;
+    }
+    else {
+      this.is.onPlatform = false;
+      this.currentPlatform = null;
+      return false;
+    }
+  }
+
+  /*****************************************************************************
+  | Checks if the player is standing on a moving platform. If so, stores
+  | a reference to the platform and also modifies the player's position.
+  *****************************************************************************/
+
   resolvePlatformInteraction(platform) {
-
-    this.is.onPlatform = false;
-    const falling = this.is.falling,
-          jumping = this.is.jumping;
-
-    let x = this.x,
-        y = this.y;
 
     if (platform.collidesWith(this)) {
 
       // Falling on top of the platform.
-      // Note: "y < platform.top" takes care of some rare cases when the player
-      // is already falling but
-      if (falling && y < platform.top) {
-    //    console.log('spadam')
-        y = platform.y - this.height;
-        this.is.jumping = this.is.falling = false;
+      if (this.is.falling && this.bottom < platform.bottom) {
+        this.is.onPlatform = true;
+        this.currentPlatform = platform;
       }
       // Hitting the platform from below:
-      else if (jumping) {
-        y = platform.y + platform.height;
+      else if (this.is.jumping) {
+        this.moveTo(this.x, platform.y + platform.height);
+        this.is.jumping = false;
         this.is.falling = true;
+        this.motion.y = 0;
       }
 
-      this.motion.y = 0;
+    }
+    else if (platform.isDirectlyUnder(this)) {
       this.is.onPlatform = true;
+      this.currentPlatform = platform;
     }
 
-    else if(platform.isDirectlyUnder(this)) {
+    if (this.currentPlatform === platform) {
+      this.moveTo(this.x, platform.y - this.height);   // Offset the player's vertical position to match the platform.
       this.motion.y = 0;
       this.is.jumping = this.is.falling = false;
-      y = platform.y - this.height;
-      this.is.onPlatform = true;
+      return true;                                // A truish value will break the parent loop.
     }
 
-    /* If the platform slides horizontally, offset the player's position
-       by how much the platform has moved in this cycle.                      */
-    if (this.is.onPlatform) {
-      const offset = platform.getOffset();
-      x += offset.x;
-      y += offset.y;
-    }
-
-    this.moveTo(x, y);
-    return this.is.onPlatform; // If true, the interaction check loop will break.
   }
 
 /******************************************************************************/
