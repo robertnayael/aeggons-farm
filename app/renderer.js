@@ -73,7 +73,14 @@ export function Renderer (config) {
   |
   */
   renderers.gameOverOverlay = function(ctx) {
-    // TODO
+    ctx.globalAlpha = 0.4;
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
+
+    ctx.font = "130px Arial";
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(`Game Over`, 430, 300);
   };
 
   /*****************************************************************************
@@ -122,7 +129,7 @@ const TILE_SIZE = 70;
     this._drawEntities(ctx, 'mobs', offset.map, map.entitiesInRange.mobs);
     this._drawPlayer(ctx, offset.player, player);
     this._drawMapLayer(ctx, 1, offset.map, map);
-    this._drawOSD(ctx);
+    this._drawOSD(ctx, player);
 
   };
 
@@ -194,8 +201,11 @@ const TILE_SIZE = 70;
   |
   */
 
-  renderers._drawOSD = function(ctx) {
-
+  renderers._drawOSD = function(ctx, player) {
+    ctx.font = "30px Arial";
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'red';
+    ctx.strokeText(`Lives: [${player.lives}]`, 500, 30);
   };
 
   /*****************************************************************************

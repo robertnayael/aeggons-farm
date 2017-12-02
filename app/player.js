@@ -53,7 +53,8 @@ export default class Player extends AnimatedEntity {
       facingRight: true,
       facingLeft: false,
       moving: false,
-      hit: false
+      hit: false,
+      dead: false
     };
 
     this.canMove = true;
@@ -108,6 +109,9 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
   getSpriteType(is) {
+
+      if (is.dead) return "dead";
+
       const type = function(is){
       /*  if(!is.jumping && !is.falling && is.moving)   return 'walking';
         if(!is.jumping && !is.falling && !is.moving)  return 'standing';
@@ -173,16 +177,18 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
   gotHit() {
-    if (this.lives === 0) {
-      this.nextGameState = 'gameOver';
-      return;
-    }
-
     this.lives--;
     this.is.hit = true;
     this.nextGameState = 'playerGotHit';
     this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
     setTimeout(this.recuperateAfterHit.bind(this), this.invulnerabilityOnHit);
+
+    if (this.lives === 0) {
+      this.nextGameState = 'gameOver';
+      this.is.dead = true;
+      this.is.hit = false;
+      return;
+    }
   }
 
   /****************************************************************************/
@@ -195,7 +201,7 @@ export default class Player extends AnimatedEntity {
 
   getNewVerticalVector(params, y, is, step, controls) {
     // Perform jump unless the player's already mid-air:
-    if(controls.jump && !is.jumping && !is.falling) {
+    if(controls.jump && !is.jumping && !is.falling && !is.dead) {
       y -= params.jumpForce * step;
       is.jumping = true;
     }
@@ -214,7 +220,7 @@ export default class Player extends AnimatedEntity {
     let vMax = is.jumping || is.falling ? params.vMax.x * params.midAirControl : params.vMax.x;
 
     // Right key is pressed:
-    if(controls.right) {
+    if(controls.right && !is.dead) {
       x += params.acceleration * vMax + (1 - params.acceleration) * x * step;
       x = Math.min(x, vMax);  // Cap at vMax, if necessary.
 
@@ -229,7 +235,7 @@ export default class Player extends AnimatedEntity {
     }
 
     // Left key is pressed:
-    if(controls.left) {
+    if(controls.left && !is.dead) {
       x -= params.acceleration * vMax + (1 - params.acceleration) * x * step;
       x = Math.max(x, -vMax);
 
@@ -358,7 +364,9 @@ export default class Player extends AnimatedEntity {
   *****************************************************************************/
   resolveEntityInteraction(entities) {
     entities.platforms.some(this.resolvePlatformInteraction.bind(this));
-    entities.mobs.some(this.resolveMobInteraction.bind(this));
+    if (!this.is.dead) {
+      entities.mobs.some(this.resolveMobInteraction.bind(this));
+    }
   }
 
   /*****************************************************************************
