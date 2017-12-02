@@ -164,13 +164,13 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
-  pushLeft(flip = true) {
+  pushLeft() {
     this.motion.x = -this.movementParams.pushForce * this.motion.step;
   }
 
   /****************************************************************************/
 
-  pushRight(flip = true) {
+  pushRight() {
     this.motion.x = this.movementParams.pushForce * this.motion.step;
   }
 
@@ -183,17 +183,20 @@ export default class Player extends AnimatedEntity {
     this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
     setTimeout(this.recuperateAfterHit.bind(this), this.invulnerabilityOnHit);
 
-    if (this.lives === 0) {
-      this.nextGameState = 'gameOver';
-      this.is.dead = true;
-      this.is.hit = false;
-      return;
-    }
+    if (this.lives <= 0) this.die();
   }
 
   /****************************************************************************/
 
   recuperateAfterHit() {
+    this.is.hit = false;
+  }
+
+  /****************************************************************************/
+
+  die() {
+    this.nextGameState = 'gameOver';
+    this.is.dead = true;
     this.is.hit = false;
   }
 
