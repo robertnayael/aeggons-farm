@@ -97,9 +97,10 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
   bounce() {
-    if (this.motion.previous.y >= this.movementParams.vMax.y * 0.3) {
+  /*  if (this.motion.previous.y >= this.movementParams.vMax.y) {
       this.sendJumping(0.2);
     }
+  */
   }
 
   /****************************************************************************/
