@@ -4,7 +4,7 @@ import 'isomorphic-fetch';
 import config from './config';
 import game from './game';
 import {onkey} from './keylistener';
-import Map from './map';
+import GameMap from './map';
 import Player from './player';
 import Sprites from './sprites';
 import {Renderer} from './renderer';
@@ -116,7 +116,7 @@ function initialize(config) {
 
     renderer = new Renderer(config);
     sprites = new Sprites(spritesData);
-    map = new Map(mapData, mapEntitiesData, config, sprites);
+    map = new GameMap(mapData, mapEntitiesData, config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
 
     if (config.debug === true) globalizeObjects();

@@ -1,7 +1,7 @@
 import Platform from './platform';
 import Mob from './mob';
 
-export default class Map {
+export default class GameMap {
 
 /******************************************************************************/
 

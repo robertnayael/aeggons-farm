@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry:  ['babel-polyfill', './app/index.js'], //'./app/index.js',
+  entry:  ['babel-polyfill', './app/index.js'],
   output: {
     //path: distDir,
     path: __dirname + '/dist',
@@ -16,4 +16,4 @@ module.exports = {
   devServer: {
     contentBase: __dirname + '/dist',
   }
-}
+};
