@@ -42,7 +42,8 @@ export default class Player extends AnimatedEntity {
     this.motion = {
       x: 0,
       y: 0,
-      step: 0
+      step: 0,
+      previous: {}
     };
 
     // Other state details
@@ -70,6 +71,7 @@ export default class Player extends AnimatedEntity {
 
   update(step, controls, map) {
     this.nextGameState = null;
+    const wasFalling = this.is.falling;
 
     this.motion.step = step;
     this.checkIfCanMove();
@@ -77,7 +79,27 @@ export default class Player extends AnimatedEntity {
     this.resolveMapColission(map);
     this.resolveEntityInteraction(map.entities);
 
+    if (wasFalling && !this.is.falling) this.bounce();
+    this.storeMotionVectors();
+
     return this.nextGameState;
+  }
+
+  /****************************************************************************/
+
+  storeMotionVectors() {
+    this.motion.previous = {
+      x: this.motion.x,
+      y: this.motion.y
+    };
+  }
+
+  /****************************************************************************/
+
+  bounce() {
+    if (this.motion.previous.y >= this.movementParams.vMax.y * 0.3) {
+      this.sendJumping(0.2);
+    }
   }
 
   /****************************************************************************/
@@ -210,7 +232,7 @@ export default class Player extends AnimatedEntity {
     }
 
     y = Math.min(params.vMax.y, y + (params.gravity * step)); // Apply gravity; cap velocity if it exceeds vMax.
-    if(!controls.jump && (is.onPlatform)) y = 0;              // This one prevents vertical flickering while the player's standing on a platform.
+    if(!controls.jump && (is.onPlatform) && y > 0) y = 0;              // This one prevents vertical flickering while the player's standing on a platform.
 
     return y;
   }
@@ -441,25 +463,35 @@ export default class Player extends AnimatedEntity {
   resolveMobInteraction(mob) {
     if (!mob.collidesWith(this) || mob.is.dead) return false;
 
-    // Player falling from above - squash the mob entity
-    if (this.is.falling && (this.x + this.height) > mob.x ) {
+    /* Squashing only occurs if the player falls within 1/2 of the mob's width,
+       so calculate the "squashable" box and check for colission again: */
+    const squashableMobBox = {
+      x: mob.x + mob.width/4,
+      y: mob.y,
+      width: mob.width/2,
+      hegith: mob.height
+    };
+    const squashRange = mob.collidesWith.call(squashableMobBox, this);
+
+    // Player falling from above - squash the mob object:
+    if (this.is.falling && squashRange && this.bottom > mob.top) {
       if (!mob.is.squashed) this.sendJumping(0.75);
       mob.squash();
-      return;
+      return true;
     }
 
     if (this.right > mob.left && this.right < mob.right && !this.is.hit) {
       this.pushLeft();
       this.sendJumping(0.5);
       this.gotHit();
-      return;
+      return true;
     }
 
     if (this.left < mob.right && this.left > mob.left && !this.is.hit) {
       this.pushRight();
       this.sendJumping(0.5);
       this.gotHit();
-      return;
+      return true;
     }
 
     return true;
