@@ -117,8 +117,7 @@ export default class GameMap {
 
     this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, this.tileSize, this.scale, this.sprites)));
     this.data.entities.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (mob, this.tileSize, this.scale, this.sprites)));
-  //  entityProps.spikes      .forEach(spike       => this.entities.spikes      .push(new Spike      (spike)));
-  //  entityProps.collectibles.forEach(collectible => this.entities.collectibles.push(new Collectible(collectible)));
+    this.data.entities.spikes      .forEach(spikes      => this.entities.spikes      .push(new Spikes     (spikes, this.tileSize, this.scale, this.sprites)));
   }
 
 /******************************************************************************/
@@ -126,7 +125,7 @@ export default class GameMap {
   updateEntities(step) {
     this.entities.platforms.forEach(platform => platform.update(step));
     this.entities.mobs.forEach(mob => mob.update(step));
-  //  this.entities.collectibles.forEach(collectibles => collectible.update(step));
+    this.entities.spikes.forEach(spikes => spikes.update(step));
   }
 
 /******************************************************************************/
