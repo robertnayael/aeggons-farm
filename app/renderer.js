@@ -1,3 +1,10 @@
+import {welcomeScreen} from './renderers/welcomeScreen';
+import {gameplay} from './renderers/gameplay';
+import {debugOverlay} from './renderers/debugOverlay';
+import {gameplayIntro} from './renderers/gameplayIntro';
+import {gameOverOverlay} from './renderers/gameOverOverlay';
+import {gameWonOverlay} from './renderers/gameWonOverlay';
+
 export function Renderer (config) {
 
   // Each property reflects the state of the respective rendering method (true: enabled, false: disabled).
@@ -6,7 +13,7 @@ export function Renderer (config) {
     gameplay: false,
     debugOverlay: true,
     gameplayIntro: false,
-    playerGotHitOverlay: false,
+  //  playerGotHitOverlay: false, <--- to be removed
     gameOverOverlay: false,
     gameWonOverlay: false,
   };
