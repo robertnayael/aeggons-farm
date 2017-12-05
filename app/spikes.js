@@ -1,6 +1,6 @@
-import LinearlyMovingEntity from './entities/LinearlyMovingEntity';
+import AnimatedEntity from './entities/animatedEntity';
 
-export default class Spikes extends LinearlyMovingEntity {
+export default class Spikes extends AnimatedEntity {
 
   constructor(props, tileSize, scale, sprites) {
     super(props, tileSize, scale, sprites);

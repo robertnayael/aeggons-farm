@@ -1,5 +1,6 @@
 import Platform from './platform';
 import Mob from './mob';
+import Spikes from './spikes';
 
 export default class GameMap {
 

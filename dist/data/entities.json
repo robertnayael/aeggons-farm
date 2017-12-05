@@ -65,6 +65,19 @@
       "speed": 0.5
     }
 
+  ],
+
+  "spikes": [
+
+    {
+      "description": "spikes 1",
+      "x": 1,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "speed": 0.5
+    }
+
   ]
 
 
