@@ -17,7 +17,15 @@ export function Renderer (config) {
     gameOverOverlay: false,
     gameWonOverlay: false,
   };
-  const renderers = {}; // This stores all the rendering methods (declared later on)
+
+  const renderers = {
+    welcomeScreen: welcomeScreen,
+    gameplay: gameplay,
+    debugOverlay: debugOverlay,
+    gameplayIntro: gameplayIntro,
+    gameOverOverlay: gameOverOverlay,
+    gameWonOverlay: gameWonOverlay
+  };
 
   const tileSize = config.tileSize;
   const scale = config.scale;
@@ -60,40 +68,5 @@ export function Renderer (config) {
     }
   };
 
-  /*****************************************************************************
-  | The welcome screen, displayed before a new game starts.
-  */
-  renderers.welcomeScreen = function(ctx) {
-    // TODO
-  };
-
-  /*****************************************************************************
-  | This overlay is drawn on top of the game while the player is waiting to be
-  | respawned after losing a life.
-  */
-  renderers.playerGotHitOverlay = function(ctx) {
-    // TODO
-    //console.log('1')
-  };
-
-  renderers.gameOverOverlay = function(ctx) {
-    gameOverOverlay(ctx);
-  };
-
-  renderers.gameWonOverlay = function(ctx) {
-    // TODO
-  };
-
-  renderers.gameplayIntro = function(ctx) {
-    // TODO
-  };
-
-  renderers.gameplay = function(ctx, controls, game, map, player) {
-    gameplay(ctx, controls, game, map, player);
-  };
-
-  renderers.debugOverlay = function(ctx, controls, game, map, player) {
-    debugOverlay(ctx, controls, game, map, player);
-  };
 
 }
