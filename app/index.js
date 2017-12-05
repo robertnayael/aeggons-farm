@@ -59,6 +59,7 @@ function initialize(config) {
 
   loadDataFiles([config.spritesData, config.mapData, config.mapEntitiesData], data)
     .then(() => initializeObjects(data[config.mapData], data[config.mapEntitiesData], data[config.spritesData]))
+    .then(setupCanvas)
     .then(() => hideWaitMessage(config.initMessageID))
     .then(() => frameLoop())
     .catch(error => showErrorMessage(error, config.errorMessageID, config.debug));
@@ -109,10 +110,10 @@ function initialize(config) {
     config.scale = config.tileSize / config.baseTileSize;
 
     step = 1 / config.FPS;
-    canvas = document.getElementById(config.canvasID);
+  /*  canvas = document.getElementById(config.canvasID);
     ctx = canvas.getContext('2d');
     canvas.width = config.viewportWidth * config.tileSize;
-    canvas.height = config.viewportHeight * config.tileSize;
+    canvas.height = config.viewportHeight * config.tileSize;*/
 
     renderer = new Renderer(config);
     sprites = new Sprites(spritesData);
@@ -145,7 +146,25 @@ function initialize(config) {
 
 /**************************************************************************/
 
+function setupCanvas() {
+  canvas = canvas ? canvas : document.getElementById(config.canvasID);
+  ctx = ctx ? ctx : canvas.getContext('2d');
+
+  const viewport = {
+    width: document.getElementsByTagName('body')[0].clientWidth,
+    height: window.innerHeight,
+  };
+
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
+
+  console.log(canvas.height);
+}
+
+/**************************************************************************/
+
 var controls = {};
 document.addEventListener('keydown', function(event) { return onkey(event, event.keyCode, true, controls);  }, false);
 document.addEventListener('keyup', function(event) { return onkey(event, event.keyCode, false, controls);  }, false);
-document.addEventListener("DOMContentLoaded", initialize(config));
+document.addEventListener("DOMContentLoaded", initialize.bind(this, config));
+window.addEventListener("resize", setupCanvas);
