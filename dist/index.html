@@ -7,21 +7,29 @@
   <title>Game</title>
   <style>
     body {
+      overflow: hidden;
       background: #111;
+      padding: 0;
+      margin: 0;
     }
 
     #init-message {
       color: white;
     }
 
+    #error-message {
+      display: none;
+    }
+
     #platformer {
-      position:absolute;
+      padding: 0;
+      margin: 0;
+    /*  position:absolute;
       top:50%;
       left:50%;
-      padding: 0;
       -ms-transform: translateX(-50%) translateY(-50%);
       -webkit-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
+      transform: translate(-50%,-50%);*/
     }
   </style>
 
