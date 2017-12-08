@@ -43,12 +43,11 @@ export default function GameController (config) {
     loadGameData()
       .then(initializeObjects)
       .then(globalizeObjects)
-  //    .then(setupCanvas)
-  //    .then(hideWaitMessage)
+      .then(setupCanvas)
+      .then(hideWaitMessage)
+      .then(frameLoop)
       .catch(showErrorMessage);
-
   };
-
 
   /**
    * Loads all JSON files with game data.
@@ -98,10 +97,17 @@ export default function GameController (config) {
    * Initializes core game objects.
    */
   function initializeObjects(gameData) {
-  //  renderer = new Renderer(config);
-  //  sprites = new Sprites(spritesData);
-  //  map = new GameMap(mapData, mapEntitiesData, config, sprites);
-  //  player = new Player(config.player, config.tileSize, config.scale, sprites);
+    config.tileSize = getTileSize(config.baseTileSize);
+    config.scale = config.tileSize / config.baseTileSize;
+
+    step = 1 / config.FPS;
+
+    renderer = new Renderer(config);
+    sprites = new Sprites(gameData['sprites']);
+    map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
+    player = new Player(config.player, config.tileSize, config.scale, sprites);
+
+    return sprites.loadImages(config.spritesDir); // Returns promise
   }
 
 
@@ -140,7 +146,6 @@ export default function GameController (config) {
   }
 
   this.keyListener = function(event, key, isDown) {
-    console.log(key)
     switch(key) {
       case KEYCODES.LEFT:   controls.left   = isDown; return false;
       case KEYCODES.RIGHT:  controls.right  = isDown; return false;
@@ -170,6 +175,18 @@ export default function GameController (config) {
    */
   function frameLoop() {
 
+    let activeRenderers = [];
+
+    now = timestamp();                            // time at the start of this loop
+    delta = delta + Math.min(1, (now - last) / 1000);
+    while(delta > step) {                         // make sure the game catches up if the delta is too high
+      delta = delta - step;
+      activeRenderers = game.run(step, config, controls, sprites, map, player);
+    }
+    renderer.register(activeRenderers);
+    renderer.drawFrame(activeRenderers, ctx, canvas, controls, game, map, player);
+    last = now;                                   // time at the start of the previous loop
+    requestAnimationFrame(frameLoop, canvas);
   }
 
   function timestamp() {
@@ -192,48 +209,8 @@ export default function GameController (config) {
   function setupCanvas() {
     canvas = document.getElementById(config.canvasID);
     ctx = canvas.getContext('2d');
+
+    resizeCanvas();
   }
-
-};
-
-
-
-
-
-
-
-
-function _initialize(config) {
-
-  let data = {};  // Object for importing external json data;
-
-  loadDataFiles([config.spritesData, config.mapData, config.mapEntitiesData], data)
-    .then(() => initializeObjects(data[config.mapData], data[config.mapEntitiesData], data[config.spritesData]))
-    .then(setupCanvas)
-    .then(() => hideWaitMessage(config.initMessageID))
-    .then(() => frameLoop())
-    .catch(error => showErrorMessage(error, config.errorMessageID, config.debug));
-
-  /*----------------------------------------------------------------------*/
-  /*----------------------------------------------------------------------*/
-
-  function _initializeObjects(mapData, mapEntitiesData, spritesData) {
-
-    config.tileSize = getTileSize(config.baseTileSize);
-    config.scale = config.tileSize / config.baseTileSize;
-
-    step = 1 / config.FPS;
-
-    renderer = new Renderer(config);
-    sprites = new Sprites(spritesData);
-    map = new GameMap(mapData, mapEntitiesData, config, sprites);
-    player = new Player(config.player, config.tileSize, config.scale, sprites);
-
-    if (config.debug === true) globalizeObjects();
-
-    return sprites.loadImages(config.spritesDir); // Returns promise
-  };
-
-
 
 };
