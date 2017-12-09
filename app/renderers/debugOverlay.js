@@ -1,4 +1,4 @@
-export default function (ctx, controls, game, map, player) {
+export default function (ctx, scale, controls, game, map, player) {
 
   ctx.font = "30px Arial";
   ctx.lineWidth = 1;

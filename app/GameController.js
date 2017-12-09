@@ -162,7 +162,7 @@ export default function GameController (config) {
    * @return {number} Actual tile size to be used.
    */
   function getTileSize(baseSize) {
-    return baseSize;
+    return baseSize / 1;
   }
 
   /**
