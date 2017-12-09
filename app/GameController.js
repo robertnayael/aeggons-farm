@@ -2,11 +2,10 @@ import "es6-promise/auto";
 import 'isomorphic-fetch';
 
 import game from './game';
-import {onkey} from './keylistener';
 import GameMap from './map';
 import Player from './player';
 import Sprites from './sprites';
-import {Renderer} from './renderer';
+import Canvas from './Canvas';
 
 /** @module GameController */
 
@@ -23,8 +22,6 @@ export default function GameController (config) {
       step,
 
       canvas,
-      ctx,
-      renderer,
 
       controls = {},
 
@@ -43,7 +40,7 @@ export default function GameController (config) {
     loadGameData()
       .then(initializeObjects)
       .then(globalizeObjects)
-      .then(setupCanvas)
+      .then(setupEventListeners)
       .then(hideWaitMessage)
       .then(frameLoop)
       .catch(showErrorMessage);
@@ -102,11 +99,12 @@ export default function GameController (config) {
 
     step = 1 / config.FPS;
 
-    renderer = new Renderer(config);
+    canvas = new Canvas(config);
     sprites = new Sprites(gameData['sprites']);
     map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
 
+    canvas.setupCanvasElement();
     return sprites.loadImages(config.spritesDir); // Returns promise
   }
 
@@ -141,11 +139,11 @@ export default function GameController (config) {
     window._game = game;
     window._map = map;
     window._player = player;
-    window._renderer = renderer;
+    window._canvas = canvas;
     window._sprites = sprites;
   }
 
-  this.keyListener = function(event, key, isDown) {
+  function keyListener(event, key, isDown) {
     switch(key) {
       case KEYCODES.LEFT:   controls.left   = isDown; return false;
       case KEYCODES.RIGHT:  controls.right  = isDown; return false;
@@ -164,7 +162,7 @@ export default function GameController (config) {
    * @return {number} Actual tile size to be used.
    */
   function getTileSize(baseSize) {
-    return baseSize;
+    return baseSize / 1;
   }
 
   /**
@@ -183,10 +181,10 @@ export default function GameController (config) {
       delta = delta - step;
       activeRenderers = game.run(step, config, controls, sprites, map, player);
     }
-    renderer.register(activeRenderers);
-    renderer.drawFrame(activeRenderers, ctx, canvas, controls, game, map, player);
+    canvas.registerRenderers(activeRenderers);
+    canvas.drawFrame(activeRenderers, controls, game, map, player);
     last = now;                                   // time at the start of the previous loop
-    requestAnimationFrame(frameLoop, canvas);
+    requestAnimationFrame(frameLoop, canvas.element);
   }
 
   function timestamp() {
@@ -196,21 +194,10 @@ export default function GameController (config) {
       return new Date().getTime();
   }
 
-  function resizeCanvas() {
-    const viewport = {
-      width: document.getElementsByTagName('body')[0].clientWidth,
-      height: window.innerHeight,
-    };
-
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-  }
-
-  function setupCanvas() {
-    canvas = document.getElementById(config.canvasID);
-    ctx = canvas.getContext('2d');
-
-    resizeCanvas();
+  function setupEventListeners() {
+    document.addEventListener('keydown', event => keyListener(event, event.keyCode, true), false);
+    document.addEventListener('keyup', event => keyListener(event, event.keyCode, false), false);
+    //window.addEventListener("resize", controller.resizeCanvas);
   }
 
 };

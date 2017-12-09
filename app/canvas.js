@@ -5,15 +5,14 @@ import gameplayIntro from './renderers/gameplayIntro';
 import gameOverOverlay from './renderers/gameOverOverlay';
 import gameWonOverlay from './renderers/gameWonOverlay';
 
-export function Renderer (config) {
+export default function Canvas (config) {
 
   // Each property reflects the state of the respective rendering method (true: enabled, false: disabled).
-  let rendererState = {
+  const rendererState = {
     welcomeScreen: false,
     gameplay: false,
     debugOverlay: true,
     gameplayIntro: false,
-  //  playerGotHitOverlay: false, <--- to be removed
     gameOverOverlay: false,
     gameWonOverlay: false,
   };
@@ -33,7 +32,33 @@ export function Renderer (config) {
   /*****************************************************************************
   |
   */
-  this.register = function(activeRenderers) {
+  this.setupCanvasElement = function() {
+    this.element = document.getElementById(config.canvasID);
+    this.ctx = canvas.getContext('2d');
+
+    this.resizeCanvas();
+  };
+
+  /*****************************************************************************
+  |
+  */
+  this.resizeCanvas = function() {
+  /*  const viewport = {
+      width: document.getElementsByTagName('body')[0].clientWidth,
+      height: window.innerHeight,
+    };
+
+    this.element.width = viewport.width;
+    this.element.height = viewport.height;*/
+
+    this.element.width = config.viewportWidth * tileSize;
+    this.element.height = config.viewportHeight * tileSize;
+  };
+
+  /*****************************************************************************
+  |
+  */
+  this.registerRenderers = function(activeRenderers) {
 
     // First, deregister all renderers except debugOverlay:
     for (let property in rendererState) {
@@ -53,17 +78,17 @@ export function Renderer (config) {
   | Fires all active renderers. This method is called on each cycle
   | from within the frame loop.
   */
-  this.drawFrame = function(activeRenderers, ctx, canvas, controls, game, map, player) {
+  this.drawFrame = function(activeRenderers, controls, game, map, player) {
 
     // Clear the whole canvas:
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(0, 0, this.element.width, this.element.height);
 
-    ctx.fillStyle = '#6bc2d8';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillStyle = '#6bc2d8';
+    this.ctx.fillRect(0, 0, this.element.width, this.element.height);
 
     for (let type in rendererState) {
       if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
-        renderers[type](ctx, controls, game, map, player);
+        renderers[type](this.ctx, scale, controls, game, map, player);
       }
     }
   };
