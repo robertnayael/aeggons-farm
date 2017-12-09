@@ -5,7 +5,6 @@ import game from './game';
 import GameMap from './map';
 import Player from './player';
 import Sprites from './sprites';
-import {Renderer} from './renderer';
 import Canvas from './Canvas';
 
 /** @module GameController */
@@ -23,8 +22,6 @@ export default function GameController (config) {
       step,
 
       canvas,
-      ctx,
-      renderer,
 
       controls = {},
 
@@ -43,6 +40,7 @@ export default function GameController (config) {
     loadGameData()
       .then(initializeObjects)
       .then(globalizeObjects)
+      .then(setupEventListeners)
       .then(hideWaitMessage)
       .then(frameLoop)
       .catch(showErrorMessage);
@@ -145,7 +143,7 @@ export default function GameController (config) {
     window._sprites = sprites;
   }
 
-  this.keyListener = function(event, key, isDown) {
+  function keyListener(event, key, isDown) {
     switch(key) {
       case KEYCODES.LEFT:   controls.left   = isDown; return false;
       case KEYCODES.RIGHT:  controls.right  = isDown; return false;
@@ -194,6 +192,12 @@ export default function GameController (config) {
       return window.performance.now();
     else
       return new Date().getTime();
+  }
+
+  function setupEventListeners() {
+    document.addEventListener('keydown', event => keyListener(event, event.keyCode, true), false);
+    document.addEventListener('keyup', event => keyListener(event, event.keyCode, false), false);
+    //window.addEventListener("resize", controller.resizeCanvas);
   }
 
 };
