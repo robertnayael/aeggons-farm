@@ -43,13 +43,16 @@ export default function Canvas (config) {
   |
   */
   this.resizeCanvas = function() {
-    const viewport = {
+  /*  const viewport = {
       width: document.getElementsByTagName('body')[0].clientWidth,
       height: window.innerHeight,
     };
 
     this.element.width = viewport.width;
-    this.element.height = viewport.height;
+    this.element.height = viewport.height;*/
+
+    this.element.width = config.viewportWidth * tileSize;
+    this.element.height = config.viewportHeight * tileSize;
   };
 
   /*****************************************************************************
@@ -85,7 +88,7 @@ export default function Canvas (config) {
 
     for (let type in rendererState) {
       if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
-        renderers[type](this.ctx, controls, game, map, player);
+        renderers[type](this.ctx, scale, controls, game, map, player);
       }
     }
   };

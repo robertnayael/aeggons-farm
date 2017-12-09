@@ -4,8 +4,8 @@ export default {
   canvasID: "canvas",
   initMessageID: "init-message",
   errorMessageID: "error-message",
-  viewportWidth: 22,
-  viewportHeight: 11,
+  viewportWidth: 27,
+  viewportHeight: 13,
   FPS: 60,
   dataFiles: {
     sprites: "./data/sprites.json",

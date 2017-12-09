@@ -1,4 +1,4 @@
-export default function(ctx, controls, game, map, player)  {
+export default function(ctx, scale, controls, game, map, player)  {
 
   const offset = map.getOffset(player);
 
@@ -7,22 +7,20 @@ export default function(ctx, controls, game, map, player)  {
     ctx.fillRect(platform.x - offset.map.x, platform.y - offset.map.y, platform.width, platform.height);
   });
 
-  drawMapLayer(ctx, 0, offset.map, map);
-  //this._drawEntities(ctx, 'platforms', offset.map, map.entitiesInRange.platforms);
-  drawEntities(ctx, 'mobs', offset.map, map.entitiesInRange.mobs);
-  drawPlayer(ctx, offset.player, player);
-  drawMapLayer(ctx, 1, offset.map, map);
-  drawOSD(ctx, player);
+  drawMapLayer(ctx, scale, 0, offset.map, map);
+  //this._drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
+  drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
+  drawPlayer(ctx, scale, offset.player, player);
+  drawMapLayer(ctx, scale, 1, offset.map, map);
+  drawOSD(ctx, scale, player);
 
 };
-
-const scale = 1;
 
 /*****************************************************************************
 |
 */
 
-function drawMapLayer (ctx, layer, offset, map) {
+function drawMapLayer (ctx, scale, layer, offset, map) {
 
   map.tiles.inRange.forEach(tile => {
     const sprite = map.getTileSprite(tile, layer);
@@ -32,7 +30,7 @@ function drawMapLayer (ctx, layer, offset, map) {
         sprite.image,
         sprite.x, sprite.y,
         sprite.width, sprite.height,
-        coords.x - offset.x + sprite.drawOffsetX, coords.y - offset.y + sprite.drawOffsetY,
+        coords.x - offset.x + (sprite.drawOffsetX * scale), coords.y - offset.y + (sprite.drawOffsetY * scale),
         sprite.width * scale, sprite.height * scale);
     }
   });
@@ -42,7 +40,7 @@ function drawMapLayer (ctx, layer, offset, map) {
 |
 */
 
-function drawEntities (ctx, type, offset, entities) {
+function drawEntities (ctx, scale, type, offset, entities) {
   entities.forEach(entity => {
     const sprite = entity.getSprite();
     if (sprite) {
@@ -57,7 +55,7 @@ function drawEntities (ctx, type, offset, entities) {
         sprite.image,
         sprite.x, sprite.y,
         sprite.width, sprite.height,
-        entity.x - offset.x + sprite.drawOffsetX, entity.y - offset.y + sprite.drawOffsetY,
+        entity.x - offset.x + (sprite.drawOffsetX * scale), entity.y - offset.y + (sprite.drawOffsetY * scale),
         sprite.width * scale, sprite.height * scale);
     }
   });
@@ -67,7 +65,7 @@ function drawEntities (ctx, type, offset, entities) {
 |
 */
 
-function drawPlayer (ctx, offset, player) {
+function drawPlayer (ctx, scale, offset, player) {
 
   const sprite = player.getSprite();
   if (sprite.opacity) ctx.globalAlpha = sprite.opacity;
@@ -76,17 +74,19 @@ function drawPlayer (ctx, offset, player) {
     sprite.image,
     sprite.x, sprite.y,
     sprite.width, sprite.height,
-    offset.x + sprite.drawOffsetX, offset.y + sprite.drawOffsetY,
+    offset.x + (sprite.drawOffsetX * scale), offset.y + (sprite.drawOffsetY * scale),
     sprite.width * scale, sprite.height * scale);
 
   ctx.globalAlpha = 1;
+
+
 };
 
 /*****************************************************************************
 |
 */
 
-function drawOSD (ctx, player) {
+function drawOSD (ctx, scale, player) {
   ctx.font = "30px Arial";
   ctx.lineWidth = 1;
   ctx.strokeStyle = 'red';

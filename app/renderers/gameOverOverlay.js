@@ -1,4 +1,4 @@
-export default function(ctx) {
+export default function(ctx, scale) {
 
   ctx.globalAlpha = 0.4;
   ctx.fillStyle = '#000000';

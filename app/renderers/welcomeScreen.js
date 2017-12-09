@@ -1,4 +1,4 @@
-export default function (ctx) {
+export default function (ctx, scale) {
 
 
 
