@@ -36,23 +36,45 @@ export default function Canvas (config) {
     this.element = document.getElementById(config.canvasID);
     this.ctx = canvas.getContext('2d');
 
-    this.resizeCanvas();
+    this.resize();
   };
 
   /*****************************************************************************
   |
   */
-  this.resizeCanvas = function() {
-  /*  const viewport = {
+  this.resize = function() {
+    const canvas = this.element;
+
+    const base = {
+      width: config.viewportWidth * tileSize,
+      height: config.viewportHeight * tileSize
+    },
+
+    client = {
       width: document.getElementsByTagName('body')[0].clientWidth,
-      height: window.innerHeight,
+      height: window.innerHeight
+    },
+
+    scale = {
+      horizontal: Math.min(1, client.width / base.width),
+      vertical: Math.min(1, client.height / base.height)
+    },
+
+    factor = Math.min(scale.horizontal, scale.vertical),
+
+    margin = {
+      top: (client.height - base.height * factor) / 2,
+      left: (client.width - base.width * factor) / 2
     };
 
-    this.element.width = viewport.width;
-    this.element.height = viewport.height;*/
+    this.element.width = base.width;
+    this.element.height = base.height;
 
-    this.element.width = config.viewportWidth * tileSize;
-    this.element.height = config.viewportHeight * tileSize;
+    this.element.style.width = base.width * factor + 'px';
+    this.element.style.height = base.height * factor + 'px';
+
+    this.element.style.marginTop = margin.top + 'px';
+    this.element.style.marginLeft = margin.left + 'px';
   };
 
   /*****************************************************************************

@@ -197,7 +197,7 @@ export default function GameController (config) {
   function setupEventListeners() {
     document.addEventListener('keydown', event => keyListener(event, event.keyCode, true), false);
     document.addEventListener('keyup', event => keyListener(event, event.keyCode, false), false);
-    //window.addEventListener("resize", controller.resizeCanvas);
+    window.addEventListener("resize", canvas.resize.bind(canvas));
   }
 
 };
