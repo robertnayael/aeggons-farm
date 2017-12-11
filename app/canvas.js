@@ -17,6 +17,8 @@ export default function Canvas (config) {
     gameWonOverlay: false,
   };
 
+  let previousRendererState = Object.assign({}, rendererState);
+
   const renderers = {
     welcomeScreen: welcomeScreen,
     gameplay: gameplay,
@@ -82,7 +84,10 @@ export default function Canvas (config) {
   */
   this.registerRenderers = function(activeRenderers) {
 
-    // First, deregister all renderers except debugOverlay:
+    // Store the previous state:
+    previousRendererState = Object.assign({}, rendererState);
+
+    // Deregister all renderers except debugOverlay:
     for (let property in rendererState) {
       if (rendererState.hasOwnProperty(property) && property !== 'debugOverlay') {
         rendererState[property] = false;
@@ -108,8 +113,14 @@ export default function Canvas (config) {
     this.ctx.fillStyle = '#6bc2d8';
     this.ctx.fillRect(0, 0, this.element.width, this.element.height);
 
+    // Run each of the renderers whose state is set to active:
     for (let type in rendererState) {
       if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
+
+        // Specifies if the renderer has been enabled in this particular frame cycle:
+        const isJustEnabled = !previousRendererState[type];
+
+        // Run the renderer:
         renderers[type](this.ctx, scale, controls, game, map, player);
       }
     }
