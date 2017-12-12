@@ -1,5 +1,4 @@
-export default function() {
-
+export default function(ctx, justEnabled, scale) {
 
 
 };

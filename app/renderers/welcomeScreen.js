@@ -1,4 +1,4 @@
-export default function (ctx, scale) {
+export default function (ctx, justEnabled, scale) {
 
 
 

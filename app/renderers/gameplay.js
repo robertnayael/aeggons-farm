@@ -1,4 +1,4 @@
-export default function(ctx, scale, controls, game, map, player)  {
+export default function(ctx, justEnabled, scale, controls, game, map, player)  {
 
   const offset = map.getOffset(player);
 
