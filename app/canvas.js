@@ -114,18 +114,6 @@ export default function Canvas (config) {
     this.ctx.fillRect(0, 0, this.element.width, this.element.height);
 
     // Run each of the renderers whose state is set to active:
-  /*  for (let type in rendererState) {
-      if (rendererState.hasOwnProperty(type) && rendererState[type] === true) {
-
-        // Specifies if the renderer has been enabled in current frame cycle:
-        const isJustEnabled = !previousRendererState[type];
-
-        // Run the renderer:
-        renderers[type](this.ctx, scale, controls, game, map, player);
-      }
-    }*/
-
-    // Run each of the renderers whose state is set to active:
     Object.keys(renderers).forEach(type => {
       if (rendererState[type] === true) {
 

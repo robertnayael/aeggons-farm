@@ -80,6 +80,7 @@ export default class Player extends AnimatedEntity {
     this.resolveEntityInteraction(map.entities);
 
     if (wasFalling && !this.is.falling) this.bounce();
+    
     this.storeMotionVectors();
 
     return this.nextGameState;
