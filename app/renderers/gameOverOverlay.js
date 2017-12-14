@@ -1,12 +1,19 @@
-export default function(ctx, justEnabled, scale) {
+import {fadeOut} from './effects';
 
-  ctx.globalAlpha = 0.4;
-  ctx.fillStyle = '#000000';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.globalAlpha = 1;
+let opacity = fadeOut(180);
+
+export default function(ctx, justEnabled, scale, controls, game, map, player) {
+
+  if (justEnabled) opacity = fadeOut(180);
+
+  ctx.globalAlpha = opacity();
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, map.viewport.width.px, map.viewport.height.px);
 
   ctx.font = "130px Arial";
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#000000';
   ctx.fillText(`Game Over`, 430, 300);
+
+  ctx.globalAlpha = 1;
 
 };
