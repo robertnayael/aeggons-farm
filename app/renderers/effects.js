@@ -2,7 +2,6 @@ export function fadeOut(duration) {
 
   const step = 1/duration;
   let opacity = 0;
-  let count = 0;
 
   return function() {
     opacity += step;
@@ -17,5 +16,19 @@ export function fadeIn(duration) {
 
   return function() {
     return 1 - opacity();
+  };
+}
+
+export function circleOut(duration, targetRadius) {
+
+  let step = targetRadius/duration;
+  const accelleration = 1.02;
+  let radius = 0;
+
+  return function() {
+    step = step * accelleration;
+    radius += step;
+    if (radius > targetRadius) radius = targetRadius;
+    return radius;
   };
 }
