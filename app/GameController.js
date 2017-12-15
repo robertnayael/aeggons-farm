@@ -165,6 +165,9 @@ export default function GameController (config) {
     return baseSize / 1;
   }
 
+
+let activeRenderers = [];
+
   /**
    * Runs a cycle which involves the following:
    *     (1) update the game state,
@@ -173,16 +176,17 @@ export default function GameController (config) {
    */
   function frameLoop() {
 
-    let activeRenderers = [];
-
     now = timestamp();                            // time at the start of this loop
     delta = delta + Math.min(1, (now - last) / 1000);
     while(delta > step) {                         // make sure the game catches up if the delta is too high
       delta = delta - step;
       activeRenderers = game.run(step, config, controls, sprites, map, player);
     }
+    let included = false;
+
     canvas.registerRenderers(activeRenderers);
     canvas.drawFrame(activeRenderers, controls, game, map, player);
+
     last = now;                                   // time at the start of the previous loop
     requestAnimationFrame(frameLoop, canvas.element);
   }

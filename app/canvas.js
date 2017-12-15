@@ -107,11 +107,14 @@ export default function Canvas (config) {
   */
   this.drawFrame = function(activeRenderers, controls, game, map, player) {
 
+
     // Clear the whole canvas:
     this.ctx.clearRect(0, 0, this.element.width, this.element.height);
 
     this.ctx.fillStyle = '#6bc2d8';
     this.ctx.fillRect(0, 0, this.element.width, this.element.height);
+
+    this.ctx.save();
 
     // Run each of the renderers whose state is set to active:
     Object.keys(renderers).forEach(type => {
@@ -122,6 +125,8 @@ export default function Canvas (config) {
         renderers[type](this.ctx, justEnabled, scale, controls, game, map, player);
       }
     });
+
+    this.ctx.restore();
   };
 
 

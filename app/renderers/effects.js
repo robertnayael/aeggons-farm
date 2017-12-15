@@ -26,7 +26,6 @@ export function fadeIn(duration) {
  *
  */
 export function circleOut(ctx, width, height, overlay, steps) {
-console.log('im being called: circleOut');
 
   const cornerToCenter = Math.sqrt( Math.pow((width), 2) + Math.pow((height), 2) ) / 2; // Max. radius
   const startingRadius = 0,

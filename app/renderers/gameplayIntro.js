@@ -13,7 +13,6 @@ export default function(ctx, justEnabled, scale, controls, game, map, player) {
 
   if (justEnabled) {
     opacity = fadeIn(180);
-    console.log('START!');
   }
 
 
