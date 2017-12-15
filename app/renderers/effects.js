@@ -38,6 +38,19 @@ export function circleOut(ctx, width, height, overlay, steps) {
 /**
  *
  */
+export function circleIn(ctx, width, height, overlay, steps) {
+
+  const cornerToCenter = Math.sqrt( Math.pow((width), 2) + Math.pow((height), 2) ) / 2; // Max. radius
+  const startingRadius = cornerToCenter,
+        targetRadius = 0;
+
+  return circleInOut.apply(null, [...arguments, 0, cornerToCenter]);
+}
+
+/*----------------------------------------------------------------------------*/
+/**
+ *
+ */
 function circleInOut(ctx, width, height, overlay, steps, startingRadius, targetRadius) {
 
   const getRadius = stepFromTo(startingRadius, targetRadius, steps);
