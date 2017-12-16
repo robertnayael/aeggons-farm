@@ -142,6 +142,24 @@
       "dimensions": [0,0],
       "coords": [0,0]
     }
-  }
+  },
+
+  "background": [
+    {
+      "__description__": "Far plane",
+      "image": "background_layer1.png"
+    },
+
+    {
+      "__description__": "Near plane",
+      "image": "background_layer1.png"
+    }
+  ],
+
+  "foreground": [
+    {
+      
+    }
+  ]
 
 }

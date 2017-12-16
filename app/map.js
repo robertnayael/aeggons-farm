@@ -1,6 +1,7 @@
 import Platform from './platform';
 import Mob from './mob';
 import Spikes from './spikes';
+import Background from './Background';
 
 export default class GameMap {
 
@@ -103,6 +104,14 @@ export default class GameMap {
 
     this.entities = {};
     this.entitiesInRange = {};
+
+    this.background = new Background();
+  }
+
+/******************************************************************************/
+
+  initializeBackground() {
+    
   }
 
 /******************************************************************************/
