@@ -94,23 +94,24 @@ function drawBackground(ctx, scale, mapOffset, map) {
 
     const layer = background.getSprite(
       mapOffset,
+      scale,
       {width: map.width.px, height: map.height.px},                     // map dimensions
       {width: map.viewport.width.px, height: map.viewport.height.px});  // viewport dimensions
 
       ctx.drawImage(
         layer.image,
         layer.x, layer.y,
-        map.viewport.width.px, map.viewport.height.px,
+        map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
         0, 0,
-        map.viewport.width.px * scale, map.viewport.height.px * scale);
+        map.viewport.width.px, map.viewport.height.px);
 
       if (layer.repeatX !== false) {
         ctx.drawImage(
           layer.image,
           0, layer.y,
-          map.viewport.width.px, map.viewport.height.px,
+          map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
           layer.repeatX, 0,
-          map.viewport.width.px * scale, map.viewport.height.px * scale);
+          map.viewport.width.px, map.viewport.height.px);
       }
 
   });

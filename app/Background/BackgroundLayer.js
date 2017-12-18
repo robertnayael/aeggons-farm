@@ -4,8 +4,8 @@ export default class BackgroundLayer {
 
   constructor(filename, speed) {
 
-    this.width = 2000;
-    this.height = 1000;
+    this.width = 500;
+    this.height = 300;
 
     // mock properties
     this.slidingSpeed = {
@@ -24,11 +24,14 @@ export default class BackgroundLayer {
 
 /*----------------------------------------------------------------------------*/
 
-  getSprite(mapOffset, map, viewport) {
+  getSprite(mapOffset, scale, map, viewport) {
 
-    const x = mapOffset.x * this.slidingSpeed.x,
-          y = mapOffset.y * this.slidingSpeed.y,
-          xEnd = this.width - x;  // The point (relative to the current viewport) where the background ends horizontally.
+    let x = mapOffset.x * (1/scale) * this.slidingSpeed.x,
+        y = mapOffset.y * (1/scale) * this.slidingSpeed.y;
+
+    x = x % this.width;
+
+    let xEnd = this.width * scale - x * scale;  // The point (relative to the current viewport) where the background ends horizontally
 
     let repeatX;
     if (xEnd > viewport.width ) repeatX = false;
