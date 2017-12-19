@@ -105,7 +105,7 @@ export default class GameMap {
     this.entities = {};
     this.entitiesInRange = {};
 
-    this.background = new Background();
+    this.background = new Background(this, config.scale);
   }
 
 /******************************************************************************/

@@ -4,7 +4,7 @@ export default {
   canvasID: "canvas",
   initMessageID: "init-message",
   errorMessageID: "error-message",
-  viewportWidth: 7,//27,
+  viewportWidth: 7,
   viewportHeight: 13,
   FPS: 60,
   dataFiles: {
