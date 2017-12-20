@@ -104,14 +104,12 @@ export default class GameMap {
 
     this.entities = {};
     this.entitiesInRange = {};
-
-    this.background = new Background(this, config.scale);
   }
 
 /******************************************************************************/
 
   initializeBackground() {
-
+    this.background = new Background(this, this.scale, this.sprites.getbackgroundSprites());
   }
 
 /******************************************************************************/
@@ -202,7 +200,7 @@ export default class GameMap {
 
   getTileSprite(tile, layer) {
     const tileType = this.tiles.layers[layer][tile];
-    if (tileType) return this.sprites.getSprite(['mapTiles', tileType]);
+    if (tileType) return this.sprites.getSprite(['mapTiles', String(tileType)]);
   }
 
 /******************************************************************************/

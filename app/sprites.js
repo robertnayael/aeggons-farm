@@ -8,6 +8,7 @@ export default class Sprites {
       'player': props.player,
       'mobs': props.mobs,
       'mapTiles': props.mapTiles,
+      "background": props.background
     };
   }
 
@@ -29,11 +30,19 @@ export default class Sprites {
 
 /******************************************************************************/
 
+  getbackgroundSprites() {
+    return this.spritemaps.background.map(layer => {
+      return Object.assign(layer, {image: this.images[layer.image]});
+    });
+  }
+
+/******************************************************************************/
+
   getSprite(spriteType) {
 
     const {props} = this.getSpriteProps(spriteType);
 
-    return {
+    return Object.assign(props, {
       image: this.images[props.image],
       width: props.dimensions[0],
       height: props.dimensions[1],
@@ -41,7 +50,7 @@ export default class Sprites {
       drawOffsetY: props.drawOffset[1],
       x: props.coords[0],
       y: props.coords[1]
-    };
+    });
   }
 
 /******************************************************************************/

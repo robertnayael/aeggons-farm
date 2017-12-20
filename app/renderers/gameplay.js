@@ -42,12 +42,6 @@ function drawEntities (ctx, scale, type, offset, entities) {
     const sprite = entity.getSprite();
     if (sprite) {
 
-
-    /*  ctx.fillStyle = '#A1744D';
-
-      ctx.fillRect(entity.x - offset.x, entity.y - offset.y, entity.width, entity.height);*/
-
-
       ctx.drawImage(
         sprite.image,
         sprite.x, sprite.y,
@@ -73,8 +67,6 @@ function drawPlayer (ctx, scale, offset, player) {
     sprite.width * scale, sprite.height * scale);
 
   ctx.globalAlpha = 1;
-
-
 };
 
 /*----------------------------------------------------------------------------*/
@@ -90,7 +82,7 @@ function drawOSD (ctx, scale, player) {
 
 function drawBackground(ctx, scale, mapOffset, map) {
 
-  map.background.layers.forEach(background => {
+  map.background.layers.background.forEach(background => {
 
     const layer = background.getSprite(
       mapOffset,

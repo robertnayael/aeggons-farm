@@ -2,17 +2,39 @@ import BackgroundLayer from './BackgroundLayer';
 
 export default class Background {
 
-  constructor(map, scale) {
+/*----------------------------------------------------------------------------*/
 
-  //  let mockLayer = new BackgroundLayer('../sprites/background1.png', 0.4);
-  //  let mockLayer2 = new BackgroundLayer('../sprites/background2.png', 0.55);
-    let mockLayer3 = new BackgroundLayer('../sprites/background4.png', 1, map, scale);
+  constructor(map, scale, layers) {
 
-    this.layers = [
-  //    mockLayer,
-  //    mockLayer2,
-      mockLayer3
-    ];
+    this.layers = {
+      foreground: [],
+      background: []
+    };
+
+    if (!Array.isArray(layers)) return;
+
+    layers.forEach(layer => {
+
+      // Set the plane to "foreground" if explicitly stated; otherwise set it to "background":
+      const plane = (layer.plane.toLowerCase() === 'foreground' ? 'foreground' : 'background');
+
+      this.layers[plane].push(new BackgroundLayer(layer, map, scale));
+    });
+
   }
+
+/*----------------------------------------------------------------------------*/
+
+  getBackgroundLayers() {
+    return this.layers.background;
+  }
+
+/*----------------------------------------------------------------------------*/
+
+  getForegroundLayers() {
+    return this.layers.foreground;
+  }
+
+/*----------------------------------------------------------------------------*/
 
 }

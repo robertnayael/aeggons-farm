@@ -2,16 +2,16 @@ export default class BackgroundLayer {
 
 /*----------------------------------------------------------------------------*/
 
-  constructor(filename, speed, map, scale) {
+  constructor(props, map, scale) {
 
     // layer properties from configuration
-    this.stickToBottom = true;
-    this.repeatHorizontally = true;
-    this.marginLeft = 0 * scale;
+    this.stickToBottom = props.stickToBottom;
+    this.repeatHorizontally = props.repeatHorizontally;
+    this.marginLeft = props.marginLeft * scale;
 
     this.actualImageDimensions = {
-      width: 500,
-      height: 500
+      width: props.dimensions[0],
+      height: props.dimensions[1]
     };
 
     /* How fast the background moves relative to the map. E.g.,
@@ -20,17 +20,12 @@ export default class BackgroundLayer {
      * 2:   twice as fast as the map.
     */
     this.slidingSpeed = {
-      x: 0.5,
-      y: 1
+      x: props.speed[0],
+      y: props.speed[1]
     };
 
-    fetch(filename)
-      .then(response => response.blob())
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        this.sprite = new Image();
-        this.sprite.src = url;
-      });
+    this.sprite = props.image;
+
 
 
     /* These dimensions will be used for calculating background position;

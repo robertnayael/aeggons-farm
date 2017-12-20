@@ -16,6 +16,8 @@ import Canvas from './Canvas';
  */
 export default function GameController (config) {
 
+/*----------------------------------------------------------------------------*/
+
   let delta = 0,
       now,
       last = timestamp(),
@@ -32,12 +34,15 @@ export default function GameController (config) {
 
   const KEYCODES = {SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ENTER: 13, ESCAPE: 27, TILDE: 192};
 
+/*----------------------------------------------------------------------------*/
+
   /**
    * Executes all initialization functions and then runs the main game loop.
    */
   this.go = function() {
 
     loadGameData()
+      .then(makeObjects)
       .then(initializeObjects)
       .then(globalizeObjects)
       .then(setupEventListeners)
@@ -45,6 +50,8 @@ export default function GameController (config) {
       .then(frameLoop)
       .catch(showErrorMessage);
   };
+
+/*----------------------------------------------------------------------------*/
 
   /**
    * Loads all JSON files with game data.
@@ -71,6 +78,8 @@ export default function GameController (config) {
       .then(() => data);  // The promise will resolve to this.
   }
 
+/*----------------------------------------------------------------------------*/
+
   /** Fetches and parses a single JSON file.
    *
    * @function
@@ -90,10 +99,12 @@ export default function GameController (config) {
     .then(response => response.json());
   };
 
+/*----------------------------------------------------------------------------*/
+
   /**
    * Initializes core game objects.
    */
-  function initializeObjects(gameData) {
+  function makeObjects(gameData) {
     config.tileSize = getTileSize(config.baseTileSize);
     config.scale = config.tileSize / config.baseTileSize;
 
@@ -104,10 +115,20 @@ export default function GameController (config) {
     map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
 
-    canvas.setupCanvasElement();
+
     return sprites.loadImages(config.spritesDir); // Returns promise
   }
 
+/*----------------------------------------------------------------------------*/
+
+  function initializeObjects() {
+
+    canvas.setupCanvasElement();
+    map.initializeBackground();
+
+  }
+
+/*----------------------------------------------------------------------------*/
 
   /**
    * Hides the initial waiting message; called after loading all assets and
@@ -129,6 +150,7 @@ export default function GameController (config) {
     if(config.debug) console.error(error);
   }
 
+/*----------------------------------------------------------------------------*/
 
   /**
    * Globalizes some the key objects for development purposes.
@@ -155,6 +177,8 @@ export default function GameController (config) {
     }
   };
 
+/*----------------------------------------------------------------------------*/
+
   /**
    * Determines the actual tile size (which may or may not be less than the
    *     base tile size specified in the configuration.)
@@ -165,8 +189,9 @@ export default function GameController (config) {
     return baseSize / 1;
   }
 
+/*----------------------------------------------------------------------------*/
 
-let activeRenderers = [];
+  let activeRenderers = [];
 
   /**
    * Runs a cycle which involves the following:
@@ -191,6 +216,8 @@ let activeRenderers = [];
     requestAnimationFrame(frameLoop, canvas.element);
   }
 
+/*----------------------------------------------------------------------------*/
+
   function timestamp() {
     if (window.performance && window.performance.now)
       return window.performance.now();
@@ -198,10 +225,14 @@ let activeRenderers = [];
       return new Date().getTime();
   }
 
+/*----------------------------------------------------------------------------*/
+
   function setupEventListeners() {
     document.addEventListener('keydown', event => keyListener(event, event.keyCode, true), false);
     document.addEventListener('keyup', event => keyListener(event, event.keyCode, false), false);
     window.addEventListener("resize", canvas.resize.bind(canvas));
   }
+
+/*----------------------------------------------------------------------------*/
 
 };

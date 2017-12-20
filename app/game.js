@@ -47,7 +47,6 @@ export default {
 
     player.initialize(config.tileSize, config.scale);
     map.initializeEntities(config.tileSize, config.scale);
-    map.initializeBackground();
 
     return {
       nextState: 'welcomeScreen',
