@@ -14,10 +14,12 @@ export default class AnimatedEntity extends Entity {
     this.sprites = sprites;
   }
 
-  getSpriteFrame(spriteType, animationVariant, firstFrame = this.animation.firstFrame) {
+  getSpriteFrame(spriteType, firstFrame = this.animation.firstFrame) {
+
+    const animationVariant = spriteType[spriteType.length - 1];
 
     if (animationVariant !== this.animation.previousVariant) {
-      this.animation.frameIterator = this.sprites.getFrameIterator(spriteType, animationVariant, firstFrame);
+      this.animation.frameIterator = this.sprites.getFrameIterator(spriteType, firstFrame);
     }
 
     this.animation.previousVariant = animationVariant;

@@ -201,8 +201,8 @@ export default class GameMap {
 /******************************************************************************/
 
   getTileSprite(tile, layer) {
-    const spriteType = this.tiles.layers[layer][tile];
-    if (spriteType) return this.sprites.getSprite('mapTiles', spriteType, 'notFound');
+    const tileType = this.tiles.layers[layer][tile];
+    if (tileType) return this.sprites.getSprite(['mapTiles', tileType]);
   }
 
 /******************************************************************************/

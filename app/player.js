@@ -80,7 +80,7 @@ export default class Player extends AnimatedEntity {
     this.resolveEntityInteraction(map.entities);
 
     if (wasFalling && !this.is.falling) this.bounce();
-    
+
     this.storeMotionVectors();
 
     return this.nextGameState;
@@ -122,7 +122,7 @@ export default class Player extends AnimatedEntity {
 
     const type = this.getSpriteType(this.is);
 
-    let sprite = this.getSpriteFrame('player', type);
+    let sprite = this.getSpriteFrame(['player', type]);
     if (this.is.hit) {
       sprite.opacity = this.opacityPulser.next().value;
     }

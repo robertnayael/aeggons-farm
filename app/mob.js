@@ -54,7 +54,7 @@ export default class Mob extends LinearlyMovingEntity {
       variant = 'moving_' + ((this.position.x > this.position.previous.x) ? 'right' : 'left');
     }
 
-    return this.getSpriteFrame('mobs', variant);
+    return this.getSpriteFrame(['mobs', variant]);
   }
 
   /******************************************************************************/

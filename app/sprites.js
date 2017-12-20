@@ -7,17 +7,31 @@ export default class Sprites {
     this.spritemaps = {
       'player': props.player,
       'mobs': props.mobs,
-      'mapTiles': props.mapTiles
+      'mapTiles': props.mapTiles,
     };
   }
 
 /******************************************************************************/
 
-  getSprite(type, variant, defaultVariant = false) {
+  getSpriteProps(variantID, firstFrame = 0) {
 
-    // TODO: add default variant handler
+    // Get the sub-key of the spritemaps object:
+    let props = this.spritemaps;
+    variantID.forEach(key => {
+      props = Object.assign({}, props[key]);
+    });
 
-    const props = this.spritemaps[type][variant];
+    return {
+      props: props,
+      firstFrame: firstFrame
+    };
+  }
+
+/******************************************************************************/
+
+  getSprite(spriteType) {
+
+    const {props} = this.getSpriteProps(spriteType);
 
     return {
       image: this.images[props.image],
@@ -32,15 +46,15 @@ export default class Sprites {
 
 /******************************************************************************/
 
-  getFrameIterator(type, animationVariant, firstFrame) {
+  getFrameIterator(spriteType, frame = 0) {
 
-    // Animation properties:
-    const props = this.spritemaps[type][animationVariant],
+    // Sprite properties:
+    const {props, firstFrame} = this.getSpriteProps(spriteType, frame);
 
-    // Number of Frames:
-    frames = props.frames,
+    // Number of frames:
+    const frames = props.frames;
 
-    spritePropertiesPartial = {
+    const spritePropertiesPartial = {
       image: this.images[props.image],
       width: props.dimensions[0],
       height: props.dimensions[1],
