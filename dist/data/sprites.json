@@ -8,7 +8,11 @@
     "tiles2.png",
     "tiles3.png",
     "tiles_complete.png",
-    "background1.png"
+    "background1.png",
+    "background2.png",
+    "background3.png",
+    "background4.png",
+    "foreground1.png"
   ],
 
   "player":
@@ -154,6 +158,34 @@
       "drawOffset": [0,0],
       "coords": [0,0],
       "speed": [0.5, 0.5],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "__description__": "",
+      "image": "background2.png",
+      "plane": "foreground",
+      "dimensions": [2000, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.75, 0.75],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "__description__": "",
+      "image": "foreground1.png",
+      "plane": "foreground",
+      "dimensions": [2000, 878],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [1.75, 1.2],
       "stickToBottom": true,
       "repeatHorizontally": true,
       "offset": [0,0],

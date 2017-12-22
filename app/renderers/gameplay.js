@@ -15,6 +15,8 @@ export default function(ctx, justEnabled, scale, controls, game, map, player)  {
     ctx.fillRect(platform.x - offset.map.x, platform.y - offset.map.y, platform.width, platform.height);
   });
 
+  drawForeground(ctx, scale, offset.map, map);
+
 };
 
 /*----------------------------------------------------------------------------*/
@@ -82,32 +84,44 @@ function drawOSD (ctx, scale, player) {
 
 function drawBackground(ctx, scale, mapOffset, map) {
 
-  map.background.layers.background.forEach(background => {
+  map.background.getBackgroundLayers().forEach(layer => {
+    drawBackgroundLayer(ctx, scale, mapOffset, map, layer);
+  });
+}
 
-    const layer = background.getSprite(
-      mapOffset,
-      scale,
-      {width: map.width.px, height: map.height.px},                     // map dimensions
-      {width: map.viewport.width.px, height: map.viewport.height.px});  // viewport dimensions
+/*----------------------------------------------------------------------------*/
 
+function drawForeground(ctx, scale, mapOffset, map) {
+
+  map.background.getForegroundLayers().forEach(layer => {
+    drawBackgroundLayer(ctx, scale, mapOffset, map, layer);
+  });
+}
+
+/*----------------------------------------------------------------------------*/
+
+function drawBackgroundLayer(ctx, scale, mapOffset, map, backgroundLayer) {
+  const layer = backgroundLayer.getSprite(
+    mapOffset,
+    scale,
+    {width: map.width.px, height: map.height.px},                     // map dimensions
+    {width: map.viewport.width.px, height: map.viewport.height.px});  // viewport dimensions
+
+    ctx.drawImage(
+      layer.image,
+      layer.x, layer.y,
+      map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
+      0, 0,
+      map.viewport.width.px, map.viewport.height.px);
+
+    if (layer.repeatX !== false) {
       ctx.drawImage(
         layer.image,
-        layer.x, layer.y,
+        0, layer.y,
         map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
-        0, 0,
+        layer.repeatX, 0,
         map.viewport.width.px, map.viewport.height.px);
-
-      if (layer.repeatX !== false) {
-        ctx.drawImage(
-          layer.image,
-          0, layer.y,
-          map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
-          layer.repeatX, 0,
-          map.viewport.width.px, map.viewport.height.px);
-      }
-
-  });
-
+    }
 }
 
 /*----------------------------------------------------------------------------*/
