@@ -122,12 +122,16 @@ export default function Canvas (config) {
 
         const justEnabled = !previousRendererState[type]; // Specifies if the renderer has been enabled in current frame cycle.
 
-        renderers[type](this.ctx, justEnabled, scale, controls, game, map, player);
+        renderers[type](this.ctx, justEnabled, scale, controls, game, map, player, this.screenOverlayLayers[type]);
       }
     });
 
     this.ctx.restore();
   };
 
+
+  this.setScreenOverlayLayers = function(sprites) {
+    this.screenOverlayLayers = sprites;
+  };
 
 }

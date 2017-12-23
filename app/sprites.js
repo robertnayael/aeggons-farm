@@ -8,7 +8,8 @@ export default class Sprites {
       'player': props.player,
       'mobs': props.mobs,
       'mapTiles': props.mapTiles,
-      "background": props.background
+      "background": props.background,
+      "screenOverlays": props.screenOverlays
     };
   }
 
@@ -35,6 +36,21 @@ export default class Sprites {
       return Object.assign(layer, {image: this.images[layer.image]});
     });
   }
+
+  /******************************************************************************/
+
+    getScreenOverlayLayers() {
+
+      const overlays = Object.assign({}, this.spritemaps.screenOverlays);
+
+      Object.keys(overlays).forEach(type => {
+        overlays[type].forEach(layer => {
+          layer.image = this.images[layer.image];
+        });
+      });
+
+      return overlays;
+    }
 
 /******************************************************************************/
 

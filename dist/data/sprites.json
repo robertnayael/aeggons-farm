@@ -110,9 +110,9 @@
     "1": {
       "__description__": "do testow",
       "image": "tiles.png",
-      "drawOffset": [-1,-1],
-      "dimensions": [72,72],
-      "coords": [0,0]
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1,1]
     },
 
     "2": {
@@ -147,6 +147,37 @@
       "dimensions": [0,0],
       "coords": [0,0]
     }
+  },
+
+  "screenOverlays": {
+
+    "welcomeScreen": [
+
+    ],
+    
+    "gameplayIntro": [
+      {
+        "image": "snail.png",
+        "dimensions": [70,70],
+        "sourceCoords": [0,0],
+        "targetCoords": ["50%", "50%"],
+        "transition": {
+          "effect": "fade-in",
+          "steps": 180
+        }
+      },
+      {
+        "image": "snail.png",
+        "dimensions": [70,70],
+        "sourceCoords": [0,0],
+        "targetCoords": ["25%", "25%"],
+        "transition": {
+          "effect": "fade-in",
+          "steps": 180
+        },
+        "waitForPrevious": true
+      }
+    ]
   },
 
   "background": [

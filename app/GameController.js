@@ -125,6 +125,7 @@ export default function GameController (config) {
 
     canvas.setupCanvasElement();
     map.initializeBackground();
+    canvas.setScreenOverlayLayers(sprites.getScreenOverlayLayers());
 
   }
 
