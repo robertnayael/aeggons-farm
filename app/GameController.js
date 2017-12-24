@@ -43,6 +43,7 @@ export default function GameController (config) {
 
     loadGameData()
       .then(makeObjects)
+      .then(loadAssets)
       .then(initializeObjects)
       .then(globalizeObjects)
       .then(setupEventListeners)
@@ -102,7 +103,7 @@ export default function GameController (config) {
 /*----------------------------------------------------------------------------*/
 
   /**
-   * Initializes core game objects.
+   * Creates core game objects.
    */
   function makeObjects(gameData) {
     config.tileSize = getTileSize(config.baseTileSize);
@@ -110,12 +111,15 @@ export default function GameController (config) {
 
     step = 1 / config.FPS;
 
-    canvas = new Canvas(config);
     sprites = new Sprites(gameData['sprites']);
     map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
+    canvas = new Canvas(config);
+  }
 
+/*----------------------------------------------------------------------------*/
 
+  function loadAssets() {
     return sprites.loadImages(config.spritesDir); // Returns promise
   }
 
@@ -123,7 +127,7 @@ export default function GameController (config) {
 
   function initializeObjects() {
 
-    canvas.setupCanvasElement();
+    canvas.initialize(sprites.getScreenOverlayLayers());
     map.initializeBackground();
     canvas.setScreenOverlayLayers(sprites.getScreenOverlayLayers());
 
@@ -211,7 +215,7 @@ export default function GameController (config) {
     let included = false;
 
     canvas.registerRenderers(activeRenderers);
-    canvas.drawFrame(activeRenderers, controls, game, map, player);
+    canvas.drawFrame(activeRenderers, {controls, game, player, map, entities: map.entities});
 
     last = now;                                   // time at the start of the previous loop
     requestAnimationFrame(frameLoop, canvas.element);

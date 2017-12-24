@@ -1,23 +1,29 @@
-export default function(ctx, justEnabled, scale, controls, game, map, player)  {
+import Renderer from './Renderer';
 
-  const offset = map.getOffset(player);
+export default class Gameplay extends Renderer {
 
-  drawBackground(ctx, scale, offset.map, map);
+  draw(ctx, justEnabled, scale, {player, entities, map}) {
 
-  drawMapLayer(ctx, scale, 0, offset.map, map);
-  drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
-  drawPlayer(ctx, scale, offset.player, player);
-  drawMapLayer(ctx, scale, 1, offset.map, map);
-  drawOSD(ctx, scale, player);
+    const offset = map.getOffset(player);
 
-  ctx.fillStyle = '#7D007D';
-  map.entities.platforms.forEach(platform => {
-    ctx.fillRect(platform.x - offset.map.x, platform.y - offset.map.y, platform.width, platform.height);
-  });
+    drawBackground(ctx, scale, offset.map, map);
 
-  drawForeground(ctx, scale, offset.map, map);
+    drawMapLayer(ctx, scale, 0, offset.map, map);
+    drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
+    drawPlayer(ctx, scale, offset.player, player);
+    drawMapLayer(ctx, scale, 1, offset.map, map);
+    drawOSD(ctx, scale, player);
 
-};
+    ctx.fillStyle = '#7D007D';
+    map.entities.platforms.forEach(platform => {
+      ctx.fillRect(platform.x - offset.map.x, platform.y - offset.map.y, platform.width, platform.height);
+    });
+
+    drawForeground(ctx, scale, offset.map, map);
+
+  }
+
+}
 
 /*----------------------------------------------------------------------------*/
 

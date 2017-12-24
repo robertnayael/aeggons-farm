@@ -1,9 +1,9 @@
-import welcomeScreen from './renderers/welcomeScreen';
-import gameplay from './renderers/gameplay';
-import debugOverlay from './renderers/debugOverlay';
-import gameplayIntro from './renderers/gameplayIntro';
-import gameOverOverlay from './renderers/gameOverOverlay';
-import gameWonOverlay from './renderers/gameWonOverlay';
+import WelcomeScreen from './renderers/WelcomeScreen';
+import Gameplay from './renderers/Gameplay';
+import DebugOverlay from './renderers/DebugOverlay';
+import GameplayIntroOverlay from './renderers/GameplayIntroOverlay';
+import GameOverOverlay from './renderers/GameOverOverlay';
+import GameWonOverlay from './renderers/GameWonOverlay';
 
 export default function Canvas (config) {
 
@@ -19,17 +19,25 @@ export default function Canvas (config) {
 
   let previousRendererState = Object.assign({}, rendererState);
 
-  const renderers = {
-    welcomeScreen: welcomeScreen,
-    gameplay: gameplay,
-    debugOverlay: debugOverlay,
-    gameplayIntro: gameplayIntro,
-    gameOverOverlay: gameOverOverlay,
-    gameWonOverlay: gameWonOverlay
-  };
-
   const tileSize = config.tileSize;
   const scale = config.scale;
+
+  /****************************************************************************/
+
+  this.initialize = function(overlayLayers, gameObjects) {
+
+    this.setupCanvasElement();
+
+    this.renderers = {
+      welcomeScreen: new WelcomeScreen(),
+      gameplay: new Gameplay(),
+      debugOverlay: new DebugOverlay(),
+      gameplayIntro: new GameplayIntroOverlay(),
+      gameOverOverlay: new GameOverOverlay(),
+      gameWonOverlay: new GameWonOverlay()
+    };
+
+  };
 
   /*****************************************************************************
   |
@@ -105,8 +113,7 @@ export default function Canvas (config) {
   | Fires all active renderers. This method is called on each cycle
   | from within the frame loop.
   */
-  this.drawFrame = function(activeRenderers, controls, game, map, player) {
-
+  this.drawFrame = function(activeRenderers, stateData) {
 
     // Clear the whole canvas:
     this.ctx.clearRect(0, 0, this.element.width, this.element.height);
@@ -116,22 +123,27 @@ export default function Canvas (config) {
 
     this.ctx.save();
 
-    // Run each of the renderers whose state is set to active:
-    Object.keys(renderers).forEach(type => {
+    // Run each of the renderers whose state is currently set as active:
+    Object.keys(this.renderers).forEach(type => {
       if (rendererState[type] === true) {
 
-        const justEnabled = !previousRendererState[type]; // Specifies if the renderer has been enabled in current frame cycle.
+        /* Specifies if the renderer has been enabled in the current frame cycle.
+         * This tells the renderer whether it should initiate transition effects
+         * (e.g. fade-in effect when the game state changes from 'welcomeScreen'
+         * to 'gameplayIntro'). */
+        const justEnabled = !previousRendererState[type];
 
-        renderers[type](this.ctx, justEnabled, scale, controls, game, map, player, this.screenOverlayLayers[type]);
+        this.renderers[type].draw(this.ctx, justEnabled, scale, stateData);
       }
     });
 
     this.ctx.restore();
   };
 
+/******************************************************************************/
 
-  this.setScreenOverlayLayers = function(sprites) {
-    this.screenOverlayLayers = sprites;
+  this.setScreenOverlayLayers = function(layers) {
+    this.screenOverlayLayers = layers;
   };
 
 }

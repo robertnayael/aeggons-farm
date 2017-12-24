@@ -1,3 +1,12 @@
+import Renderer from './Renderer';
+
+export default class GameOverOverlay extends Renderer {
+
+
+}
+
+/*
+
 import {fadeOut} from './effects';
 
 let opacity = fadeOut(180);
@@ -17,3 +26,4 @@ export default function(ctx, justEnabled, scale, controls, game, map, player) {
   ctx.globalAlpha = 1;
 
 };
+*/

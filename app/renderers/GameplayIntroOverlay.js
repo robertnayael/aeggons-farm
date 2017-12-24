@@ -1,3 +1,14 @@
+import Renderer from './Renderer';
+
+export default class GameplayIntroOverlay extends Renderer {
+
+
+}
+
+
+
+/*
+
 import {fadeIn} from './effects';
 import {circleOut} from './effects';
 
@@ -5,7 +16,13 @@ let opacity = fadeIn(180);
 let radius;
 let effects = [];
 
+
+
 export default function(ctx, justEnabled, scale, controls, game, map, player, layers) {
+
+
+
+
 
   const width = map.viewport.width.px,
         height = map.viewport.height.px;
@@ -28,4 +45,4 @@ export default function(ctx, justEnabled, scale, controls, game, map, player, la
   }
 
 
-}
+}*/

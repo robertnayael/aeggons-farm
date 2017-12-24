@@ -1,5 +1,6 @@
-export default function (ctx, justEnabled, scale) {
+import Renderer from './Renderer';
+
+export default class WelcomeScreen extends Renderer {
 
 
-
-};
+}
