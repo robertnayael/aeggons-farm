@@ -1,9 +1,9 @@
 import WelcomeScreen from './renderers/WelcomeScreen';
 import Gameplay from './renderers/Gameplay';
-import DebugOverlay from './renderers/DebugOverlay';
-import GameplayIntroOverlay from './renderers/GameplayIntroOverlay';
-import GameOverOverlay from './renderers/GameOverOverlay';
-import GameWonOverlay from './renderers/GameWonOverlay';
+import DebugInfo from './renderers/DebugInfo';
+import GameplayIntro from './renderers/GameplayIntro';
+import GameOver from './renderers/GameOver';
+import GameWon from './renderers/GameWon';
 
 export default function Canvas (config) {
 
@@ -11,10 +11,10 @@ export default function Canvas (config) {
   const rendererState = {
     welcomeScreen: false,
     gameplay: false,
-    debugOverlay: true,
+    debugInfo: true,
     gameplayIntro: false,
-    gameOverOverlay: false,
-    gameWonOverlay: false,
+    gameOver: false,
+    gameWon: false,
   };
 
   let previousRendererState = Object.assign({}, rendererState);
@@ -24,17 +24,17 @@ export default function Canvas (config) {
 
   /****************************************************************************/
 
-  this.initialize = function(overlayLayers, gameObjects) {
+  this.initialize = function(overlayLayers) {
 
     this.setupCanvasElement();
 
     this.renderers = {
-      welcomeScreen: new WelcomeScreen(),
-      gameplay: new Gameplay(),
-      debugOverlay: new DebugOverlay(),
-      gameplayIntro: new GameplayIntroOverlay(),
-      gameOverOverlay: new GameOverOverlay(),
-      gameWonOverlay: new GameWonOverlay()
+      welcomeScreen: new WelcomeScreen (overlayLayers['welcomeScreen']),
+      gameplay:      new Gameplay      (overlayLayers['gameplay']),
+      debugInfo:     new DebugInfo     (overlayLayers['debugInfo']),
+      gameplayIntro: new GameplayIntro (overlayLayers['gameplayIntro']),
+      gameOver:      new GameOver      (overlayLayers['gameOver']),
+      gameWon:       new GameWon       (overlayLayers['gameWon'])
     };
 
   };
@@ -141,9 +141,5 @@ export default function Canvas (config) {
   };
 
 /******************************************************************************/
-
-  this.setScreenOverlayLayers = function(layers) {
-    this.screenOverlayLayers = layers;
-  };
 
 }

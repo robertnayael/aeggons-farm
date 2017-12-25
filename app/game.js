@@ -113,7 +113,7 @@ export default {
 
     let props = {
       nextState: 'playerGotHit',
-      renderers: ['gameplay', 'playerGotHitOverlay'],
+      renderers: ['gameplay', 'playerGotHit'],
       updateEntities: true,
       controlsLocked: true
     };
@@ -132,7 +132,7 @@ export default {
   gameOver: function(config, controls) {
 
     let props = {
-      renderers: ['gameplay', 'gameOverOverlay'],
+      renderers: ['gameplay', 'gameOver'],
       updateEntities: true,
       controlsLocked: true
     };
@@ -148,7 +148,7 @@ export default {
   gameWon: function(config, controls) {
 
     let props = {
-      renderers: ['gameplay', 'gameWonOverlay'],
+      renderers: ['gameplay', 'gameWon'],
       updateEntities: true,
       controlsLocked: true
     };

@@ -1,6 +1,6 @@
 import Renderer from './Renderer';
 
-export default class GameOverOverlay extends Renderer {
+export default class GameOver extends Renderer {
 
 
 }

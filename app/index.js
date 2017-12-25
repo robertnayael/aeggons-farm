@@ -1,5 +1,5 @@
 import config from './config';
-import GameController from './GameController';
+import App from './App';
 
-const controller = new GameController(config);
-document.addEventListener("DOMContentLoaded", controller.go);
+const app = new App(config);
+document.addEventListener("DOMContentLoaded", app.go);

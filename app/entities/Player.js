@@ -1,4 +1,4 @@
-import AnimatedEntity from './entities/animatedEntity';
+import AnimatedEntity from './base/AnimatedEntity';
 
 /******************************************************************************/
 

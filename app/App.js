@@ -2,9 +2,9 @@ import "es6-promise/auto";
 import 'isomorphic-fetch';
 
 import game from './game';
-import GameMap from './map';
-import Player from './player';
-import Sprites from './sprites';
+import GameMap from './GameMap';
+import Player from './entities/Player';
+import Sprites from './Sprites';
 import Canvas from './Canvas';
 
 /** @module GameController */
@@ -14,7 +14,7 @@ import Canvas from './Canvas';
  * @constructor
  * @param {object} config - Configuration settings.
  */
-export default function GameController (config) {
+export default function App (config) {
 
 /*----------------------------------------------------------------------------*/
 
@@ -129,7 +129,6 @@ export default function GameController (config) {
 
     canvas.initialize(sprites.getScreenOverlayLayers());
     map.initializeBackground();
-    canvas.setScreenOverlayLayers(sprites.getScreenOverlayLayers());
 
   }
 

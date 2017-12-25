@@ -1,4 +1,4 @@
-import AnimatedEntity from './animatedEntity';
+import AnimatedEntity from './AnimatedEntity';
 
 export default class LinearlyMovingEntity extends AnimatedEntity {
 

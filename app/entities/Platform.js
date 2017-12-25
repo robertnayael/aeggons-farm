@@ -1,4 +1,4 @@
-import LinearlyMovingEntity from './entities/LinearlyMovingEntity';
+import LinearlyMovingEntity from './base/LinearlyMovingEntity';
 
 export default class Platform extends LinearlyMovingEntity {
 

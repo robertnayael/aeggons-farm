@@ -4,7 +4,7 @@ export default class Renderer {
 
     }
 
-    draw(ctx, justEnabled, scale, data) {
+    draw(ctx, justEnabled, scale, stateData) {
 
     }
 }

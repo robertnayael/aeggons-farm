@@ -1,6 +1,6 @@
-import Platform from './platform';
-import Mob from './mob';
-import Spikes from './spikes';
+import Platform from './entities/Platform';
+import Mob from './entities/Mob';
+import Spikes from './entities/Spikes';
 import Background from './Background';
 
 export default class GameMap {
