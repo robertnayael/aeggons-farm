@@ -37,21 +37,6 @@ export default class Sprites {
     });
   }
 
-  /******************************************************************************/
-
-    getScreenOverlayLayers() {
-
-      const overlays = Object.assign({}, this.spritemaps.screenOverlays);
-
-      Object.keys(overlays).forEach(type => {
-        overlays[type].forEach(layer => {
-          layer.image = this.images[layer.image];
-        });
-      });
-
-      return overlays;
-    }
-
 /******************************************************************************/
 
   getSprite(spriteType) {

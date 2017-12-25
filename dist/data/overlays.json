@@ -1,0 +1,29 @@
+{
+  "welcomeScreen": [
+
+  ],
+
+  "gameplayIntro": [
+    {
+      "spriteName": "chicken",
+      "animated": true,
+      "targetCoords": ["25%", "25%"],
+      "transition": null
+    },
+    {"WAIT_UNTIL_COMPLETED": true},
+    {
+      "spriteName": "chickenStatic",
+      "targetCoords": ["10%", "10%"],
+      "transition": null
+    },
+    {
+      "color": "#000000",
+      "targetCoords": ["25%", "25%"],
+      "transition": {
+        "effect": "circle-in",
+        "steps": 180
+      }
+    }
+
+  ]
+}

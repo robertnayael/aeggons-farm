@@ -5,7 +5,7 @@ import GameplayIntro from './renderers/GameplayIntro';
 import GameOver from './renderers/GameOver';
 import GameWon from './renderers/GameWon';
 
-export default function Canvas (config) {
+export default function Canvas (config, overlayLayers) {
 
   // Each property reflects the state of the respective rendering method (true: enabled, false: disabled).
   const rendererState = {
@@ -21,20 +21,21 @@ export default function Canvas (config) {
 
   const tileSize = config.tileSize;
   const scale = config.scale;
+  const overlays = overlayLayers;
 
   /****************************************************************************/
 
-  this.initialize = function(overlayLayers) {
+  this.initialize = function(sprites) {
 
     this.setupCanvasElement();
 
     this.renderers = {
-      welcomeScreen: new WelcomeScreen (overlayLayers['welcomeScreen']),
-      gameplay:      new Gameplay      (overlayLayers['gameplay']),
-      debugInfo:     new DebugInfo     (overlayLayers['debugInfo']),
-      gameplayIntro: new GameplayIntro (overlayLayers['gameplayIntro']),
-      gameOver:      new GameOver      (overlayLayers['gameOver']),
-      gameWon:       new GameWon       (overlayLayers['gameWon'])
+      welcomeScreen: new WelcomeScreen (overlays['welcomeScreen'], sprites),
+      gameplay:      new Gameplay      (overlays['gameplay'], sprites),
+      debugInfo:     new DebugInfo     (overlays['debugInfo'], sprites),
+      gameplayIntro: new GameplayIntro (overlays['gameplayIntro'], sprites),
+      gameOver:      new GameOver      (overlays['gameOver'], sprites),
+      gameWon:       new GameWon       (overlays['gameWon'], sprites)
     };
 
   };

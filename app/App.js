@@ -65,7 +65,8 @@ export default function App (config) {
     const data = {
       sprites: config.dataFiles.sprites,
       map: config.dataFiles.map,
-      entities: config.dataFiles.entities};
+      entities: config.dataFiles.entities,
+      overlays: config.dataFiles.overlays};
 
     // Attempt to fetch each file:
     const promises = Object.getOwnPropertyNames(data).map(dataType => {
@@ -114,7 +115,7 @@ export default function App (config) {
     sprites = new Sprites(gameData['sprites']);
     map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
-    canvas = new Canvas(config);
+    canvas = new Canvas(config, gameData['overlays']);
   }
 
 /*----------------------------------------------------------------------------*/
@@ -127,7 +128,7 @@ export default function App (config) {
 
   function initializeObjects() {
 
-    canvas.initialize(sprites.getScreenOverlayLayers());
+    canvas.initialize(sprites);
     map.initializeBackground();
 
   }

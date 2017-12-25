@@ -11,6 +11,7 @@ export default {
     sprites: "./data/sprites.json",
     map: "./data/map.json",
     entities: "./data/entities.json",
+    overlays: "./data/overlays.json",
   },
   spritesDir: "./sprites/",
   waitOnGameStateChange: 3000,
