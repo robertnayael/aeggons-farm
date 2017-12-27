@@ -4,18 +4,33 @@ export default class Renderer {
 
 /*----------------------------------------------------------------------------*/
 
-    constructor(overlays = [], sprites) {
+    /**
+     * @param  {Array} overlays = [] - overlay data
+     * @param  {Object} sprites      - sprites object handler
+     * @param  {Object} canvas       - canvas info
+     */
+    constructor(overlays = [], {sprites, canvas}) {
 
-      this.sprites = sprites;
-      this.overlays = this.assignOverlayContent(this.groupOverlays(overlays), sprites);
+      this.overlays = this.groupOverlays(overlays);
+      this.overlays = this.assignOverlayContent(this.overlays, sprites);
+      this.overlayEffects = this.getTransitionEffects(this.overlays, effectFactory, sprites, canvas);
 
+    //
+    console.log(this.overlayEffects);
     }
 
 /*----------------------------------------------------------------------------*/
-
+  /**
+   * assignOverlayContent - Determines the type and payload of each overlay layer
+   *                            and assigns that info to the layer data.
+   *
+   * @param  {Array} overlays - overlay data
+   * @param  {Object} sprites - sprites object handler
+   * @return {Array}          - updated overlay data
+   */
   assignOverlayContent(overlays, sprites) {
-    overlays.forEach(group => {
-      group.forEach(overlay => {
+    return overlays.map(group => {
+      group.map(overlay => {
 
         if(overlay.color) {
           overlay.content = {
@@ -35,21 +50,51 @@ export default class Renderer {
             payload: sprites.getSprite(['screenOverlays', overlay.spriteName])
           };
         }
+        return overlay;
+
+      });
+      return group;
+    });
+  }
+
+/*----------------------------------------------------------------------------*/
+  /**
+   * @param  {Array} overlays       - overlay data
+   * @param  {Object} effectFactory - factory functions for transition effects
+   * @param  {Object} sprites       - sprites object handler
+   * @param  {Object} canvas        - canvas properties (dimensions & context handler)
+   * @return {Array}                - functions for drawing overlays
+   */
+  getTransitionEffects(overlays, effectFactory, sprites, canvas) {
+
+    return overlays.map(group => {
+
+      return group.map(overlay => {
+
+        if (overlay.transition) {
+          return this.createTransitionEffect(
+            overlay.transition.effect,
+            overlay.transition.steps,
+            overlay.content,
+            canvas
+          );
+        }
+        return null;
 
       });
     });
-    return overlays;
   }
 
 /*----------------------------------------------------------------------------*/
 
-    createTransitionEffect(effect, args) {
+    createTransitionEffect(effect, ...args) {
       switch(effect) {
-        case 'fade-in': return effectFactory.fadeIn(args);
-        case 'fade-out': return effectFactory.fadeOut(args);
-        case 'circle-in': return effectFactory.circleIn(args);
-        case 'cirlce-out': return effectFactory.circleOut(args);
+    //    case 'fade-in': return effectFactory.fadeIn(args);
+    //    case 'fade-out': return effectFactory.fadeOut(args);
+    //    case 'circle-in': return effectFactory.circleIn(args);
+    //    case 'cirlce-out': return effectFactory.circleOut(args);
       }
+      return 'efekt';
     }
 
 /*----------------------------------------------------------------------------*/

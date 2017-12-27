@@ -29,13 +29,22 @@ export default function Canvas (config, overlayLayers) {
 
     this.setupCanvasElement();
 
+    const args = {
+      sprites,
+      canvas: {
+        width: this.element.width,
+        height: this.element.height,
+        ctx: this.ctx
+      }
+    };
+
     this.renderers = {
-      welcomeScreen: new WelcomeScreen (overlays['welcomeScreen'], sprites),
-      gameplay:      new Gameplay      (overlays['gameplay'], sprites),
-      debugInfo:     new DebugInfo     (overlays['debugInfo'], sprites),
-      gameplayIntro: new GameplayIntro (overlays['gameplayIntro'], sprites),
-      gameOver:      new GameOver      (overlays['gameOver'], sprites),
-      gameWon:       new GameWon       (overlays['gameWon'], sprites)
+      welcomeScreen: new WelcomeScreen (overlays['welcomeScreen'], args),
+      gameplay:      new Gameplay      (overlays['gameplay'], args),
+      debugInfo:     new DebugInfo     (overlays['debugInfo'], args),
+      gameplayIntro: new GameplayIntro (overlays['gameplayIntro'], args),
+      gameOver:      new GameOver      (overlays['gameOver'], args),
+      gameWon:       new GameWon       (overlays['gameWon'], args)
     };
 
   };
