@@ -4,20 +4,24 @@ export default class Renderer {
 
 /*----------------------------------------------------------------------------*/
 
-    /**
-     * @param  {Array} overlays = [] - overlay data
-     * @param  {Object} sprites      - sprites object handler
-     * @param  {Object} canvas       - canvas info
-     */
-    constructor(overlays = [], {sprites, canvas}) {
+  /**
+   * @param  {Array} overlays = [] - overlay data
+   * @param  {Object} sprites      - sprites object handler
+   * @param  {Object} canvas       - canvas info
+   */
+  constructor(overlayProps = [], {sprites, canvas}) {
 
-      this.overlays = this.groupOverlays(overlays);
-      this.overlays = this.assignOverlayContent(this.overlays, sprites);
-      this.overlayEffects = this.getTransitionEffects(this.overlays, effectFactory, sprites, canvas);
+    this.overlayFactory = this.makeOverlays.bind(this, overlayProps, sprites, canvas);
+    this.overlays = this.overlayFactory();
 
-    //
-    console.log(this.overlayEffects);
-    }
+  }
+
+/*----------------------------------------------------------------------------*/
+
+  makeOverlays(overlayProps, sprites, canvas) {
+    const overlayPropsComplete = this.assignOverlayContent(this.groupOverlays(overlayProps), sprites);
+    return this.getOverlayFunctions(overlayPropsComplete, effectFactory, sprites, canvas);
+  }
 
 /*----------------------------------------------------------------------------*/
   /**
@@ -59,16 +63,15 @@ export default class Renderer {
 
 /*----------------------------------------------------------------------------*/
   /**
-   * @param  {Array} overlays       - overlay data
+   * @param  {Array} overlayProps   - overlay data
    * @param  {Object} effectFactory - factory functions for transition effects
    * @param  {Object} sprites       - sprites object handler
    * @param  {Object} canvas        - canvas properties (dimensions & context handler)
    * @return {Array}                - functions for drawing overlays
    */
-  getTransitionEffects(overlays, effectFactory, sprites, canvas) {
+  getOverlayFunctions(overlayProps, effectFactory, sprites, canvas) {
 
-    return overlays.map(group => {
-
+    return overlayProps.map(group => {
       return group.map(overlay => {
 
         if (overlay.transition) {
@@ -87,32 +90,31 @@ export default class Renderer {
 
 /*----------------------------------------------------------------------------*/
 
-    createTransitionEffect(effect, ...args) {
-      switch(effect) {
-    //    case 'fade-in': return effectFactory.fadeIn(args);
-    //    case 'fade-out': return effectFactory.fadeOut(args);
-    //    case 'circle-in': return effectFactory.circleIn(args);
-    //    case 'cirlce-out': return effectFactory.circleOut(args);
-      }
-      return 'efekt';
+  createTransitionEffect(effect, ...args) {
+    switch(effect) {
+  //    case 'fade-in': return effectFactory.fadeIn(...args);
+  //    case 'fade-out': return effectFactory.fadeOut(...args);
+  //    case 'circle-in': return effectFactory.circleIn(...args);
+      case 'circle-out': return effectFactory.circleOut(...args);
     }
+  }
 
 /*----------------------------------------------------------------------------*/
-    /**
-     * groupOverlays      - Turns a flat list of overlay layers into groups of
-     *                          layers, each group including layers whose
-     *                          transision effect should be completed before
-     *                          layers from the next group are drawn.
-     *
-     *                      Groups are determined based on the special control
-     *                          instruction: an object with
-     *                          a "WAIT_UNTIL_COMPLETED" boolean value.
-     *
-     * @param  {Array} layers - One-dimensional array of layers.
-     * @return {Array}        - Two-dimensional array of layers; each sub-array
-     *                          representing a group of layers.
-     */
-    groupOverlays(layers) {
+  /**
+   * groupOverlays      - Turns a flat list of overlay layers into groups of
+   *                          layers, each group including layers whose
+   *                          transision effect should be completed before
+   *                          layers from the next group are drawn.
+   *
+   *                      Groups are determined based on the special control
+   *                          instruction: an object with
+   *                          a "WAIT_UNTIL_COMPLETED" boolean value.
+   *
+   * @param  {Array} layers - One-dimensional array of layers.
+   * @return {Array}        - Two-dimensional array of layers; each sub-array
+   *                          representing a group of layers.
+   */
+  groupOverlays(layers) {
 
       return layers.reduce((groups, layer) => {
         const current = groups.length - 1;
@@ -128,19 +130,48 @@ export default class Renderer {
     }
 
 /*----------------------------------------------------------------------------*/
-    /**
-     * draw - Default method for drawing on the canvas.
-     *
-     * @param  {CanvasRenderingContext2D} ctx - Canvas context.
-     * @param  {boolean}          justEnabled - Whether the renderer has been
-     *                                          enabled in this particular frame
-     * @param  {integer}                scale - Rendering scale (1 = normal scale)
-     * @param  {Object}             stateData - Information on the current state
-     *                                          of the game and its entities.
-     */
-    draw(ctx, justEnabled, scale, stateData) {
 
-    }
+  makeNewOverlays() {
+    this.overlays = this.overlaysBlueprint.map(group => {
+      return group.map(overlay => {
+        if (overlay instanceof Function) return overlay.bind(null);
+      });
+    });
+  }
+
+/*----------------------------------------------------------------------------*/
+
+  applyOverlays(startFromScratch = false) {
+
+    // If necessary, make brand-new overlay functions:
+    if (startFromScratch) this.overlays = this.overlayFactory();
+
+    this.overlays.forEach(effectGroup => {
+      effectGroup.forEach(overlay => {
+        if (overlay instanceof Function) overlay();
+      });
+    });
+  }
+
+/*----------------------------------------------------------------------------*/
+  /**
+   * @param  {CanvasRenderingContext2D} ctx - Canvas context.
+   * @param  {boolean}          justEnabled - Whether the renderer has been
+   *                                          enabled in this particular frame
+   * @param  {integer}                scale - Rendering scale (1 = normal scale)
+   * @param  {Object}             stateData - Information on the current state
+   *                                          of the game and its entities.
+   */
+  render(ctx, justEnabled, scale, stateData) {
+    this.applyOverlays(justEnabled);
+    this.draw(ctx, scale, stateData);
+  }
+
+/*----------------------------------------------------------------------------*/
+
+  draw(ctx, scale, stateData) {
+
+  }
 
 /*----------------------------------------------------------------------------*/
 }

@@ -2,7 +2,7 @@ import Renderer from './Renderer';
 
 export default class Gameplay extends Renderer {
 
-  draw(ctx, justEnabled, scale, {player, entities, map}) {
+  draw(ctx, scale, {player, entities, map}) {
 
     const offset = map.getOffset(player);
 

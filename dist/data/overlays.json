@@ -20,8 +20,8 @@
       "color": "#000000",
       "targetCoords": ["25%", "25%"],
       "transition": {
-        "effect": "circle-in",
-        "steps": 180
+        "effect": "circle-out",
+        "steps": 120
       }
     }
 

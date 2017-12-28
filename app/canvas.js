@@ -143,7 +143,7 @@ export default function Canvas (config, overlayLayers) {
          * to 'gameplayIntro'). */
         const justEnabled = !previousRendererState[type];
 
-        this.renderers[type].draw(this.ctx, justEnabled, scale, stateData);
+        this.renderers[type].render(this.ctx, justEnabled, scale, stateData);
       }
     });
 
