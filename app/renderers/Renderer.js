@@ -39,19 +39,21 @@ export default class Renderer {
         if(overlay.color) {
           overlay.content = {
             type: 'SOLID_COLOR',
-            payload: overlay.color
+            color: overlay.color
           };
         }
         else if(overlay.spriteName && overlay.animated) {
           overlay.content = {
             type: 'ANIMATION',
-            payload: sprites.getFrameIterator(['screenOverlays', overlay.spriteName])
+            position: overlay.position,
+            frameIterator: sprites.getFrameIterator(['screenOverlays', overlay.spriteName])
           };
         }
         else if(overlay.spriteName && !overlay.animated) {
           overlay.content = {
             type: 'SPRITE',
-            payload: sprites.getSprite(['screenOverlays', overlay.spriteName])
+            position: overlay.position,
+            sprite: sprites.getSprite(['screenOverlays', overlay.spriteName])
           };
         }
         return overlay;
@@ -92,9 +94,9 @@ export default class Renderer {
 
   createTransitionEffect(effect, ...args) {
     switch(effect) {
-  //    case 'fade-in': return effectFactory.fadeIn(...args);
-  //    case 'fade-out': return effectFactory.fadeOut(...args);
-  //    case 'circle-in': return effectFactory.circleIn(...args);
+      case 'fade-in': return effectFactory.fadeIn(...args);
+      case 'fade-out': return effectFactory.fadeOut(...args);
+      case 'circle-in': return effectFactory.circleIn(...args);
       case 'circle-out': return effectFactory.circleOut(...args);
     }
   }
@@ -158,7 +160,7 @@ export default class Renderer {
    * @param  {CanvasRenderingContext2D} ctx - Canvas context.
    * @param  {boolean}          justEnabled - Whether the renderer has been
    *                                          enabled in this particular frame
-   * @param  {integer}                scale - Rendering scale (1 = normal scale)
+   * @param  {number}                 scale - Rendering scale (1 = normal scale)
    * @param  {Object}             stateData - Information on the current state
    *                                          of the game and its entities.
    */

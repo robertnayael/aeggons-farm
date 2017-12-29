@@ -1,81 +1,102 @@
-
-
 /*----------------------------------------------------------------------------*/
-/**
- *
- */
-export function fadeOut(duration) {
 
-  const step = 1/duration;
-  let opacity = 0;
+export function fadeIn(ctx, width, height, overlay, steps) {
 
-  return function() {
-    opacity += step;
-    if (opacity > 1) opacity = 1;
-    return opacity;
+  const opacity = {
+    initial: 0,
+    target: 1
   };
+  return fadeInOut(...arguments, opacity);
+
 }
 
-export function fadeIn(duration) {
+/*----------------------------------------------------------------------------*/
 
-  const opacity = fadeOut(duration);
+export function fadeOut(ctx, width, height, overlay, steps) {
 
-  return function() {
-    return 1 - opacity();
+  const opacity = {
+    initial: 1,
+    target: 0
   };
-}
+  return fadeInOut(...arguments, opacity);
 
-
-
-/*----------------------------------------------------------------------------*/
-/**
- *
- */
-export function circleOut(ctx, width, height, overlay, steps) {
-
-  const cornerToCenter = Math.sqrt( Math.pow((width), 2) + Math.pow((height), 2) ) / 2; // Max. radius
-  const startingRadius = 0,
-        targetRadius = cornerToCenter;
-
-  return circleInOut.apply(null, [...arguments, 0, cornerToCenter]);
 }
 
 /*----------------------------------------------------------------------------*/
-/**
- *
- */
+
 export function circleIn(ctx, width, height, overlay, steps) {
 
-  const cornerToCenter = Math.sqrt( Math.pow((width), 2) + Math.pow((height), 2) ) / 2; // Max. radius
-  const startingRadius = cornerToCenter,
-        targetRadius = 0;
+  const radius = {
+    initial: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2, // Corner to center
+    target: 0
+  };
+  return circleInOut(...arguments, radius);
 
-  return circleInOut.apply(null, [...arguments, 0, cornerToCenter]);
 }
 
 /*----------------------------------------------------------------------------*/
 /**
- *
+ * @param  {number} steps                        - number of steps (frames) the effect should take until completed
+ * @param  {Object} content                      - content to draw on the canvas
+ * @param  {string} content.type                 - identifier of the content type
+ * @param  {string|function} content.payload     - hex color, or a function returning a sprite
+ * @param  {Object} canvas                       - basic canvas properties
+ * @param  {number} canvas.width                 - canvas width
+ * @param  {number} canvas.height                - canvas height
+ * @param  {CanvasRenderingContext2D} canvas.ctx - canvas context handler
+ * @return {function}                            - function that executes the transition effect by one step on each call
  */
-function circleInOut(ctx, width, height, overlay, steps, startingRadius, targetRadius) {
+export function circleOut(steps, content, canvas) {
 
-  const getRadius = stepFromTo(startingRadius, targetRadius, steps);
+  const radius = {
+    initial: 0,
+    target: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2 // Corner to center
+  };
+  return circleInOut(...arguments, 0, radius);
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+function circleInOut(steps, content, canvas, radius) {
+
+  const getRadius = stepFromTo(radius.initial, radius.target, steps);
 
   return function() {
-    const radius = getRadius();
-    const animationIsFinished = radius === targetRadius;
+    const currentRadius = getRadius();
+    const animationIsFinished = currentRadius === radius.target;
 
-      drawHole(ctx, width, height, radius, overlay);
+    drawHole(content, canvas, currentRadius);
 
     if(animationIsFinished) return true;
+    return false;
   };
 }
 
 /*----------------------------------------------------------------------------*/
-/**
- *
- */
-function drawHole(ctx, width, height, radius, overlay) {
+
+function fadeInOut(steps, content, canvas, opacity) {
+  const getOpacity = stepFromTo(opacity.initial, opacity.target, steps);
+
+  return function() {
+    const currentOpacity = getOpacity();
+    const animationIsFinished = currentOpacity === opacity.target;
+
+    canvas.ctx.globalAlpha = currentOpacity;
+    drawContent(content, canvas);
+    canvas.ctx.globalAlpha = 1;
+
+    if(animationIsFinished) return true;
+    return false;
+  };
+}
+
+/*----------------------------------------------------------------------------*/
+
+function drawHole(content, canvas, radius) {
+
+  const {width, height, ctx} = canvas;
+
     ctx.save();
 
     // Plot the circle path inside:
@@ -86,25 +107,49 @@ function drawHole(ctx, width, height, radius, overlay) {
     // Plot the square path outside:
     ctx.moveTo(0,0);
     ctx.lineTo(0, height);
-    ctx.lineTo(width,height);
+    ctx.lineTo(width, height);
     ctx.lineTo(width,0);
     ctx.closePath();
 
     ctx.clip();
 
-    ctx.fillStyle = overlay;
-    ctx.fillRect(0, 0, width, height);
+    // Draw content:
+
+    drawContent(content, canvas);
 
     ctx.restore();
 }
 
 /*----------------------------------------------------------------------------*/
-/**
- *
- */
-function drawOverlay(ctx, overlay) {
 
+function drawContent(content, canvas) {
 
+  switch(content.type) {
+    case 'SOLID_COLOR': colorFill(content.color, canvas); break;
+    case 'SPRITE':      drawSprite(content.sprite, content.position, canvas); break;
+    case 'ANIMATION':   drawSprite(content.frameIterator.next().value, content.position, canvas); break;
+  }
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+function drawSprite(sprite, position, canvas) {
+
+  canvas.ctx.drawImage(
+    sprite.image,
+    sprite.x, sprite.y,
+    sprite.width, sprite.height,
+    0, 0,
+    sprite.width, sprite.height);
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+function colorFill(color, {width, height, ctx}) {
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, width, height);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -131,3 +176,5 @@ function stepFromTo(start, end, steps, accelleration = 1) {
     return current;
   };
 }
+
+/*----------------------------------------------------------------------------*/

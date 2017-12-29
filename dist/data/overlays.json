@@ -1,27 +1,41 @@
 {
   "welcomeScreen": [
-
+    {
+      "spriteName": "chicken",
+      "animated": true,
+      "position": ["25%", "25%"],
+      "transition": {
+        "effect": "fade-out",
+        "steps": 100
+      }
+    }
   ],
 
   "gameplayIntro": [
     {
       "spriteName": "chicken",
       "animated": true,
-      "targetCoords": ["25%", "25%"],
-      "transition": null
+      "position": ["25%", "25%"],
+      "transition": {
+        "effect": "circle-out",
+        "steps": 30
+      }
     },
     {"WAIT_UNTIL_COMPLETED": true},
     {
       "spriteName": "chickenStatic",
-      "targetCoords": ["10%", "10%"],
-      "transition": null
-    },
-    {
-      "color": "#000000",
-      "targetCoords": ["25%", "25%"],
+      "position": ["10%", "10%"],
       "transition": {
         "effect": "circle-out",
-        "steps": 120
+        "steps": 60
+      }
+    },
+    {
+      "color": "#202020",
+      "targetCoords": ["25%", "25%"],
+      "transition": {
+        "effect": "circle-in",
+        "steps": 100
       }
     }
 
