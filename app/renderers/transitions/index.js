@@ -24,7 +24,7 @@ export function fadeOut(ctx, width, height, overlay, steps) {
 
 /*----------------------------------------------------------------------------*/
 
-export function circleIn(ctx, width, height, overlay, steps) {
+export function circleIn(steps, content, canvas) {
 
   const radius = {
     initial: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2, // Corner to center
@@ -52,7 +52,7 @@ export function circleOut(steps, content, canvas) {
     initial: 0,
     target: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2 // Corner to center
   };
-  return circleInOut(...arguments, 0, radius);
+  return circleInOut(...arguments, radius);
 
 }
 
