@@ -13,6 +13,15 @@
       "position": ["25%", "25%"],
       "transition": {
         "effect": "fade-in",
+        "steps": 200
+      }
+    },
+    {"WAIT_UNTIL_COMPLETED": true},
+    {
+      "spriteName": "chickenStatic",
+      "position": ["10%", "10%"],
+      "transition": {
+        "effect": "fade-in",
         "steps": 100
       }
     }

@@ -148,10 +148,16 @@ export default class Renderer {
     // If necessary, make brand-new overlay functions:
     if (startFromScratch) this.overlays = this.overlayFactory();
 
-    this.overlays.forEach(effectGroup => {
-      effectGroup.forEach(overlay => {
-        if (overlay instanceof Function) overlay();
+    this.overlays.some(group => {
+
+      const allFinished = group.every(overlay => {
+        if (overlay instanceof Function) return overlay();
       });
+
+      /* This will return true as long as any overlay within the group still
+       * hasn't finished its transition effect, breaking the some() loop: */
+      return !allFinished;
+
     });
   }
 
