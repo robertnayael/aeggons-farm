@@ -28,24 +28,15 @@
   ],
 
   "gameplayIntro": [
+
     {
-      "spriteName": "chicken",
-      "animated": true,
-      "position": ["25%", "25%"],
+      "color": "#111111",
       "transition": {
-        "effect": "circle-out",
-        "steps": 30
+        "effect": "fade-out",
+        "steps": 100
       }
     },
-    {"WAIT_UNTIL_COMPLETED": true},
-    {
-      "spriteName": "chickenStatic",
-      "position": ["10%", "10%"],
-      "transition": {
-        "effect": "circle-out",
-        "steps": 60
-      }
-    },
+
     {
       "color": "#111111",
       "transition": {

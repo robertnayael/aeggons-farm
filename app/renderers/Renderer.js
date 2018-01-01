@@ -150,9 +150,17 @@ export default class Renderer {
 
     this.overlays.some(group => {
 
-      const allFinished = group.every(overlay => {
-        if (overlay instanceof Function) return overlay();
-      });
+    /*  let allFinished = true;
+      group.forEach(overlay => {
+
+        if (overlay instanceof Function) allFinished = overlay() && allFinished;
+
+      });*/
+
+      const allFinished = group.reduce((finished, overlay) => {
+        return (overlay instanceof Function) ? overlay() : false;
+      }, false);
+
 
       /* This will return true as long as any overlay within the group still
        * hasn't finished its transition effect, breaking the some() loop: */
