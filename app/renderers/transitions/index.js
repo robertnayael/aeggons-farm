@@ -140,8 +140,20 @@ function drawSprite(sprite, position, canvas) {
     sprite.image,
     sprite.x, sprite.y,
     sprite.width, sprite.height,
-    0, 0,
+    getAbsoluteDist(position[0], canvas.width, sprite.width), getAbsoluteDist(position[1], canvas.height, sprite.height),
     sprite.width, sprite.height);
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+function getAbsoluteDist(relativeDist, totalDist, elementSize) {
+
+  if (relativeDist === 'center') {
+    return Math.round((totalDist - elementSize) / 2);
+  }
+
+  return relativeDist * totalDist;
 
 }
 

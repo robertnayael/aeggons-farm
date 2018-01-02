@@ -10,7 +10,7 @@
     {
       "spriteName": "chicken",
       "animated": true,
-      "position": ["25%", "25%"],
+      "position": [0.3, 0.2],
       "transition": {
         "effect": "fade-in",
         "steps": 200
@@ -19,10 +19,26 @@
     {"WAIT_UNTIL_COMPLETED": true},
     {
       "spriteName": "chickenStatic",
-      "position": ["10%", "10%"],
+      "position": [0.4, "center"],
       "transition": {
         "effect": "fade-in",
         "steps": 100
+      }
+    },
+    {
+      "spriteName": "chickenStatic",
+      "position": [0.5, "center"],
+      "transition": {
+        "effect": "fade-in",
+        "steps": 200
+      }
+    },
+    {
+      "spriteName": "chickenStatic",
+      "position": [0.6, "center"],
+      "transition": {
+        "effect": "fade-in",
+        "steps": 300
       }
     }
   ],
