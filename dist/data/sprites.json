@@ -12,7 +12,8 @@
     "background2.png",
     "background3.png",
     "background4.png",
-    "foreground1.png"
+    "foreground1.png",
+    "welcomescreen_background.png"
   ],
 
   "player":
@@ -165,7 +166,15 @@
       "drawOffset": [0, 0],
       "dimensions": [175, 158],
       "coords": [0,158]
-      }
+    },
+
+    "welcomeScreenBackground":
+    {
+      "image": "welcomescreen_background.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    }
 
   },
 

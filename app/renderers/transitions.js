@@ -153,7 +153,7 @@ function getAbsoluteDist(relativeDist, totalDist, elementSize) {
     return Math.round((totalDist - elementSize) / 2);
   }
 
-  return relativeDist * totalDist;
+  return Math.round(relativeDist * totalDist);
 
 }
 

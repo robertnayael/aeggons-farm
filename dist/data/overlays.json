@@ -8,6 +8,14 @@
       }
     },
     {
+      "spriteName": "welcomeScreenBackground",
+      "position": [0, 0],
+      "transition": {
+        "effect": "fade-in",
+        "steps": 20
+      }
+    },
+    {
       "spriteName": "chicken",
       "animated": true,
       "position": [0.3, 0.2],
