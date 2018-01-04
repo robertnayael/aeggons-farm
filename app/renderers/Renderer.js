@@ -80,6 +80,7 @@ export default class Renderer {
           return this.createTransitionEffect(
             overlay.transition.effect,
             overlay.transition.steps,
+            overlay.transition.delay,
             overlay.content,
             canvas
           );
@@ -158,6 +159,11 @@ export default class Renderer {
       });*/
 
       const allFinished = group.reduce((finished, overlay) => {
+      /*  if (overlay instanceof Function) {
+          console.log(overlay);
+        }*/
+
+
         return (overlay instanceof Function) ? overlay() : false;
       }, false);
 

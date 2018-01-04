@@ -12,7 +12,7 @@
       "position": [0, 0],
       "transition": {
         "effect": "fade-in",
-        "steps": 20
+        "steps": 50
       }
     },
     {
@@ -38,7 +38,8 @@
       "position": [0.5, "center"],
       "transition": {
         "effect": "fade-in",
-        "steps": 200
+        "steps": 100,
+        "delay": 50
       }
     },
     {
@@ -46,13 +47,13 @@
       "position": [0.6, "center"],
       "transition": {
         "effect": "fade-in",
-        "steps": 300
+        "steps": 100,
+        "delay": 100
       }
     }
   ],
 
   "gameplayIntro": [
-
     {
       "color": "#111111",
       "transition": {

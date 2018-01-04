@@ -1,36 +1,39 @@
 /*----------------------------------------------------------------------------*/
 
-export function fadeIn(ctx, width, height, overlay, steps) {
+export function fadeIn(steps, delay, content, canvas) {
 
   const opacity = {
     initial: 0,
     target: 1
   };
-  return fadeInOut(...arguments, opacity);
+
+  return delayTransition(fadeInOut(...arguments, opacity), delay);
 
 }
 
 /*----------------------------------------------------------------------------*/
 
-export function fadeOut(ctx, width, height, overlay, steps) {
+export function fadeOut(steps, delay, content, canvas) {
 
   const opacity = {
     initial: 1,
     target: 0
   };
-  return fadeInOut(...arguments, opacity);
+
+  return delayTransition(fadeInOut(...arguments, opacity), delay);
 
 }
 
 /*----------------------------------------------------------------------------*/
 
-export function circleIn(steps, content, canvas) {
+export function circleIn(steps, delay = 1, content, canvas) {
 
   const radius = {
     initial: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2, // Corner to center
     target: 0
   };
-  return circleInOut(...arguments, radius);
+
+  return delayTransition(circleInOut(...arguments, radius), delay);
 
 }
 
@@ -46,19 +49,35 @@ export function circleIn(steps, content, canvas) {
  * @param  {CanvasRenderingContext2D} canvas.ctx - canvas context handler
  * @return {function}                            - function that executes the transition effect by one step on each call
  */
-export function circleOut(steps, content, canvas) {
+export function circleOut(steps, delay, content, canvas) {
 
   const radius = {
     initial: 0,
     target: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2 // Corner to center
   };
-  return circleInOut(...arguments, radius);
+
+  return delayTransition(circleInOut(...arguments, radius), delay);
 
 }
 
 /*----------------------------------------------------------------------------*/
 
-function circleInOut(steps, content, canvas, radius) {
+function delayTransition(transition, steps) {
+
+  let currentStep = 1;
+
+  return function() {
+    if (currentStep < steps) {
+      currentStep++;
+      return function() {return false;};
+    }
+    return transition();
+  };
+}
+
+/*----------------------------------------------------------------------------*/
+
+function circleInOut(steps, delay, content, canvas, radius) {
 
   const getRadius = stepFromTo(radius.initial, radius.target, steps);
 
@@ -75,7 +94,7 @@ function circleInOut(steps, content, canvas, radius) {
 
 /*----------------------------------------------------------------------------*/
 
-function fadeInOut(steps, content, canvas, opacity) {
+function fadeInOut(steps, delay, content, canvas, opacity) {
   const getOpacity = stepFromTo(opacity.initial, opacity.target, steps);
 
   return function() {
