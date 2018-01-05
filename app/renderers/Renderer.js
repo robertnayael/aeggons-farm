@@ -78,9 +78,8 @@ export default class Renderer {
 
         if (overlay.transition) {
           return this.createTransitionEffect(
-            overlay.transition.effect,
-            overlay.transition.steps,
-            overlay.transition.delay,
+            overlay.transition.type,
+            overlay.transition.props,
             overlay.content,
             canvas
           );
@@ -99,6 +98,7 @@ export default class Renderer {
       case 'fade-out': return effectFactory.fadeOut(...args);
       case 'circle-in': return effectFactory.circleIn(...args);
       case 'circle-out': return effectFactory.circleOut(...args);
+      case 'pulse': return effectFactory.pulse(...args);
     }
   }
 
@@ -158,14 +158,12 @@ export default class Renderer {
 
       });*/
 
-      const allFinished = group.reduce((finished, overlay) => {
-      /*  if (overlay instanceof Function) {
-          console.log(overlay);
-        }*/
-
-
-        return (overlay instanceof Function) ? overlay() : false;
-      }, false);
+      const allFinished = group.reduce((allFinished, overlay) => {
+        if (overlay instanceof Function) {
+          const thisFinished = overlay();
+          return allFinished && thisFinished;
+        }
+      }, true);
 
 
       /* This will return true as long as any overlay within the group still
