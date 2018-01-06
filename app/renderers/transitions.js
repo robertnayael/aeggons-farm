@@ -1,6 +1,50 @@
 /*----------------------------------------------------------------------------*/
 
-export function fadeIn(steps, delay, content, canvas) {
+export function pulse({minOpacity, steps}, content, canvas) {
+
+//  const opacitySteps = [0, 0.5, 1, 0.5,];
+//  console.log(getOpacitySequence(minOpacity, steps));
+  const opacitySteps = getOpacitySequence(minOpacity, steps);
+
+  let index = 0;
+
+  return function() {
+
+      let i = index;
+      index++;
+      if (index === opacitySteps.length) index = 0;
+
+      canvas.ctx.globalAlpha = opacitySteps[i];
+      drawContent(content, canvas);
+      canvas.ctx.globalAlpha = 1;
+
+      return true;
+  };
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+function getOpacitySequence(minOpacity, steps) {
+
+  const difference = 1 - minOpacity,
+        step = difference / steps;
+
+  const sequence = Array(steps).fill(null).reduce((accummulator, value) => {
+    const previousOpacity = accummulator[accummulator.length - 1];
+    return [...accummulator, previousOpacity + step];
+  }, [minOpacity]);
+
+  const sequenceRev = sequence.slice().reverse();
+  sequenceRev.shift();
+  sequenceRev.pop();
+
+  return [...sequence, ...sequenceRev];
+}
+
+/*----------------------------------------------------------------------------*/
+
+export function fadeIn({steps, delay}, content, canvas) {
 
   const opacity = {
     initial: 0,
@@ -13,7 +57,7 @@ export function fadeIn(steps, delay, content, canvas) {
 
 /*----------------------------------------------------------------------------*/
 
-export function fadeOut(steps, delay, content, canvas) {
+export function fadeOut({steps, delay}, content, canvas) {
 
   const opacity = {
     initial: 1,
@@ -26,7 +70,7 @@ export function fadeOut(steps, delay, content, canvas) {
 
 /*----------------------------------------------------------------------------*/
 
-export function circleIn(steps, delay = 1, content, canvas) {
+export function circleIn({steps, delay}, content, canvas) {
 
   const radius = {
     initial: Math.sqrt( Math.pow((canvas.width), 2) + Math.pow((canvas.height), 2) ) / 2, // Corner to center
@@ -49,7 +93,7 @@ export function circleIn(steps, delay = 1, content, canvas) {
  * @param  {CanvasRenderingContext2D} canvas.ctx - canvas context handler
  * @return {function}                            - function that executes the transition effect by one step on each call
  */
-export function circleOut(steps, delay, content, canvas) {
+export function circleOut({steps, delay}, content, canvas) {
 
   const radius = {
     initial: 0,
@@ -77,7 +121,7 @@ function delayTransition(transition, steps) {
 
 /*----------------------------------------------------------------------------*/
 
-function circleInOut(steps, delay, content, canvas, radius) {
+function circleInOut({steps, delay = 1}, content, canvas, radius) {
 
   const getRadius = stepFromTo(radius.initial, radius.target, steps);
 
@@ -94,7 +138,7 @@ function circleInOut(steps, delay, content, canvas, radius) {
 
 /*----------------------------------------------------------------------------*/
 
-function fadeInOut(steps, delay, content, canvas, opacity) {
+function fadeInOut({steps, delay = 1}, content, canvas, opacity) {
   const getOpacity = stepFromTo(opacity.initial, opacity.target, steps);
 
   return function() {

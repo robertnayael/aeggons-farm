@@ -37,7 +37,8 @@
       "transition": {
         "type": "pulse",
         "props": {
-
+          "minOpacity": 0.2,
+          "steps": 50
         }
       }
     },
