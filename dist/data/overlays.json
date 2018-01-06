@@ -30,19 +30,18 @@
         }
       }
     },
+    {"WAIT_UNTIL_COMPLETED": true},
     {
-      "spriteName": "chicken",
-      "animated": true,
+      "spriteName": "chickenStatic",
       "position": [0.5, 0.1],
       "transition": {
         "type": "pulse",
         "props": {
-          "minOpacity": 0.2,
-          "steps": 50
+          "minOpacity": 0.4,
+          "steps": 60
         }
       }
     },
-    {"WAIT_UNTIL_COMPLETED": true},
     {
       "spriteName": "chickenStatic",
       "position": [0.4, "center"],

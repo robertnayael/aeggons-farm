@@ -2,10 +2,7 @@
 
 export function pulse({minOpacity, steps}, content, canvas) {
 
-//  const opacitySteps = [0, 0.5, 1, 0.5,];
-//  console.log(getOpacitySequence(minOpacity, steps));
   const opacitySteps = getOpacitySequence(minOpacity, steps);
-
   let index = 0;
 
   return function() {
