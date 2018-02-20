@@ -15,6 +15,7 @@ tmx.parseFile(MAP_FILE, function(err, map) {
     const output = {
         tiles: {
             width: map.width,
+            height: map.height,
             layers: convertTileLayers(tileLayers)
         },
         entities: convertEntityLayers(entityLayers, map.tileWidth)
