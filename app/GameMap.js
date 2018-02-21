@@ -40,6 +40,7 @@ export default class GameMap {
       layers: [
         mapData.layers[0],
         mapData.layers[1],
+        mapData.layers[2],
         []
       ],
       inRange: []

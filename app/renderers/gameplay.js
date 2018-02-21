@@ -9,10 +9,11 @@ export default class Gameplay extends Renderer {
     drawBackground(ctx, scale, offset.map, map);
 
     drawMapLayer(ctx, scale, 0, offset.map, map);
+    drawMapLayer(ctx, scale, 1, offset.map, map);
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawPlayer(ctx, scale, offset.player, player);
-    drawMapLayer(ctx, scale, 1, offset.map, map);
+    drawMapLayer(ctx, scale, 2, offset.map, map);
     drawOSD(ctx, scale, player);
     drawForeground(ctx, scale, offset.map, map);
 
