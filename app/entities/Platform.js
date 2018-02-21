@@ -4,6 +4,7 @@ export default class Platform extends LinearlyMovingEntity {
 
   constructor(props, tileSize, scale, sprites) {
     super(props, tileSize, scale, sprites);
+    this.spriteVariant = props.type;
   }
 
   update(step) {
@@ -30,6 +31,10 @@ export default class Platform extends LinearlyMovingEntity {
           height2 = object.height;
 
     return ((y2 + height2 == y1) && (x2 <= x1 + width1) && (x2 + width2 >= x1));
+  }
+
+  getSprite() {
+    return this.sprites.getSprite(['platforms', this.spriteVariant]);
   }
 
 }

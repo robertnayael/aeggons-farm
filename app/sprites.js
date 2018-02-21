@@ -7,6 +7,7 @@ export default class Sprites {
     this.spritemaps = {
       'player': props.player,
       'mobs': props.mobs,
+      'platforms': props.platforms,
       'mapTiles': props.mapTiles,
       "background": props.background,
       "screenOverlays": props.screenOverlays

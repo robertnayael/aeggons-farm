@@ -10,15 +10,10 @@ export default class Gameplay extends Renderer {
 
     drawMapLayer(ctx, scale, 0, offset.map, map);
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
+    drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawPlayer(ctx, scale, offset.player, player);
     drawMapLayer(ctx, scale, 1, offset.map, map);
     drawOSD(ctx, scale, player);
-
-    ctx.fillStyle = '#7D007D';
-    map.entities.platforms.forEach(platform => {
-      ctx.fillRect(platform.x - offset.map.x, platform.y - offset.map.y, platform.width, platform.height);
-    });
-
     drawForeground(ctx, scale, offset.map, map);
 
   }
