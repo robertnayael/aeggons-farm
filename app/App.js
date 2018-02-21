@@ -151,6 +151,7 @@ export default function App (config) {
   function showErrorMessage(error) {
     const errorMessage = document.getElementById(config.errorMessageID);
     errorMessage.style.display = 'block';
+    canvas.element.style.display = 'none';
 
     if(config.debug) console.error(error);
   }
@@ -205,20 +206,24 @@ export default function App (config) {
    *     (3) draw the current frame on the canvas.
    */
   function frameLoop() {
+    try {
+      now = timestamp();                            // time at the start of this loop
+      delta = delta + Math.min(1, (now - last) / 1000);
+      while(delta > step) {                         // make sure the game catches up if the delta is too high
+        delta = delta - step;
+        activeRenderers = game.run(step, config, controls, sprites, map, player);
+      }
+      let included = false;
 
-    now = timestamp();                            // time at the start of this loop
-    delta = delta + Math.min(1, (now - last) / 1000);
-    while(delta > step) {                         // make sure the game catches up if the delta is too high
-      delta = delta - step;
-      activeRenderers = game.run(step, config, controls, sprites, map, player);
+      canvas.registerRenderers(activeRenderers);
+      canvas.drawFrame(activeRenderers, {controls, game, player, map, entities: map.entities});
+
+      last = now;                                   // time at the start of the previous loop
+      requestAnimationFrame(frameLoop, canvas.element);
     }
-    let included = false;
-
-    canvas.registerRenderers(activeRenderers);
-    canvas.drawFrame(activeRenderers, {controls, game, player, map, entities: map.entities});
-
-    last = now;                                   // time at the start of the previous loop
-    requestAnimationFrame(frameLoop, canvas.element);
+    catch (error) {
+      showErrorMessage(error);
+    }
   }
 
 /*----------------------------------------------------------------------------*/
