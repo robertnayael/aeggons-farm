@@ -21,6 +21,7 @@ export default class Sprites {
     // Get the sub-key of the spritemaps object:
     let props = this.spritemaps;
     variantID.forEach(key => {
+      if (!props[key]) throw new Error(`Sprite not found: < ${variantID.join(' // ')} >`);
       props = Object.assign({}, props[key]);
     });
 
