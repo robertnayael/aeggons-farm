@@ -12,6 +12,8 @@ export default class Sprites {
       "background": props.background,
       "screenOverlays": props.screenOverlays
     };
+
+    this.memoizedData = new Map();
   }
 
 /******************************************************************************/
@@ -43,9 +45,15 @@ export default class Sprites {
 
   getSprite(spriteType) {
 
+    const spriteID = spriteType.join('.');
+
+    if (this.memoizedData.has(spriteID)) {
+      return this.memoizedData.get(spriteID);
+    }
+
     const {props} = this.getSpriteProps(spriteType);
 
-    return Object.assign(props, {
+    const spriteData = Object.assign(props, {
       image: this.images[props.image],
       width: props.dimensions[0],
       height: props.dimensions[1],
@@ -54,6 +62,10 @@ export default class Sprites {
       x: props.coords[0],
       y: props.coords[1]
     });
+
+    this.memoizedData.set(spriteID, spriteData);
+
+    return spriteData;
   }
 
 /******************************************************************************/
