@@ -28,7 +28,7 @@ export default function Canvas (config, overlayLayers) {
   this.initialize = function(sprites) {
 
     this.setupCanvasElement();
-
+    console.log(this.ctx.imageSmoothingEnabled);
     const args = {
       sprites,
       canvas: {
@@ -54,7 +54,7 @@ export default function Canvas (config, overlayLayers) {
   */
   this.setupCanvasElement = function() {
     this.element = document.getElementById(config.canvasID);
-    this.ctx = canvas.getContext('2d');
+    this.ctx = this.element.getContext('2d');
 
     this.resize();
   };
@@ -95,13 +95,16 @@ export default function Canvas (config, overlayLayers) {
 
     this.element.style.marginTop = margin.top + 'px';
     this.element.style.marginLeft = margin.left + 'px';
+
+    this.ctx.imageSmoothingEnabled = false;
+    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.webkitImageSmoothingEnabled = false;
   };
 
   /*****************************************************************************
   |
   */
   this.registerRenderers = function(activeRenderers) {
-
     // Store the previous state:
     previousRendererState = Object.assign({}, rendererState);
 
