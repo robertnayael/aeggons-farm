@@ -31,7 +31,7 @@ export default {
       midAirControl:  1,        // Caps horizontal vMax while in the air. Ranges from 0 (no horizontal velocity) to 1 (full horizontal velocity).
       acceleration:   0.05,     // Horizontal acceleration. Ranges from 0 (no acceleration) to 1 (instant acceleration)
       gravity:        3500,
-      jumpForce:      100000,   // Instantaneous jump force
+      jumpForce:      85000,   // Instantaneous jump force
       pushForce:      55000,    // Instantaneous push force (when the player is pushed away sideways by an enemy)
       friction:       1500,     // Slows down any horizontal movement if the left/right key is not pressed.
     },
