@@ -28,7 +28,7 @@ export default function Canvas (config, overlayLayers) {
   this.initialize = function(sprites) {
 
     this.setupCanvasElement();
-    console.log(this.ctx.imageSmoothingEnabled);
+
     const args = {
       sprites,
       canvas: {
