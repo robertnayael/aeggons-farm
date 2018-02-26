@@ -7,7 +7,7 @@ export default class GameMap {
 
 /******************************************************************************/
 
-  constructor(mapData, entitiesData, config, sprites) {
+  constructor(mapData, entitiesData, mobTypes, config, sprites) {
 
     this.sprites = sprites;
     this.tileSize = config.tileSize;
@@ -48,7 +48,8 @@ export default class GameMap {
 
     this.data = {
       map: mapData,
-      entities: entitiesData
+      entities: entitiesData,
+      mobTypes
     };
 
     this.entities = {};
@@ -72,9 +73,16 @@ export default class GameMap {
       collectibles: []
     };
 
-    this.data.entities.platforms   .forEach(platform    => this.entities.platforms   .push(new Platform   (platform, this.tileSize, this.scale, this.sprites)));
-    this.data.entities.mobs        .forEach(mob         => this.entities.mobs        .push(new Mob        (mob, this.tileSize, this.scale, this.sprites)));
-    this.data.entities.spikes      .forEach(spikes      => this.entities.spikes      .push(new Spikes     (spikes, this.tileSize, this.scale, this.sprites)));
+    this.data.entities.platforms.forEach(platform => this.entities.platforms.push(
+      new Platform(platform, this.tileSize, this.scale, this.sprites)
+    ));
+
+    this.data.entities.mobs.forEach(mob => this.entities.mobs.push(
+      new Mob({...this.data.mobTypes[mob.type], ...mob}, this.tileSize, this.scale, this.sprites)
+    ));
+    this.data.entities.spikes.forEach(spikes => this.entities.spikes.push(
+      new Spikes(spikes, this.tileSize, this.scale, this.sprites)
+    ));
   }
 
 /******************************************************************************/

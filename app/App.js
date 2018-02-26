@@ -66,6 +66,7 @@ export default function App (config) {
       sprites: config.dataFiles.sprites,
       map: config.dataFiles.map,
       entities: config.dataFiles.entities,
+      mobTypes: config.dataFiles.mobTypes,
       overlays: config.dataFiles.overlays};
 
     // Attempt to fetch each file:
@@ -113,7 +114,7 @@ export default function App (config) {
     step = 1 / config.FPS;
 
     sprites = new Sprites(gameData['sprites']);
-    map = new GameMap(gameData['map'], gameData['entities'], config, sprites);
+    map = new GameMap(gameData['map'], gameData['entities'], gameData['mobTypes'], config, sprites);
     player = new Player(config.player, config.tileSize, config.scale, sprites);
     canvas = new Canvas(config, gameData['overlays']);
   }
