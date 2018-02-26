@@ -149,11 +149,10 @@ export default function App (config) {
    * Shoes an error message to the user if anything goes wrong.
    */
   function showErrorMessage(error) {
+    if(config.debug) console.error(error);
     const errorMessage = document.getElementById(config.errorMessageID);
     errorMessage.style.display = 'block';
-    canvas.element.style.display = 'none';
-
-    if(config.debug) console.error(error);
+    if(canvas) canvas.element.style.display = 'none';
   }
 
 /*----------------------------------------------------------------------------*/
