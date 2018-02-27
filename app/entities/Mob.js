@@ -54,14 +54,17 @@ export default class Mob extends LinearlyMovingEntity {
 
     let variant;
 
-    if (this.is.squashed) {
+    if (this.is.dead) {
+      variant = 'dead';
+    }
+    else if (this.is.squashed) {
       variant = 'squashed';
     }
     else {
       variant = 'moving_' + ((this.position.x > this.position.previous.x) ? 'right' : 'left');
     }
 
-    return this.getSpriteFrame(['mobs', variant]);
+    return this.getSpriteFrame(['mobs', this.spriteType, variant]);
   }
 
   /******************************************************************************/
