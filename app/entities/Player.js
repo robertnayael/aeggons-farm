@@ -188,6 +188,13 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
+  pushAway() {
+    if (this.is.facingRight) this.pushLeft();
+    else this.pushRight();
+  }
+
+  /****************************************************************************/
+
   pushLeft() {
     this.motion.x = -this.movementParams.pushForce * this.motion.step;
   }
@@ -463,40 +470,38 @@ export default class Player extends AnimatedEntity {
 /******************************************************************************/
 
   resolveMobInteraction(mob) {
-    if (!mob.collidesWith(this) || mob.is.dead) return false;
-
-    /* Squashing only occurs if the player falls within 1/2 of the mob's width,
-       so calculate the "squashable" box and check for colission again: */
-    const squashableMobBox = {
-      x: mob.x + mob.width/4,
-      y: mob.y,
-      width: mob.width/2,
-      hegith: mob.height
-    };
-    const squashRange = mob.collidesWith.call(squashableMobBox, this);
-
-    // Player falling from above - squash the mob object:
-    if (this.is.falling && squashRange && this.bottom > mob.top) {
-      if (!mob.is.squashed) this.sendJumping(0.75);
-      mob.squash();
-      return true;
-    }
-
-    if (this.right > mob.left && this.right < mob.right && !this.is.hit) {
-      this.pushLeft();
-      this.sendJumping(0.5);
-      this.gotHit();
-      return true;
-    }
-
-    if (this.left < mob.right && this.left > mob.left && !this.is.hit) {
-      this.pushRight();
-      this.sendJumping(0.5);
-      this.gotHit();
-      return true;
-    }
-
+    const interaction = this.checkInteraction(mob);
+    if (!interaction) return false;
+    this.applyInteraction(interaction);
     return true;
+  }
+
+  checkInteraction(mob) {
+    return mob.checkInteraction(
+      {
+        isInvulnerable: this.is.hit,
+        isFalling: this.is.falling,
+        top: this.top,
+        left: this.left,
+        right: this.right,
+        x: this.x,
+        y: this.y,
+        width: this.width,
+        height: this.height
+      }
+    );
+  }
+
+  applyInteraction(actions) {
+    actions.forEach(action => {
+      switch (action) {
+        case 'SEND_JUMPING': this.sendJumping(0.75); break;
+        case 'SEND_JUMPING_LOW': this.sendJumping(0.5); break;
+        case 'PUSH_AWAY': this.pushAway(); break;
+        case 'HIT': this.gotHit(); break;
+        default: break;
+      }
+    });
   }
 
 /******************************************************************************/
