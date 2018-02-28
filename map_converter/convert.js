@@ -36,8 +36,8 @@ tmx.parseFile(MAP_FILE, function(err, map) {
 function convertTileLayers(layers) {
     return layers.reduce((layers, layer) => {
         const {tiles} = layer,
-               {type} = layer.properties;
-        
+              plane = layer.properties.plane.trim().toLowerCase()
+
         const outputTiles = [];
         for (let i = 0; i < tiles.length; i++) {
             const tile = tiles[i]
@@ -46,9 +46,13 @@ function convertTileLayers(layers) {
             outputTiles.push(tile);
         }
 
-        layers[type] = outputTiles;
-        return layers;
-    }, {});
+        switch (plane) {
+            case 'background': 
+            case 'foreground': layers[plane].unshift(outputTiles); return layers;
+            case 'collision': layers[plane] = outputTiles; return layers;
+            default: console.warn(`Could not identify the layer plane in layer <${layer.name}>`); return layers;
+        }
+    }, {background: [], foreground: []});
 }
 
 function convertEntityLayers(layers) {
