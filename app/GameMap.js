@@ -24,8 +24,6 @@ export default class GameMap {
       }
     };
 
-    this.collisionTiles = mapData.layers.colission;
-
     this.width = {
       tiles: mapData.width,
       px: mapData.width * this.tileSize
@@ -36,13 +34,9 @@ export default class GameMap {
     };
 
     this.tiles = {
-      colission: [],
-      layers: [
-        mapData.layers[0],
-        mapData.layers[1],
-        mapData.layers[2],
-        []
-      ],
+      collision: mapData.layers.collision,
+      background: mapData.layers.background,
+      foreground: mapData.layers.foreground,
       inRange: []
     };
 
@@ -98,7 +92,7 @@ export default class GameMap {
   updateVisibilityRange(player) {
     const offset = this.getOffset(player);
 
-    this.tiles.inRange = this.updateTilesInRange(offset.map, this.collisionTiles.length);
+    this.tiles.inRange = this.updateTilesInRange(offset.map, this.tiles.collision.length);
     this.entitiesInRange = this.updateEntitiesInRange(offset.map, this.entities);
   }
 
@@ -169,8 +163,7 @@ export default class GameMap {
 
 /******************************************************************************/
 
-  getTileSprite(tile, layer) {
-    const tileType = this.tiles.layers[layer][tile];
+  getTileSprite(tileType) {
     if (tileType) return this.sprites.getSprite(['mapTiles', String(tileType)]);
   }
 
@@ -182,10 +175,10 @@ export default class GameMap {
     const ySize = this.tileSize;
 
     return {
-      NE: this.collisionTiles[this.getTileIndexFromPixelCoords(x, y)],
-      NW: this.collisionTiles[this.getTileIndexFromPixelCoords(x + xSize, y)],
-      SE: this.collisionTiles[this.getTileIndexFromPixelCoords(x, y + ySize)],
-      SW: this.collisionTiles[this.getTileIndexFromPixelCoords(x + xSize, y + ySize)]
+      NE: this.tiles.collision[this.getTileIndexFromPixelCoords(x, y)],
+      NW: this.tiles.collision[this.getTileIndexFromPixelCoords(x + xSize, y)],
+      SE: this.tiles.collision[this.getTileIndexFromPixelCoords(x, y + ySize)],
+      SW: this.tiles.collision[this.getTileIndexFromPixelCoords(x + xSize, y + ySize)]
     };
   }
 
@@ -193,7 +186,7 @@ export default class GameMap {
 
   // [change name to 'isTileSolid']
   getTileNumber(x, y) {
-    return this.collisionTiles[x + y * this.width.tiles];
+    return this.tiles.collision[x + y * this.width.tiles];
   }
 
 /******************************************************************************/
