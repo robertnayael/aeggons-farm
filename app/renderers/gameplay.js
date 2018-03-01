@@ -7,13 +7,11 @@ export default class Gameplay extends Renderer {
     const offset = map.getOffset(player);
 
     drawBackground(ctx, scale, offset.map, map);
-
-    drawMapLayer(ctx, scale, 0, offset.map, map);
-    drawMapLayer(ctx, scale, 1, offset.map, map);
+    drawTileLayers(ctx, 'background', offset.map, map);
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawPlayer(ctx, scale, offset.player, player);
-    drawMapLayer(ctx, scale, 2, offset.map, map);
+    drawTileLayers(ctx, 'foreground', offset.map, map);
     drawOSD(ctx, scale, player);
     drawForeground(ctx, scale, offset.map, map);
 
@@ -23,21 +21,26 @@ export default class Gameplay extends Renderer {
 
 /*----------------------------------------------------------------------------*/
 
-function drawMapLayer (ctx, scale, layer, offset, map) {
+function drawTileLayers(ctx, plane, offset, map) {
+  map.tiles[plane].forEach(layer => {
+    for (let i = 0; i < map.tiles.inRange.length; i++) {
 
-  map.tiles.inRange.forEach(tile => {
-    const sprite = map.getTileSprite(tile, layer);
-    if (sprite) {
-      const coords = map.getPixelCoordsFromTileIndex(tile);
-      ctx.drawImage(
-        sprite.image,
-        sprite.x, sprite.y,
-        sprite.width, sprite.height,
-        coords.x - offset.x + (sprite.drawOffsetX * scale), coords.y - offset.y + (sprite.drawOffsetY * scale),
-        sprite.width * scale, sprite.height * scale);
+      const tileIndex = map.tiles.inRange[i],
+            tileType = layer[tileIndex],
+            sprite = map.getTileSprite(tileType);
+
+      if (sprite) {
+        const coords = map.getPixelCoordsFromTileIndex(tileIndex);
+        ctx.drawImage(
+          sprite.image,
+          sprite.x, sprite.y,
+          sprite.width, sprite.height,
+          coords.x - offset.x + (sprite.drawOffsetX), coords.y - offset.y + (sprite.drawOffsetY),
+          sprite.width, sprite.height);
+      }
     }
   });
-};
+}
 
 /*----------------------------------------------------------------------------*/
 
