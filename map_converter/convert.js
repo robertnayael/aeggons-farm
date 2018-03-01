@@ -48,7 +48,7 @@ function convertTileLayers(layers) {
 
         switch (plane) {
             case 'background': 
-            case 'foreground': layers[plane].unshift(outputTiles); return layers;
+            case 'foreground': layers[plane].push(outputTiles); return layers;
             case 'collision': layers[plane] = outputTiles; return layers;
             default: console.warn(`Could not identify the layer plane in layer <${layer.name}>`); return layers;
         }
