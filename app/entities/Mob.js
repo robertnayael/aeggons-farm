@@ -95,17 +95,7 @@ export default class Mob extends LinearlyMovingEntity {
 
   wasJumpedOnBy(player) {
     if (!player.isFalling || player.bottom < this.top) return false;
-
-    /* Squashing only occurs if the player falls within 1/2 of the mob's width,
-       so calculate the "squashable" box and check for colission again: */
-    const squashbox = {
-      x: this.x + this.width/4,
-      y: this.y,
-      width: this.width/2,
-      height: this.height
-    };
-
-    return this.collidesWith.call(squashbox, player);
+    return this.collidesWith(player);
   }
 
   /******************************************************************************/
