@@ -15,7 +15,18 @@ export default class Spikes extends AnimatedEntity {
   /******************************************************************************/
 
   getSprite() {
-    return this.getSpriteFrame('spikes');
+    return null;
+  }
+
+  /******************************************************************************/
+
+  checkInteraction(player) {
+    if (this.collidesWith(player) && !player.isInvulnerable) {
+      return [
+        'SEND_JUMPING',
+        'HIT'
+      ];
+    }
   }
 
   /******************************************************************************/

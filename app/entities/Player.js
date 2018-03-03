@@ -403,7 +403,8 @@ export default class Player extends AnimatedEntity {
     }
 
     if (!this.is.dead) {
-      entities.mobs.some(this.resolveMobInteraction.bind(this));
+      entities.mobs.some(this.resolveStandardInteraction.bind(this));
+      entities.spikes.some(this.resolveStandardInteraction.bind(this));
     }
   }
 
@@ -469,15 +470,15 @@ export default class Player extends AnimatedEntity {
 
 /******************************************************************************/
 
-  resolveMobInteraction(mob) {
-    const interaction = this.checkInteraction(mob);
+  resolveStandardInteraction(entity) {
+    const interaction = this.checkInteraction(entity);
     if (!interaction) return false;
     this.applyInteraction(interaction);
     return true;
   }
 
-  checkInteraction(mob) {
-    return mob.checkInteraction(
+  checkInteraction(entity) {
+    return entity.checkInteraction(
       {
         isInvulnerable: this.is.hit,
         isFalling: this.is.falling,
