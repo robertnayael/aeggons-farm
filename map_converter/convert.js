@@ -62,9 +62,9 @@ function convertEntityLayers(layers) {
         let converted = [];
 
         switch (type) {
-            case 'platforms': converted = convertPlatformEntities(entities); break;
-            case 'mobs': converted = convertMobEntities(entities); break;
-            case 'spikes': break;
+            case 'platforms': converted = convertPlatforms(entities); break;
+            case 'mobs': converted = convertMobs(entities); break;
+            case 'spikes': converted = convertSpikes(entities); break;
             case 'infoSigns': break;
         }
 
@@ -73,7 +73,7 @@ function convertEntityLayers(layers) {
     }, {});
 }
 
-function convertMobEntities(entities) {
+function convertPlatforms(entities) {
     return entities.reduce((mobs, mob) => {
         const {type} = mob.properties;
         mob.properties.width = mob.properties.width || 1;   // default size: 1 tile
@@ -89,18 +89,29 @@ function convertMobEntities(entities) {
     }, []);
 }
 
-function convertPlatformEntities(entities) {
-    return entities.reduce((platforms, platform) => {
-        const {type} = platform.properties;
-        return [...platforms,
+function convertMobs(entities) {
+    return entities.reduce((mobs, mob) => {
+        const {type} = mob.properties;
+        mob.properties.width = mob.properties.width || 1;   // default size: 1 tile
+        mob.properties.height = mob.properties.height || 1;
+        return [...mobs,
             Object.assign(
-                convertLinearlyMovingEntity(platform),
+                convertLinearlyMovingEntity(mob),
                 {
                     type: type ? type : 'default'
                 }
             )
         ];
     }, []);
+}
+
+function convertSpikes(entities) {
+    return entities.map(entity => convertPxToTiles({
+        x: entity.x,
+        y: entity.y,
+        width: entity.width,
+        height: entity.height
+    }));
 }
 
 function convertLinearlyMovingEntity(entity) {
