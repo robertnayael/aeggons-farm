@@ -21,7 +21,7 @@ export default {
   "player": {
     "initialPosition": {
       "x": 2,
-      "y": 3
+      "y": 35
     },
     "lives": 3,
     movementParams: {
@@ -29,7 +29,7 @@ export default {
         x: 350,
         y: 1100
       },
-      midAirControl:  1,        // Caps horizontal vMax while in the air. Ranges from 0 (no horizontal velocity) to 1 (full horizontal velocity).
+      midAirControl:  1.25,        // Caps horizontal vMax while in the air. 0: no horizontal velocity; 1: full horizontal velocity.
       acceleration:   0.05,     // Horizontal acceleration. Ranges from 0 (no acceleration) to 1 (instant acceleration)
       gravity:        3500,
       jumpForce:      85000,   // Instantaneous jump force
