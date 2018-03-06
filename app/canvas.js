@@ -131,9 +131,6 @@ export default function Canvas (config, overlayLayers) {
     // Clear the whole canvas:
     this.ctx.clearRect(0, 0, this.element.width, this.element.height);
 
-    this.ctx.fillStyle = '#6bc2d8';
-    this.ctx.fillRect(0, 0, this.element.width, this.element.height);
-
     this.ctx.save();
 
     // Run each of the renderers whose state is currently set as active:
