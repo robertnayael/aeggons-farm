@@ -1,6 +1,7 @@
 import Platform from './entities/Platform';
 import Mob from './entities/Mob';
 import Spikes from './entities/Spikes';
+import collectibles from './entities/Collectibles';
 import Background from './Background';
 
 export default class GameMap {
@@ -70,12 +71,14 @@ export default class GameMap {
     this.data.entities.platforms.forEach(platform => this.entities.platforms.push(
       new Platform(platform, this.tileSize, this.scale, this.sprites)
     ));
-
     this.data.entities.mobs.forEach(mob => this.entities.mobs.push(
       new Mob({...this.data.mobTypes[mob.type], ...mob}, this.tileSize, this.scale, this.sprites)
     ));
     this.data.entities.spikes.forEach(spikes => this.entities.spikes.push(
       new Spikes(spikes, this.tileSize, this.scale, this.sprites)
+    ));
+    this.data.entities.collectibles.forEach(collectible => this.entities.collectibles.push(
+      new Collectible(collectible, this.tileSize, this.scale, this.sprites)
     ));
   }
 
