@@ -1,7 +1,7 @@
 import Platform from './entities/Platform';
 import Mob from './entities/Mob';
 import Spikes from './entities/Spikes';
-import collectibles from './entities/Collectibles';
+import Collectible from './entities/Collectible';
 import Background from './Background';
 
 export default class GameMap {
@@ -83,11 +83,12 @@ export default class GameMap {
   }
 
 /******************************************************************************/
-
+// TODO: make this DRY
   updateEntities(step) {
     this.entities.platforms.forEach(platform => platform.update(step));
     this.entities.mobs.forEach(mob => mob.update(step));
     this.entities.spikes.forEach(spikes => spikes.update(step));
+    this.entities.collectibles.forEach(collectible => collectible.update(collectible));
   }
 
 /******************************************************************************/
