@@ -8,6 +8,7 @@ export default class Sprites {
       'player': props.player,
       'mobs': props.mobs,
       'platforms': props.platforms,
+      'collectibles': props.collectibles,
       'mapTiles': props.mapTiles,
       "background": props.background,
       "screenOverlays": props.screenOverlays
