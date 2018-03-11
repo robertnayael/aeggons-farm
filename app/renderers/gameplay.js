@@ -10,6 +10,7 @@ export default class Gameplay extends Renderer {
     drawTileLayers(ctx, 'background', offset.map, map);
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
+    drawEntities(ctx, scale, 'collectibles', offset.map, map.entitiesInRange.collectibles);
     drawPlayer(ctx, scale, offset.player, player);
     drawTileLayers(ctx, 'foreground', offset.map, map);
     drawOSD(ctx, scale, player);
@@ -48,16 +49,26 @@ function drawEntities (ctx, scale, type, offset, entities) {
   entities.forEach(entity => {
     const sprite = entity.getSprite();
     if (sprite) {
-
-      ctx.drawImage(
-        sprite.image,
-        sprite.x, sprite.y,
-        sprite.width, sprite.height,
-        entity.x - offset.x + (sprite.drawOffsetX * scale), entity.y - offset.y + (sprite.drawOffsetY * scale),
-        sprite.width * scale, sprite.height * scale);
+      if (sprite instanceof Array) {
+        sprite.forEach(layer => drawEntitySprite(ctx, offset, layer, entity));
+      } else {
+        drawEntitySprite(ctx, offset, sprite, entity);
+      }
     }
   });
 };
+
+/*----------------------------------------------------------------------------*/
+
+function drawEntitySprite (ctx, offset, sprite, entity) {
+  ctx.drawImage(
+    sprite.image,
+    sprite.x, sprite.y,
+    sprite.width, sprite.height,
+    entity.x - offset.x + sprite.drawOffsetX, entity.y - offset.y + sprite.drawOffsetY,
+    sprite.width, sprite.height
+  );
+}
 
 /*----------------------------------------------------------------------------*/
 
