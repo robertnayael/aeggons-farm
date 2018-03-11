@@ -9,7 +9,7 @@ export default class Mob extends LinearlyMovingEntity {
     this.hurtsPlayer = props.hurtsPlayer;
     this.isKillable = props.killable;
     this.bodyRemovalDirection = props.bodyRemovalDirection;
-    this.bodyRemovalDirection = props.bodyRemovalDirection;
+    this.bodyRemovalDelay = props.bodyRemovalDelay;
     this.isSquashable = props.squashable;
     this.recoversAfter = props.recoversAfter;
 
@@ -132,6 +132,9 @@ export default class Mob extends LinearlyMovingEntity {
   /******************************************************************************/
 
   moveOutOfView(step) {
+    this.bodyRemovalDelay -= step;
+    if (this.bodyRemovalDelay > 0) return;
+
     this.moveBy((this.speedAfterDeath * this.directionAfterDeath) * step, null);
     if (this.right < 0) {
       this.is.deadAndRemoved = true;
