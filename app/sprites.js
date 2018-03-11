@@ -71,7 +71,13 @@ export default class Sprites {
 
 /******************************************************************************/
 
-  getFrameIterator(spriteType, frame = 0) {
+  getFrameIteratorNoLoop(spriteType, frame = 0) {
+    return this.getFrameIterator(spriteType, frame, false);
+  }
+
+/******************************************************************************/
+
+  getFrameIterator(spriteType, frame = 0, loop = true) {
 
     // Sprite properties:
     const {props, firstFrame} = this.getSpriteProps(spriteType, frame);
@@ -87,26 +93,30 @@ export default class Sprites {
       drawOffsetY: props.drawOffset[1],
     };
 
-    return this.frameIterator(frames, firstFrame, spritePropertiesPartial);
+    return this.frameIterator(frames, firstFrame, spritePropertiesPartial, loop);
   }
 
 /******************************************************************************/
 
-  *frameIterator(frames, firstFrame, propertiesPartial) {
+  *frameIterator(frames, firstFrame, propertiesPartial, loop) {
 
     let index = firstFrame;
     while (index < frames.length) {
-
-      let i = index;
+      const i = index;
       index++;
 
-      if (index === frames.length) index = 0;
-
-      yield Object.assign({
+      const frame = {
+        ...propertiesPartial,
         x: frames[i][0],
-        y: frames[i][1]},
-      propertiesPartial);
+        y: frames[i][1]
+      };
 
+      if (index === frames.length) {
+        if (!loop) return frame;
+        index = 0;
+      }
+
+      yield frame;
     }
   }
 
