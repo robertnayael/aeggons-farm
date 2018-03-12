@@ -11,17 +11,36 @@ export default class AnimatedEntity extends Entity {
       firstFrame: (props.firstSpriteFrame ? props.firstSpriteFrame : 0)
     };
 
+    this.effect = {
+      frameIterator: null
+    }
+
     this.sprites = sprites;
   }
 
-  startEffect(spriteType) {
-    this.effectIterator = this.sprites.getFrameIteratorNoLoop(spriteType);
+  startEffect(spriteType, fixedPosition = false) {
+    this.effect.frameIterator = this.sprites.getFrameIteratorNoLoop(spriteType);
+    if (fixedPosition) {
+      this.effect.fixedPosition = {
+        x: this.x,
+        y: this.y
+      };
+    }
   }
 
   getEffectFrame() {
-    if (this.effectIterator) {
-      const frame = this.effectIterator.next();
-      if (frame.done) this.effectIterator = null;
+    if (this.effect.frameIterator) {
+      const frame = this.effect.frameIterator.next();
+
+      if (this.effect.fixedPosition) {
+        frame.value.fixedPosition = this.effect.fixedPosition;
+      }
+
+      if (frame.done) {
+        this.effect.frameIterator = null;
+        this.effect.fixedPosition = null;
+      }
+
       return frame.value;
     }
   }
