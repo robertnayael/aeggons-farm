@@ -113,7 +113,7 @@ export default class Mob extends LinearlyMovingEntity {
   /******************************************************************************/
 
   stomp() {
-    this.startEffect(['mobs', 'effect_hit']);
+    this.startEffect(['mobs', 'effect_hit'], true);
     if (this.isSquashable) {
       if (this.is.squashed) this.die();
       this.is.squashed = new Date().getTime();
