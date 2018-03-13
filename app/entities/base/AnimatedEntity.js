@@ -45,11 +45,16 @@ export default class AnimatedEntity extends Entity {
     }
   }
 
-  getSpriteFrame(spriteType, firstFrame = this.animation.firstFrame) {
+  getSpriteFrame(spriteType, firstFrame = this.animation.firstFrame, loop = true) {
 
+    const getFrameIterator = loop
+      ? this.sprites.getFrameIterator.bind(this.sprites)
+      : this.sprites.getFrameIteratorNoLoop.bind(this.sprites);
+
+    // If the variant (ie. last element in spriteType array) has just changed, get a new frame iterator:
     const animationVariant = spriteType[spriteType.length - 1];
     if (animationVariant !== this.animation.previousVariant) {
-      this.animation.frameIterator = this.sprites.getFrameIterator(spriteType, firstFrame);
+      this.animation.frameIterator = getFrameIterator(spriteType, firstFrame);
     }
     this.animation.previousVariant = animationVariant;
 
