@@ -1,6 +1,6 @@
 export default {
 
-  baseTileSize: 70,
+  tileSize: 70,
   canvasID: "canvas",
   initMessageID: "init-message",
   errorMessageID: "error-message",

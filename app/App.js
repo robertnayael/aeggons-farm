@@ -2,12 +2,7 @@ import "es6-promise/auto";
 import 'isomorphic-fetch';
 
 import game from './game';
-import GameMap from './GameMap';
-import Player from './entities/Player';
-import Sprites from './Sprites';
 import Canvas from './Canvas';
-
-/** @module GameController */
 
 /**
  * Controls the whole app.
@@ -21,16 +16,12 @@ export default function App (config) {
   let delta = 0,
       now,
       last = timestamp(),
-      step,
+      step = 1 / config.FPS,
 
+      gameData = {},
       canvas,
 
-      controls = {},
-
-    //  game,
-      map,
-      sprites,
-      player;
+      controls = {};
 
   const KEYCODES = {SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, ENTER: 13, ESCAPE: 27, TILDE: 192};
 
@@ -42,9 +33,8 @@ export default function App (config) {
   this.go = function() {
 
     loadGameData()
-      .then(makeObjects)
-      .then(loadAssets)
-      .then(initializeObjects)
+      .then(prepareGame)
+      .then(() => prepareCanvas(gameData.overlays))
       .then(globalizeObjects)
       .then(setupEventListeners)
       .then(hideWaitMessage)
@@ -62,23 +52,24 @@ export default function App (config) {
   function loadGameData() {
 
     // A list of the data files, as specified in the config:
-    const data = {
+    const filenames = {
       sprites: config.dataFiles.sprites,
       map: config.dataFiles.map,
       entities: config.dataFiles.entities,
       mobTypes: config.dataFiles.mobTypes,
-      overlays: config.dataFiles.overlays};
+      overlays: config.dataFiles.overlays
+    };
 
     // Attempt to fetch each file:
-    const promises = Object.getOwnPropertyNames(data).map(dataType => {
-      const filename = data[dataType];
+    const promises = Object.getOwnPropertyNames(filenames).map(dataType => {
+      const filename = filenames[dataType];
       return getJson(filename)
-        .then(contents => {data[dataType] = contents;});  // Puts the file contents under the respective key in <data>.
+        .then(contents => {gameData[dataType] = contents;});
     });
 
     return Promise
       .all(promises)
-      .then(() => data);  // The promise will resolve to this.
+      .then(() => gameData);
   }
 
 /*----------------------------------------------------------------------------*/
@@ -104,34 +95,15 @@ export default function App (config) {
 
 /*----------------------------------------------------------------------------*/
 
-  /**
-   * Creates core game objects.
-   */
-  function makeObjects(gameData) {
-    config.tileSize = getTileSize(config.baseTileSize);
-    config.scale = config.tileSize / config.baseTileSize;
-
-    step = 1 / config.FPS;
-
-    sprites = new Sprites(gameData['sprites']);
-    map = new GameMap(gameData['map'], gameData['entities'], gameData['mobTypes'], config, sprites);
-    player = new Player(config.player, config.tileSize, config.scale, sprites);
-    canvas = new Canvas(config, gameData['overlays']);
+  function prepareGame(gameData) {
+    return game.bootstrap({config, gameData});
   }
 
 /*----------------------------------------------------------------------------*/
 
-  function loadAssets() {
-    return sprites.loadImages(config.spritesDir); // Returns promise
-  }
-
-/*----------------------------------------------------------------------------*/
-
-  function initializeObjects() {
-
-    canvas.initialize(sprites);
-    map.initializeBackground();
-
+  function prepareCanvas(overlays) {
+    canvas = new Canvas(config, overlays);
+    canvas.initialize(game.sprites);
   }
 
 /*----------------------------------------------------------------------------*/
@@ -145,9 +117,10 @@ export default function App (config) {
     waitMessage.style.display = 'none';
   }
 
+/*----------------------------------------------------------------------------*/
 
   /**
-   * Shoes an error message to the user if anything goes wrong.
+   * Shows an error message to the user if anything goes wrong.
    */
   function showErrorMessage(error) {
     if(config.debug) console.error(error);
@@ -165,10 +138,10 @@ export default function App (config) {
     if (config.debug !== true) return false;
 
     window._game = game;
-    window._map = map;
-    window._player = player;
+    window._map = game.map;
+    window._player = game.player;
     window._canvas = canvas;
-    window._sprites = sprites;
+    window._sprites = game.sprites;
   }
 
   function keyListener(event, key, isDown) {
@@ -182,18 +155,6 @@ export default function App (config) {
       case KEYCODES.TILDE:  controls.debug  = isDown; return false;
     }
   };
-
-/*----------------------------------------------------------------------------*/
-
-  /**
-   * Determines the actual tile size (which may or may not be less than the
-   *     base tile size specified in the configuration.)
-   * @param  {number} baseSize - Base tile size.
-   * @return {number} Actual tile size to be used.
-   */
-  function getTileSize(baseSize) {
-    return baseSize / 1;
-  }
 
 /*----------------------------------------------------------------------------*/
 
@@ -211,14 +172,13 @@ export default function App (config) {
       delta = delta + Math.min(1, (now - last) / 1000);
       while(delta > step) {                         // make sure the game catches up if the delta is too high
         delta = delta - step;
-        activeRenderers = game.run(step, config, controls, sprites, map, player);
+        activeRenderers = game.run(step, config, controls);
       }
-      let included = false;
 
       canvas.registerRenderers(activeRenderers);
-      canvas.drawFrame(activeRenderers, {controls, game, player, map, entities: map.entities});
+      canvas.drawFrame(activeRenderers, {controls, game, player: game.player, map: game.map, entities: game.map.entities});
 
-      last = now;                                   // time at the start of the previous loop
+      last = now;
       requestAnimationFrame(frameLoop, canvas.element);
     }
     catch (error) {

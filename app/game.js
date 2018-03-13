@@ -1,3 +1,7 @@
+import GameMap from './GameMap';
+import Player from './entities/Player';
+import Sprites from './Sprites';
+
 export default {
 
 /******************************************************************************/
@@ -8,7 +12,22 @@ export default {
 
 /******************************************************************************/
 
-  run: function(step, config, controls, sprites, map, player) {
+  bootstrap: function({config, gameData}) {
+    config.scale = 1; // to be removed completely
+
+    this.sprites = new Sprites(gameData['sprites']);
+    this.map = new GameMap(gameData['map'], gameData['entities'], gameData['mobTypes'], config, this.sprites);
+    this.player = new Player(config.player, config.tileSize, config.scale, this.sprites);
+
+    return this.sprites.loadImages(config.spritesDir) // This one's important as it takes quite a while to load all images; returns a Promise
+      .then(() => this.map.initializeBackground());
+  },
+
+/******************************************************************************/
+
+  run: function(step, config, controls) {
+
+    const {sprites, map, player} = this;
 
     const props = this[this.state](config, controls, map, player);
     const defaultNextState = props.nextState;
@@ -17,7 +36,7 @@ export default {
     // Update (move) all entities on the map
     if (props.updateEntities) {
       map.updateEntities(step);
-      nextState = player.update(step, controls, map);
+      nextState = player.update({step, controls, map});
     }
 
     map.updateVisibilityRange(player);
@@ -45,7 +64,11 @@ export default {
 
   initialization: function(config, controls, map, player) {
 
-    player.initialize(config.tileSize, config.scale);
+    player.initialize({
+      tileSize: config.tileSize,
+      scale: config.scale
+    });
+
     map.initializeEntities(config.tileSize, config.scale);
 
     return {
