@@ -4,14 +4,15 @@ import AnimatedEntity from './base/AnimatedEntity';
 
 export default class Player extends AnimatedEntity {
 
-  constructor(props, tileSize, scale, sprites) {
-    super(props, tileSize, scale, sprites);
-    this.initialProps = props;
+  constructor({config, tileSize, scale, sprites, updateScore}) {
+    super(config, tileSize, scale, sprites);
+    this.initialProps = config;
+    this.updateScore = updateScore;
   }
 
   /****************************************************************************/
 
-  initialize(tileSize, scale) {
+  initialize({tileSize, scale}) {
 
     const props = this.initialProps;
     const movementParams = props.movementParams;
@@ -69,7 +70,7 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
 
-  update(step, controls, map) {
+  update({step, controls, map}) {
     this.nextGameState = null;
     const wasFalling = this.is.falling;
 
@@ -211,6 +212,7 @@ export default class Player extends AnimatedEntity {
     this.lives--;
     this.is.hit = true;
     this.nextGameState = 'playerGotHit';
+    this.updateScore();
     this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
     setTimeout(this.recuperateAfterHit.bind(this), this.invulnerabilityOnHit);
 
@@ -501,6 +503,7 @@ export default class Player extends AnimatedEntity {
         case 'SEND_JUMPING_LOW': this.sendJumping(0.5); break;
         case 'PUSH_AWAY': this.pushAway(); break;
         case 'HIT': this.gotHit(); break;
+        case 'COLLECTIBLE_COLLECTED': this.updateScore(); break;
         default: break;
       }
     });
