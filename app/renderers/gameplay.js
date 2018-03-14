@@ -61,10 +61,11 @@ function drawEntities (ctx, scale, type, offset, entities) {
 /*----------------------------------------------------------------------------*/
 
 function drawEntitySprite (ctx, offset, sprite, entity) {
+  if (!sprite) return;
 
   let pos;
 
-  if (sprite.fixedPosition) {
+  if (sprite && sprite.fixedPosition) {
     pos = sprite.fixedPosition;
   } else {
     pos = entity;
