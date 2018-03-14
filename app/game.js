@@ -29,7 +29,10 @@ export default {
       sprites: this.sprites
     });
 
-    this.score = new Score({collectibleTypes: gameData['collectibleTypes']});
+    this.score = new Score({
+      collectibleTypes: gameData['collectibleTypes'],
+      sprites: this.sprites
+    });
 
     this.player = new Player({
       config: config.player,
