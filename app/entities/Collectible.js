@@ -6,7 +6,10 @@ export default class Collectible extends AnimatedEntity {
     super(props, tileSize, scale, sprites);
     this.collected = false;
     this.collectedAndDisappeared = false;
+
+    this.type = props.type;
     this.spriteVariant = props.variant || 'default';
+    this.collectedEffect = props.collectedEffect;
     this.firstAnimationFrame = props.frame || 0;
   }
 
@@ -22,12 +25,12 @@ export default class Collectible extends AnimatedEntity {
      */
     if (!this.collected) {
       this.frame = this.getSpriteFrame(
-        ['collectibles', this.spriteVariant, 'uncollected'],
+        ['collectibles', this.type, this.spriteVariant, 'uncollected'],
         this.firstAnimationFrame
       );
     } else {
       this.frame = this.getSpriteFrame(
-        ['collectibles', this.spriteVariant, 'collected'],
+        ['collectibles', this.type, this.spriteVariant, 'collected'],
         0,
         false
       );
@@ -50,7 +53,7 @@ export default class Collectible extends AnimatedEntity {
   }
 
   collect() {
-    this.startEffect(['collectibles', 'effects', 'collected']);
+    this.startEffect(['collectibles', 'effects', this.collectedEffect]);
     this.collected = true;
   }
 
