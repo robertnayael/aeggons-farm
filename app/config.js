@@ -12,6 +12,7 @@ export default {
     map: "./data/map.json",
     entities: "./data/entities.json",
     mobTypes: "./data/mobTypes.json",
+    collectibleTypes: "./data/collectibleTypes.json",
     overlays: "./data/overlays.json",
   },
   spritesDir: "./sprites/",
