@@ -57,6 +57,7 @@ export default function App (config) {
       map: config.dataFiles.map,
       entities: config.dataFiles.entities,
       mobTypes: config.dataFiles.mobTypes,
+      collectibleTypes: config.dataFiles.collectibleTypes,
       overlays: config.dataFiles.overlays
     };
 
