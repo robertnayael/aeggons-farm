@@ -8,7 +8,7 @@ export default class GameMap {
 
 /******************************************************************************/
 
-  constructor(mapData, entitiesData, mobTypes, config, sprites) {
+  constructor({data, config, sprites}) {
 
     this.sprites = sprites;
     this.tileSize = config.tileSize;
@@ -26,26 +26,22 @@ export default class GameMap {
     };
 
     this.width = {
-      tiles: mapData.width,
-      px: mapData.width * this.tileSize
+      tiles: data.map.width,
+      px: data.map.width * this.tileSize
     };
     this.height = {
-      tiles: mapData.height,
-      px: mapData.height * this.tileSize
+      tiles: data.map.height,
+      px: data.map.height * this.tileSize
     };
 
     this.tiles = {
-      collision: mapData.layers.collision,
-      background: mapData.layers.background,
-      foreground: mapData.layers.foreground,
+      collision: data.map.layers.collision,
+      background: data.map.layers.background,
+      foreground: data.map.layers.foreground,
       inRange: []
     };
 
-    this.data = {
-      map: mapData,
-      entities: entitiesData,
-      mobTypes
-    };
+    this.data = data;
 
     this.entities = {};
     this.entitiesInRange = {};
@@ -78,7 +74,7 @@ export default class GameMap {
       new Spikes(spikes, this.tileSize, this.scale, this.sprites)
     ));
     this.data.entities.collectibles.forEach(collectible => this.entities.collectibles.push(
-      new Collectible(collectible, this.tileSize, this.scale, this.sprites)
+      new Collectible({...this.data.collectibleTypes[collectible.type], ...collectible}, this.tileSize, this.scale, this.sprites)
     ));
   }
 

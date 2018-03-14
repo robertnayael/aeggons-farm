@@ -1,3 +1,4 @@
+import Score from './Score';
 import GameMap from './GameMap';
 import Player from './entities/Player';
 import Sprites from './Sprites';
@@ -16,8 +17,27 @@ export default {
     config.scale = 1; // to be removed completely
 
     this.sprites = new Sprites(gameData['sprites']);
-    this.map = new GameMap(gameData['map'], gameData['entities'], gameData['mobTypes'], config, this.sprites);
-    this.player = new Player(config.player, config.tileSize, config.scale, this.sprites);
+
+    this.map = new GameMap({
+      data: {
+        map: gameData['map'],
+        entities: gameData['entities'],
+        mobTypes: gameData['mobTypes'],
+        collectibleTypes: gameData['collectibleTypes'],
+      },
+      config,
+      sprites: this.sprites
+    });
+
+    this.score = new Score({collectibleTypes: gameData['collectibleTypes']});
+
+    this.player = new Player({
+      config: config.player,
+      tileSize: config.tileSize,
+      scale: config.scale,
+      sprites: this.sprites,
+      updateScore: () => this.score.update(this.player.lives, this.map.entities.collectibles)
+    });
 
     return this.sprites.loadImages(config.spritesDir) // This one's important as it takes quite a while to load all images; returns a Promise
       .then(() => this.map.initializeBackground());
@@ -70,6 +90,7 @@ export default {
     });
 
     map.initializeEntities(config.tileSize, config.scale);
+    player.updateScore();
 
     return {
       nextState: 'welcomeScreen',
