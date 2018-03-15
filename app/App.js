@@ -177,7 +177,15 @@ export default function App (config) {
       }
 
       canvas.registerRenderers(activeRenderers);
-      canvas.drawFrame(activeRenderers, {controls, game, player: game.player, map: game.map, entities: game.map.entities});
+      canvas.drawFrame(
+        activeRenderers,
+        {
+          controls,
+          player: game.player,
+          map: game.map,
+          score: game.score
+        }
+      );
 
       last = now;
       requestAnimationFrame(frameLoop, canvas.element);

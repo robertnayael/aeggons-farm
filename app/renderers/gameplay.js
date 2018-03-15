@@ -2,7 +2,7 @@ import Renderer from './Renderer';
 
 export default class Gameplay extends Renderer {
 
-  draw(ctx, scale, {player, entities, map}) {
+  draw(ctx, scale, {player, map, score}) {
 
     const offset = map.getOffset(player);
 
@@ -13,7 +13,7 @@ export default class Gameplay extends Renderer {
     drawEntities(ctx, scale, 'collectibles', offset.map, map.entitiesInRange.collectibles);
     drawPlayer(ctx, scale, offset.player, player);
     drawTileLayers(ctx, 'foreground', offset.map, map);
-    drawOSD(ctx, scale, player);
+    drawScore(ctx, score);
     drawForeground(ctx, scale, offset.map, map);
 
   }
@@ -99,12 +99,58 @@ function drawPlayer (ctx, scale, offset, player) {
 
 /*----------------------------------------------------------------------------*/
 
-function drawOSD (ctx, scale, player) {
-  ctx.font = "30px Arial";
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = 'red';
-  ctx.strokeText(`Lives: [${player.lives}]`, 500, 30);
+function drawScore (ctx, score) {
+  ctx.textBaseline = 'top';
+  const {itemGroups, groupWidth, position} = score.getScoreForDisplay();
+  let {x, y} = position;
+
+  itemGroups.forEach(group => {
+    drawScoreItemGroup(ctx, group, x, y);
+    x = x + groupWidth;
+  });
+
+  //throw new Error('------');
 };
+
+/*----------------------------------------------------------------------------*/
+
+function drawScoreItemGroup (ctx, group, x, y) {
+  const draw = {
+    text: drawScoreText,
+    sprite: drawScoreSprite
+  };
+
+  group.forEach(item => {
+    x = x + draw[item.type](ctx, item, x, y);
+  });
+}
+
+/*----------------------------------------------------------------------------*/
+
+function drawScoreText (ctx, text, x, y) {
+  ctx.font = text.font;
+  ctx.lineWidth = text.lineWidth;
+  ctx.fillStyle = text.fillStyle;
+  ctx.strokeStyle = text.strokeStyle;
+
+  ctx.strokeText(text.content, x, y);
+  ctx.fillText(text.content, x, y);
+
+  return ctx.measureText(text.content).width;
+}
+
+/*----------------------------------------------------------------------------*/
+
+function drawScoreSprite (ctx, sprite, x, y) {
+  ctx.drawImage(
+    sprite.image,
+    sprite.x, sprite.y,
+    sprite.width, sprite.height,
+    x + (sprite.marginLeft || 0), y + (sprite.marginTop || 0),
+    sprite.width, sprite.height
+  );
+  return sprite.width + (sprite.marginLeft || 0) + (sprite.marginRight || 0);
+}
 
 /*----------------------------------------------------------------------------*/
 

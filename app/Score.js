@@ -5,6 +5,22 @@ export default class Score {
         this.collectibleTypes = collectibleTypes;
         this.collectibles = [];
         this.sprites = sprites;
+
+        // TODO: move this to an external file
+        this.appearance = {
+            position: {
+                x: 1300,
+                y: 0
+            },
+            itemGroupWidth: 300,
+            font: {
+                type: "Bangers",
+                size: 50,
+                color: "#fff",
+                borderWidth: 2,
+                borderColor: "#000"
+            }
+        }
     }
 
     update(currentLives, collectibles) {
@@ -27,7 +43,55 @@ export default class Score {
         return true;
     }
 
-    getSprites() {
-        return [];
+    getScoreForDisplay() {
+        // score regular collectibles
+        const score = this.collectibles.reduce((score, item) => {
+            if (item && item.total > 0) {
+                score.push([
+                    this.getSprite(item.type),
+                    this.getText(`${item.score}/${item.total}`)
+                ]);
+            }
+            return score;
+        }, []);
+
+        // number of lives
+        score.push([
+            this.getText('lives:'),
+            ...Array(this.lives).fill(this.getSprite('life'))
+        ]);
+
+        return {
+            itemGroups: score,
+            groupWidth: this.appearance.itemGroupWidth,
+            position: this.appearance.position
+        };
     }
+
+    getText(content) {
+        const textStyle = this.getTextStyle();
+        return {
+            type: 'text',
+            ...textStyle,
+            content
+        };
+    }
+
+    getSprite(type) {
+        return {
+            type: "sprite",
+            ...this.sprites.getSprite(['score', type])
+        };
+    }
+
+    getTextStyle() {
+        const {font} = this.appearance;
+        return {
+            font: `${font.size}px ${font.type}`,
+            lineWidth: font.borderWidth,
+            fillStyle: font.color,
+            strokeStyle: font.borderColor,
+        };
+    }
+
 }
