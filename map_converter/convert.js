@@ -81,8 +81,7 @@ function convertCollectibles(entities) {
             y: entity.y
         }),
         {
-            width: entity.properties.width || 1,
-            height: entity.properties.height || 1,
+            type: entity.properties.type,
             variant: entity.properties.variant,
             frame: entity.properties.frame
         }
