@@ -66,12 +66,28 @@ function convertEntityLayers(layers) {
             case 'mobs': converted = convertMobs(entities); break;
             case 'spikes': converted = convertSpikes(entities); break;
             case 'collectibles': converted = convertCollectibles(entities); break;
-            case 'infoSigns': break;
+            case 'infoSigns': converted = convertInfoSigns(entities); break;
         }
 
         layers[type] = converted;
         return layers;
     }, {});
+}
+
+function convertInfoSigns(entities) {
+    return entities.map(entity => Object.assign(
+        convertPxToTiles({
+            width: entity.width,
+            height: entity.height,
+            x: entity.x,
+            y: entity.y
+        }),
+        {
+            type: entity.properties.type,
+            info: entity.properties.info,
+            opacitySteps: 60
+        }
+    ));
 }
 
 function convertCollectibles(entities) {
