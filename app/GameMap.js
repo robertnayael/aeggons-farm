@@ -2,6 +2,7 @@ import Platform from './entities/Platform';
 import Mob from './entities/Mob';
 import Spikes from './entities/Spikes';
 import Collectible from './entities/Collectible';
+import InfoSign from './entities/InfoSign';
 import Background from './Background';
 
 export default class GameMap {
@@ -61,7 +62,8 @@ export default class GameMap {
       platforms: [],
       mobs: [],
       spikes: [],
-      collectibles: []
+      collectibles: [],
+      infoSigns: []
     };
 
     this.data.entities.platforms.forEach(platform => this.entities.platforms.push(
@@ -76,6 +78,9 @@ export default class GameMap {
     this.data.entities.collectibles.forEach(collectible => this.entities.collectibles.push(
       new Collectible({...this.data.collectibleTypes[collectible.type], ...collectible}, this.tileSize, this.scale, this.sprites)
     ));
+    this.data.entities.infoSigns.forEach(infoSign => this.entities.infoSigns.push(
+      new InfoSign(infoSign, this.tileSize, this.scale, this.sprites)
+    ));
   }
 
 /******************************************************************************/
@@ -84,7 +89,8 @@ export default class GameMap {
     this.entities.platforms.forEach(platform => platform.update(step));
     this.entities.mobs.forEach(mob => mob.update(step));
     this.entities.spikes.forEach(spikes => spikes.update(step));
-    this.entities.collectibles.forEach(collectible => collectible.update(collectible));
+    this.entities.collectibles.forEach(collectible => collectible.update(step));
+    this.entities.infoSigns.forEach(infoSign => infoSign.update(step));
   }
 
 /******************************************************************************/
@@ -135,7 +141,8 @@ export default class GameMap {
       platforms: [],
       mobs: [],
       spikes: [],
-      collectibles: []
+      collectibles: [],
+      infoSigns: []
     };
 
     Object.getOwnPropertyNames(entities).forEach(type => {
