@@ -1,6 +1,6 @@
 export default class Entity {
 
-  constructor(props, tileSize, scale) {
+  constructor(props, tileSize, scale, sprites) {
 
     this.position = {
 
@@ -19,6 +19,8 @@ export default class Entity {
     };
 
     this.updateEdges();
+
+    this.sprites = sprites;
 
   }
 

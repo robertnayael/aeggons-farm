@@ -3,7 +3,7 @@ import Entity from './Entity';
 export default class AnimatedEntity extends Entity {
 
   constructor(props, tileSize, scale, sprites) {
-    super(props, tileSize, scale);
+    super(props, tileSize, scale, sprites);
 
     this.animation = {
       previousVariant: null,
@@ -15,7 +15,6 @@ export default class AnimatedEntity extends Entity {
       frameIterator: null
     }
 
-    this.sprites = sprites;
   }
 
   startEffect(spriteType, fixedPosition = false) {
