@@ -408,6 +408,7 @@ export default class Player extends AnimatedEntity {
       entities.mobs.some(this.resolveStandardInteraction.bind(this));
       entities.spikes.some(this.resolveStandardInteraction.bind(this));
       entities.collectibles.some(this.resolveStandardInteraction.bind(this));
+      entities.infoSigns.some(this.resolveStandardInteraction.bind(this));
     }
   }
 
