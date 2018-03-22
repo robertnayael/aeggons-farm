@@ -72,6 +72,7 @@ function drawEntitySprite (ctx, offset, sprite, entity) {
     pos = entity;
   }
 
+  if ('opacity' in sprite) ctx.globalAlpha = sprite.opacity;
   ctx.drawImage(
     sprite.image,
     sprite.x, sprite.y,
@@ -79,6 +80,7 @@ function drawEntitySprite (ctx, offset, sprite, entity) {
     pos.x - offset.x + sprite.drawOffsetX, pos.y - offset.y + sprite.drawOffsetY,
     sprite.width, sprite.height
   );
+  ctx.globalAlpha = 1;
 }
 
 /*----------------------------------------------------------------------------*/
