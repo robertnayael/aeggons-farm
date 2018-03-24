@@ -10,6 +10,7 @@ tmx.parseFile(MAP_FILE, function(err, map) {
     if (err) throw err;
 
     const tileLayers = map.layers.filter(layer => layer.type == 'tile'),
+          decorationLayers = map.layers.filter(layer => layer.type == 'object' && layer.properties.type == 'decorations'),
           entityLayers = map.layers.filter(layer => layer.type == 'object');
 
     const output = {
@@ -18,9 +19,10 @@ tmx.parseFile(MAP_FILE, function(err, map) {
             height: map.height,
             layers: convertTileLayers(tileLayers)
         },
-        entities: convertEntityLayers(entityLayers, map.tileWidth)
+        entities: convertEntityLayers(entityLayers, map.tileWidth),
+        decorations: convertDecorationLayers(decorationLayers)
     };
-
+console.log(output.decorations)
     fs.writeFile(OUTPUT_FILE_TILES, JSON.stringify(output.tiles), err => {
         if (err) throw err;
         console.log(`Map tiles saved as <${OUTPUT_FILE_TILES}>`);
@@ -72,6 +74,30 @@ function convertEntityLayers(layers) {
         layers[type] = converted;
         return layers;
     }, {});
+}
+
+function convertDecorationLayers(layers) {
+    return layers.reduce((layers, layer) => {
+        const plane = layer.properties.plane,
+              decorations = layer.objects;
+        layers[plane].unshift(convertDecorations(decorations));
+        return layers;
+    },
+    {background: [], foreground: []});
+}
+
+function convertDecorations(entities) {
+    return entities.map(entity => Object.assign(
+        convertPxToTiles({
+            width: entity.width,
+            height: entity.height,
+            x: entity.x,
+            y: entity.y
+        }),
+        {
+            type: entity.properties.type
+        }
+    ));
 }
 
 function convertInfoSigns(entities) {
