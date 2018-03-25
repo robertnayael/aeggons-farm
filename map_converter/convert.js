@@ -19,10 +19,12 @@ tmx.parseFile(MAP_FILE, function(err, map) {
             height: map.height,
             layers: convertTileLayers(tileLayers)
         },
-        entities: convertEntityLayers(entityLayers, map.tileWidth),
-        decorations: convertDecorationLayers(decorationLayers)
+        entities: Object.assign(
+            convertEntityLayers(entityLayers, map.tileWidth),
+            { decorations: convertDecorationLayers(decorationLayers) }
+        )
     };
-console.log(output.decorations)
+
     fs.writeFile(OUTPUT_FILE_TILES, JSON.stringify(output.tiles), err => {
         if (err) throw err;
         console.log(`Map tiles saved as <${OUTPUT_FILE_TILES}>`);
@@ -80,7 +82,7 @@ function convertDecorationLayers(layers) {
     return layers.reduce((layers, layer) => {
         const plane = layer.properties.plane,
               decorations = layer.objects;
-        layers[plane].unshift(convertDecorations(decorations));
+        layers[plane].push(convertDecorations(decorations));
         return layers;
     },
     {background: [], foreground: []});
@@ -92,7 +94,7 @@ function convertDecorations(entities) {
             width: entity.width,
             height: entity.height,
             x: entity.x,
-            y: entity.y
+            y: entity.y - entity.height // due to how Tiled works: https://github.com/bjorn/tiled/issues/386
         }),
         {
             type: entity.properties.type
