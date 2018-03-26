@@ -8,6 +8,7 @@ export default class Gameplay extends Renderer {
 
     drawBackground(ctx, scale, offset.map, map);
     drawTileLayers(ctx, 'background', offset.map, map);
+    drawDecorationLayers(ctx, scale, 'background', offset.map, map);
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawEntities(ctx, scale, 'infoSigns', offset.map, map.entitiesInRange.infoSigns);
@@ -46,9 +47,16 @@ function drawTileLayers(ctx, plane, offset, map) {
 
 /*----------------------------------------------------------------------------*/
 
+function drawDecorationLayers(ctx, scale, plane, offset, map) {
+  const layers = map.getDecorationLayers(plane);
+  layers.forEach(layer => drawEntities(ctx, scale, null, offset, layer));
+}
+
+/*----------------------------------------------------------------------------*/
+
 function drawEntities (ctx, scale, type, offset, entities) {
   entities.forEach(entity => {
-    const sprite = entity.getSprite();
+    const sprite = entity ? entity.getSprite() : null;
     if (sprite) {
       if (sprite instanceof Array) {
         sprite.forEach(layer => drawEntitySprite(ctx, offset, layer, entity));

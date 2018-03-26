@@ -3,6 +3,7 @@ import Mob from './entities/Mob';
 import Spikes from './entities/Spikes';
 import Collectible from './entities/Collectible';
 import InfoSign from './entities/InfoSign';
+import Decoration from './entities/Decoration';
 import Background from './Background';
 
 export default class GameMap {
@@ -66,6 +67,8 @@ export default class GameMap {
       infoSigns: []
     };
 
+    this.initializeDecorations();
+
     this.data.entities.platforms.forEach(platform => this.entities.platforms.push(
       new Platform(platform, this.tileSize, this.scale, this.sprites)
     ));
@@ -81,6 +84,40 @@ export default class GameMap {
     this.data.entities.infoSigns.forEach(infoSign => this.entities.infoSigns.push(
       new InfoSign(infoSign, this.tileSize, this.scale, this.sprites)
     ));
+  }
+
+/******************************************************************************/
+
+  initializeDecorations() {
+
+    const flatList = this.entities.decorations = []; // flat list for faster evaluation of visibility
+
+    this.decorations = { // multi-level list (includes information about layer plane and index)
+      background: [],
+      foreground: []
+    };
+
+    const initializePlane = (plane) =>
+    this.data.entities.decorations[plane].forEach(layer => {
+      this.decorations[plane].push(layer.map(decoration => {
+        const entity = new Decoration(decoration, this.tileSize, this.scale, this.sprites);
+        flatList.push(entity);
+        return entity;
+      }));
+    });
+
+    initializePlane('background');
+    initializePlane('foreground');
+  }
+
+/******************************************************************************/
+
+  getDecorationLayers(plane) {
+    return this.decorations[plane].map(layer =>
+      layer.map(decoration => {
+        if (this.entitiesInRange.decorations.includes(decoration)) return decoration;
+      })
+    );
   }
 
 /******************************************************************************/
@@ -142,7 +179,8 @@ export default class GameMap {
       mobs: [],
       spikes: [],
       collectibles: [],
-      infoSigns: []
+      infoSigns: [],
+      decorations: []
     };
 
     Object.getOwnPropertyNames(entities).forEach(type => {

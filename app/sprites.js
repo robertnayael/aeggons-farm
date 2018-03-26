@@ -11,6 +11,7 @@ export default class Sprites {
       'collectibles': props.collectibles,
       'mapTiles': props.mapTiles,
       'infoSigns': props.infoSigns,
+      'decorations': props.decorations,
       'score': props.score,
       "background": props.background,
       "screenOverlays": props.screenOverlays
