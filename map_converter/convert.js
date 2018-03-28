@@ -9,6 +9,8 @@ const tmx = require('tmx-parser'),
 tmx.parseFile(MAP_FILE, function(err, map) {
     if (err) throw err;
 
+    map = addTilePropertiesToObjects(map);
+
     const tileLayers = map.layers.filter(layer => layer.type == 'tile'),
           decorationLayers = map.layers.filter(layer => layer.type == 'object' && layer.properties.type == 'decorations'),
           entityLayers = map.layers.filter(layer => layer.type == 'object');
@@ -36,6 +38,42 @@ tmx.parseFile(MAP_FILE, function(err, map) {
     }); 
 
 });
+
+function addTilePropertiesToObjects(map) {
+
+    const {layers, tileSets} = map;
+
+    layers.forEach(layer => {
+        if (layer.type === 'object') {
+            layer.objects.forEach(object => {
+                object.properties = Object.assign(
+                    getTileProperties(object.gid), // properties assigned to the corresponding tile
+                    object.properties              // properties assigned to the current object
+                );
+            })
+        }
+        return layer;
+    });
+    return map;
+
+    function getTileProperties(gid) {
+        if (!gid) return {};
+
+        const tileSet = 
+            tileSets.find(tileSet => gid >= tileSet.firstGid && gid <= tileSet.firstGid + tileSet.tiles.length)
+            || tileSets[tileSets.length - 1];
+        const tile = tileSet.tiles.find((tile, index) => gid == tileSet.firstGid + index);
+        //if (!tile) console.log(gid, tileSet.tiles.length, tileSet)
+
+        //if (!tileSet) console.log(gid)
+
+        //return tile.properties;
+
+        //process.exit(1)
+        return tile ? tile.properties : {};
+    }
+
+}
 
 function convertTileLayers(layers) {
     return layers.reduce((layers, layer) => {
