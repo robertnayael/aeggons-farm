@@ -1,11 +1,11 @@
 /*----------------------------------------------------------------------------*/
 
-export function pulse({minOpacity, steps}, content, canvas) {
+export function pulse({minOpacity, steps, delay}, content, canvas) {
 
   const opacitySteps = getOpacitySequence(minOpacity, steps);
   let index = 0;
 
-  return function() {
+  const pulseEffect = function() {
 
       let i = index;
       index++;
@@ -17,6 +17,8 @@ export function pulse({minOpacity, steps}, content, canvas) {
 
       return true;
   };
+
+  return delayTransition(pulseEffect, delay);
 
 }
 
