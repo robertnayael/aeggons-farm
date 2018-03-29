@@ -151,13 +151,6 @@ export default class Renderer {
 
     this.overlays.some(group => {
 
-    /*  let allFinished = true;
-      group.forEach(overlay => {
-
-        if (overlay instanceof Function) allFinished = overlay() && allFinished;
-
-      });*/
-
       const allFinished = group.reduce((allFinished, overlay) => {
         if (overlay instanceof Function) {
           const thisFinished = overlay();
