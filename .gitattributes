@@ -1,0 +1,7 @@
+*.png   binary -delta
+*.jpg   binary -delta
+*.jpeg  binary -delta
+*.gif   binary -delta
+*.psd   binary -delta
+*.aep   binary -delta
+*.zip   binary -delta

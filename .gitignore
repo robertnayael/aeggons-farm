@@ -1,0 +1,6 @@
+.eslintrc
+node_modules
+dist
+images_src
+graphics_source
+map_converter/map.tmx
