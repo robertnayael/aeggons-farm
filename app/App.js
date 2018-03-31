@@ -145,12 +145,35 @@ export default function App (config) {
     window._sprites = game.sprites;
   }
 
+/*----------------------------------------------------------------------------*/
+
   function keyListener(event, key, isDown) {
     switch(key) {
       case KEYCODES.LEFT:   controls.left   = isDown; return false;
       case KEYCODES.RIGHT:  controls.right  = isDown; return false;
-      case KEYCODES.SPACE:  controls.jump   = isDown; return false;
-      case KEYCODES.UP:     controls.jump   = isDown; return false;
+      case KEYCODES.UP:
+      case KEYCODES.SPACE: {
+        // If jump keys are set to work all the time, just register the keydown/keyup
+        if (!config.player.movementParams.lockJumpKeys) {
+          controls.jump = isDown;
+          return false;
+        }
+
+        // Lock jump keys after jumping and until depressed
+        if (isDown) {
+          controls.jump = !controls.jumpLocked; // trigger jump only if the lock is off
+          controls.jumpLocked = true;
+          // Disble the jump signal after a short while even if no keyup event takes place
+          // (i.e. if the player still holds the jump key pressed down)
+          controls.jump = !game.player.is.jumping;
+          if (controls.jump) setTimeout(() => controls.jump = false, 50);
+        }
+        else { // jump key released
+          controls.jump = false;
+          controls.jumpLocked = false;
+        }
+        return false;
+      }
       case KEYCODES.ENTER:  controls.accept = isDown; return false;
       case KEYCODES.ESCAPE: controls.exit   = isDown; return false;
       case KEYCODES.TILDE:  controls.debug  = isDown; return false;
