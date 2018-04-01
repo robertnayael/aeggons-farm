@@ -165,7 +165,6 @@ export default function App (config) {
           controls.jumpLocked = true;
           // Disble the jump signal after a short while even if no keyup event takes place
           // (i.e. if the player still holds the jump key pressed down)
-          controls.jump = !game.player.is.jumping;
           if (controls.jump) setTimeout(() => controls.jump = false, 50);
         }
         else { // jump key released
