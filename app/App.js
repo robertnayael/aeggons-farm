@@ -147,25 +147,31 @@ export default function App (config) {
 
 /*----------------------------------------------------------------------------*/
 
+  /**
+   * Registers control signals based on keydown/keyup events.
+   */
   function keyListener(event, key, isDown) {
     switch(key) {
       case KEYCODES.LEFT:   controls.left   = isDown; return false;
       case KEYCODES.RIGHT:  controls.right  = isDown; return false;
       case KEYCODES.UP:
       case KEYCODES.SPACE: {
-        // If jump keys are set to work all the time, just register the keydown/keyup
+        // If jump keys are set to work all the time, just register the keydown/keyup;
+        // this means the jump signal will be on for as long as the jump key remains pressed,
+        // so multiple jumps can be performed without depressing the key.
         if (!config.player.movementParams.lockJumpKeys) {
           controls.jump = isDown;
           return false;
         }
 
-        // Lock jump keys after jumping and until depressed
+        // Lock jump keys after a jump and until the next keyup
         if (isDown) {
           controls.jump = !controls.jumpLocked; // trigger jump only if the lock is off
           controls.jumpLocked = true;
-          // Disble the jump signal after a short while even if no keyup event takes place
-          // (i.e. if the player still holds the jump key pressed down)
-          if (controls.jump) setTimeout(() => controls.jump = false, 50);
+          // Disable the jump signal after a short while even if no keyup event takes place
+          // (i.e. if the player still holds the jump key pressed down);
+          // 5 frames seems to be a reasonable time.
+          if (controls.jump) setTimeout(() => controls.jump = false, 1000 / config.FPS * 5);
         }
         else { // jump key released
           controls.jump = false;
