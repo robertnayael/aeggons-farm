@@ -217,6 +217,8 @@ export default class Player extends AnimatedEntity {
     setTimeout(this.recuperateAfterHit.bind(this), this.invulnerabilityOnHit);
 
     if (this.lives <= 0) this.die();
+
+    this.startEffect(['player', 'effect_hit'], true);
   }
 
   /****************************************************************************/
