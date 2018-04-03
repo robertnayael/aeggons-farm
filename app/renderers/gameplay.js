@@ -13,7 +13,7 @@ export default class Gameplay extends Renderer {
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawEntities(ctx, scale, 'infoSigns', offset.map, map.entitiesInRange.infoSigns);
     drawEntities(ctx, scale, 'collectibles', offset.map, map.entitiesInRange.collectibles);
-    drawPlayer(ctx, scale, offset.player, player);
+    drawPlayer(ctx, scale, offset, player);
     drawDecorationLayers(ctx, scale, 'foreground', offset.map, map);
     drawTileLayers(ctx, 'foreground', offset.map, map);
     drawScore(ctx, score);
@@ -97,16 +97,13 @@ function drawEntitySprite (ctx, offset, sprite, entity) {
 function drawPlayer (ctx, scale, offset, player) {
 
   const sprite = player.getSprite();
-  if (sprite.opacity) ctx.globalAlpha = sprite.opacity;
 
-  ctx.drawImage(
-    sprite.image,
-    sprite.x, sprite.y,
-    sprite.width, sprite.height,
-    offset.x + (sprite.drawOffsetX * scale), offset.y + (sprite.drawOffsetY * scale),
-    sprite.width * scale, sprite.height * scale);
-
-  ctx.globalAlpha = 1;
+  if (sprite instanceof Array) {
+    drawEntitySprite(ctx, {x: 0, y: 0}, sprite[0], offset.player); // player sprite
+    drawEntitySprite(ctx, offset.map, sprite[1], player); // effect sprite
+  } else {
+    drawEntitySprite(ctx, {x: 0, y: 0}, sprite, offset.player);
+  }
 };
 
 /*----------------------------------------------------------------------------*/
