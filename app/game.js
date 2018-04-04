@@ -42,7 +42,7 @@ export default {
       updateScore: () => this.score.update(this.player.lives, this.map.entities.collectibles)
     });
 
-    return this.sprites.loadImages(config.spritesDir) // This one's important as it takes quite a while to load all images; returns a Promise
+    return this.sprites.loadImages(config.spritesDir, config.progressBarParent) // This one's important as it takes quite a while to load all images; returns a Promise
       .then(() => this.map.initializeBackground());
   },
 

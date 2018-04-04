@@ -3,6 +3,7 @@ import 'isomorphic-fetch';
 
 import game from './game';
 import Canvas from './Canvas';
+import ProgressBar from './ProgressBar';
 
 /**
  * Controls the whole app.
@@ -61,11 +62,19 @@ export default function App (config) {
       overlays: config.dataFiles.overlays
     };
 
+    const progressBar = new ProgressBar({
+      parentElement: config.progressBarParent,
+      classModifier: 'data-files',
+      label: 'loading data files',
+      steps: Object.keys(filenames).length
+    });
+
     // Attempt to fetch each file:
     const promises = Object.getOwnPropertyNames(filenames).map(dataType => {
       const filename = filenames[dataType];
       return getJson(filename)
-        .then(contents => {gameData[dataType] = contents;});
+        .then(contents => {gameData[dataType] = contents;})
+        .then(() => progressBar.increase());
     });
 
     return Promise

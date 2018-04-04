@@ -1,3 +1,5 @@
+import ProgressBar from './ProgressBar';
+
 export default class Sprites {
 
   constructor(props) {
@@ -125,7 +127,7 @@ export default class Sprites {
 
 /******************************************************************************/
 
-  loadImages(spritesDir) {
+  loadImages(spritesDir, progressBarParent) {
 
     const makeImage = (filename, blob) => {
       const url = URL.createObjectURL(blob);
@@ -133,6 +135,13 @@ export default class Sprites {
       image.src = url;
       this.images[filename] = image;
     };
+
+    const progressBar = new ProgressBar({
+      parentElement: progressBarParent,
+      classModifier: 'images',
+      label: 'loading image assets',
+      steps: this.filelist.length
+    });
 
     const fetchFile = file => fetch(spritesDir + file)
       .then(
@@ -145,7 +154,8 @@ export default class Sprites {
         }
       )
       .then(response => response.blob())
-      .then(blob => makeImage(file, blob));
+      .then(blob => makeImage(file, blob))
+      .then(() => progressBar.increase());
 
     return Promise
       .all(this.filelist.map(fetchFile));

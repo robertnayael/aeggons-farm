@@ -2,6 +2,7 @@ export default {
 
   tileSize: 70,
   canvasID: "canvas",
+  progressBarParent: "#platformer",
   initMessageID: "init-message",
   errorMessageID: "error-message",
   viewportWidth: 27,
