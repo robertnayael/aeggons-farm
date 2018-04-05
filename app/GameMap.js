@@ -219,11 +219,20 @@ export default class GameMap {
     const xSize = this.tileSize;
     const ySize = this.tileSize;
 
+    const getTile = (x, y) => {
+      const tile = this.tiles.collision[this.getTileIndexFromPixelCoords(x, y)];
+      // If the tile doesn't exist, i.e. it's out of map bounds, assume it's "solid",
+      // so the character cannot move out of the map.
+      return tile === undefined
+        ? 1
+        : tile;
+    }
+
     return {
-      NE: this.tiles.collision[this.getTileIndexFromPixelCoords(x, y)],
-      NW: this.tiles.collision[this.getTileIndexFromPixelCoords(x + xSize, y)],
-      SE: this.tiles.collision[this.getTileIndexFromPixelCoords(x, y + ySize)],
-      SW: this.tiles.collision[this.getTileIndexFromPixelCoords(x + xSize, y + ySize)]
+      NE: getTile(x, y),
+      NW: getTile(x + xSize, y),
+      SE: getTile(x, y + ySize),
+      SW: getTile(x + xSize, y + ySize)
     };
   }
 
@@ -238,6 +247,7 @@ export default class GameMap {
 
   // Returns the index of the tile that covers the specified pixel-based coordinates
   getTileIndexFromPixelCoords(x, y) {
+    if (x < 0 || y <0 || x > this.width.px || y > this.width.px) return; // coords are out of bounds: don't return any index
     var qx = Math.floor(x / this.tileSize);
     var qy = Math.floor(y / this.tileSize);
     return qx + qy * this.width.tiles;
