@@ -15,6 +15,7 @@ export default class GameMap {
     this.sprites = sprites;
     this.tileSize = config.tileSize;
     this.scale = config.scale;
+    this.basePlayerOffsetY = config.playerOffsetY * this.tileSize || 0;
 
     this.viewport = {
       width: {
@@ -324,22 +325,23 @@ export default class GameMap {
 
   /**
    * Calculates:
-   * 1) the map offset (relative to the absolute [0,0]), so that all map objects
-   *    can be drawn relative to the player's position;
-   * 2) the player offset (relative to the viewport center), which occurs if the
+   * 1) the map offset, which is used for drawing all non-player objects; this is relative to (0,0) of the viewport
+   * 2) the player offset (relative to the viewport center + base player offset), which occurs if the
    *    player happens to be too close to a map edge.
    */
   getOffset(player) {
 
     return (function(viewport, player, map) {
 
-      let playerOffcenterLeft = Math.min(0, player.x - viewport.width/2),
-          playerOffcenterRight = Math.max( 0, (player.x + viewport.width/2) - map.width),
-          playerOffcenterX = playerOffcenterLeft + playerOffcenterRight;
+      const basePlayerOffsetY = player.baseOffsetY;
 
-      let playerOffcenterTop = Math.min(0, player.y - viewport.height/2),
-          playerOffcenterBottom = Math.max( 0, (player.y + viewport.height/2) - map.height),
-          playerOffcenterY = playerOffcenterTop + playerOffcenterBottom;
+      const playerOffcenterLeft = Math.min(0, player.x - viewport.width/2),
+            playerOffcenterRight = Math.max( 0, (player.x + viewport.width/2) - map.width),
+            playerOffcenterX = playerOffcenterLeft + playerOffcenterRight;
+
+      const playerOffcenterTop = Math.min(0, player.y - viewport.height/2 + basePlayerOffsetY),
+            playerOffcenterBottom = Math.max( 0, (player.y + viewport.height/2 - basePlayerOffsetY) - map.height),
+            playerOffcenterY = playerOffcenterTop + playerOffcenterBottom + basePlayerOffsetY;
 
       return {
         map: {
@@ -354,7 +356,7 @@ export default class GameMap {
 
     })(
       {width: this.viewport.width.px, height: this.viewport.height.px},
-      {x: player.position.x, y: player.position.y},
+      {x: player.position.x, y: player.position.y, baseOffsetY: this.basePlayerOffsetY},
       {width: this.width.px, height: this.height.px}
     );
 
