@@ -22,10 +22,6 @@ export default {
   "debug": true,
 
   "player": {
-    "initialPosition": {
-      "x": 2,
-      "y": 35
-    },
     "lives": 3,
     movementParams: {
       vMax: {
