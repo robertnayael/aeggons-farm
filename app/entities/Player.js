@@ -12,7 +12,7 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
-  initialize({tileSize, scale}) {
+  initialize({tileSize, scale, initialPos}) {
 
     const props = this.initialProps;
     const movementParams = props.movementParams;
@@ -23,8 +23,8 @@ export default class Player extends AnimatedEntity {
     this.opacityPulsingOnHit = props.opacityPulsingOnHit;
     this.opacityPulser = this.getOpacityPulser(this.opacityPulsingOnHit);
 
-    this.position.x = props.initialPosition.x * tileSize;
-    this.position.y = props.initialPosition.y * tileSize;
+    this.position.x = initialPos.x * tileSize;
+    this.position.y = initialPos.y * tileSize;
 
     this.movementParams = {  // Movement parameters
       vMax: {

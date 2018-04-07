@@ -87,13 +87,14 @@ export default {
 
   initialization: function(config, controls, map, player) {
 
-    player.initialize({
-      tileSize: config.tileSize,
-      scale: config.scale
-    });
-
     map.initializeEntities(config.tileSize, config.scale);
     player.updateScore();
+
+    player.initialize({
+      tileSize: config.tileSize,
+      initialPos: map.initialPlayerPos,
+      scale: config.scale
+    });
 
     return {
       nextState: 'welcomeScreen',
