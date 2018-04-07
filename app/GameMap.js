@@ -4,6 +4,7 @@ import Spikes from './entities/Spikes';
 import Collectible from './entities/Collectible';
 import InfoSign from './entities/InfoSign';
 import Decoration from './entities/Decoration';
+import SpecialObject from './entities/SpecialObject';
 import Background from './Background';
 
 export default class GameMap {
@@ -85,6 +86,13 @@ export default class GameMap {
     this.data.entities.infoSigns.forEach(infoSign => this.entities.infoSigns.push(
       new InfoSign(infoSign, this.tileSize, this.scale, this.sprites)
     ));
+
+    this.data.entities.special.forEach(entity => {
+      switch(entity.type) {
+        case 'start': this.initialPlayerPos = { x: entity.x, y: entity.y }; break; // player's starting position
+        case 'finish': this.finishingArea = new SpecialObject(entity, this.tileSize, this.scale, this.sprites); break;
+      }
+    });
   }
 
 /******************************************************************************/
