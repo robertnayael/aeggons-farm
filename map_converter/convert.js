@@ -63,13 +63,6 @@ function addTilePropertiesToObjects(map) {
             tileSets.find(tileSet => gid >= tileSet.firstGid && gid <= tileSet.firstGid + tileSet.tiles.length)
             || tileSets[tileSets.length - 1];
         const tile = tileSet.tiles.find((tile, index) => gid == tileSet.firstGid + index);
-        //if (!tile) console.log(gid, tileSet.tiles.length, tileSet)
-
-        //if (!tileSet) console.log(gid)
-
-        //return tile.properties;
-
-        //process.exit(1)
         return tile ? tile.properties : {};
     }
 
@@ -109,6 +102,7 @@ function convertEntityLayers(layers) {
             case 'spikes': converted = convertSpikes(entities); break;
             case 'collectibles': converted = convertCollectibles(entities); break;
             case 'infoSigns': converted = convertInfoSigns(entities); break;
+            case 'special': converted = convertSpecialObjects(entities); break;
         }
 
         layers[type] = converted;
@@ -151,6 +145,21 @@ function convertInfoSigns(entities) {
         {
             type: entity.properties.type,
             info: entity.properties.info,
+            opacitySteps: 60
+        }
+    ));
+}
+
+function convertSpecialObjects(entities) {
+    return entities.map(entity => Object.assign(
+        convertPxToTiles({
+            width: entity.width,
+            height: entity.height,
+            x: entity.x,
+            y: entity.y
+        }),
+        {
+            type: entity.properties.type,
             opacitySteps: 60
         }
     ));
