@@ -66,7 +66,8 @@ export default class GameMap {
       mobs: [],
       spikes: [],
       collectibles: [],
-      infoSigns: []
+      infoSigns: [],
+      specialObjects: []
     };
 
     this.initializeDecorations();
@@ -89,8 +90,16 @@ export default class GameMap {
 
     this.data.entities.special.forEach(entity => {
       switch(entity.type) {
-        case 'start': this.initialPlayerPos = { x: entity.x, y: entity.y }; break; // player's starting position
-        case 'finish': this.finishingArea = new SpecialObject(entity, this.tileSize, this.scale, this.sprites); break;
+        case 'start': { // player's starting position
+          this.initialPlayerPos = { x: entity.x, y: entity.y };
+          break;
+        }
+        case 'finish': {
+          this.entities.specialObjects.push(
+            new SpecialObject(entity, this.tileSize, this.scale, this.sprites)
+          );
+          break;
+        }
       }
     });
   }
@@ -189,7 +198,8 @@ export default class GameMap {
       spikes: [],
       collectibles: [],
       infoSigns: [],
-      decorations: []
+      decorations: [],
+      specialObjects: []
     };
 
     Object.getOwnPropertyNames(entities).forEach(type => {
