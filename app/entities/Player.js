@@ -511,6 +511,7 @@ export default class Player extends AnimatedEntity {
     actions.forEach(action => {
       switch (action) {
         case 'SEND_JUMPING': this.sendJumping(0.75); break;
+        case 'SEND_JUMPING_HIGH': this.sendJumping(1); break;
         case 'SEND_JUMPING_LOW': this.sendJumping(0.5); break;
         case 'PUSH_AWAY': this.pushAway(); break;
         case 'HIT': this.gotHit(); break;

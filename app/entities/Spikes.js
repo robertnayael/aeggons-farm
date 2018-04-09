@@ -23,7 +23,7 @@ export default class Spikes extends AnimatedEntity {
   checkInteraction(player) {
     if (this.collidesWith(player) && !player.isInvulnerable) {
       return [
-        'SEND_JUMPING',
+        'SEND_JUMPING_HIGH',
         'HIT'
       ];
     }
