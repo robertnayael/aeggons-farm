@@ -129,7 +129,7 @@ export default {
     let props = {
       renderers: ['gameplay', 'gameplayIntro'],
       updateEntities: true,
-      controlsLocked: true
+      controlsLocked: false
     };
 
     let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
@@ -165,7 +165,7 @@ export default {
       nextState: 'playerGotHit',
       renderers: ['gameplay', 'playerGotHit'],
       updateEntities: true,
-      controlsLocked: true
+      controlsLocked: false
     };
 
     let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
