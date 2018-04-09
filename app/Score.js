@@ -39,8 +39,11 @@ export default class Score {
         });
     }
 
-    isEnoughToWin() {
-        return true;
+    victoryConditionsMet() {
+        return this.collectibles
+            // False for any collectible types that are required but not yet collected:
+            .map(collectibles => !collectibles.requiredToWin || (collectibles.score === collectibles.total))
+            .reduce((all, curr) => all && curr, true);
     }
 
     getScoreForDisplay() {
