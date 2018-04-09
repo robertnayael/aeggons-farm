@@ -4,10 +4,11 @@ import AnimatedEntity from './base/AnimatedEntity';
 
 export default class Player extends AnimatedEntity {
 
-  constructor({config, tileSize, scale, sprites, updateScore}) {
+  constructor({config, tileSize, scale, sprites, updateScore, victoryConditionsMet}) {
     super(config, tileSize, scale, sprites);
     this.initialProps = config;
     this.updateScore = updateScore;
+    this.victoryConditionsMet = victoryConditionsMet;
   }
 
   /****************************************************************************/
@@ -70,13 +71,13 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
 
-  update({step, controls, map}) {
+  update({step, controls, map, controlsLocked}) {
     this.nextGameState = null;
     const wasFalling = this.is.falling;
 
     this.motion.step = step;
     this.checkIfCanMove();
-    this.move(step, controls);
+    this.move(step, controls, controlsLocked);
     this.resolveMapColission(map);
     this.resolveEntityInteraction(map.entities);
 
@@ -167,11 +168,11 @@ export default class Player extends AnimatedEntity {
   |  colissions with map tiles and map objects
   *****************************************************************************/
 
-  move(step, controls) {
+  move(step, controls, controlsLocked) {
 
     // Update the vertical and horizontal vectors:
-    this.motion.y = this.getNewVerticalVector(this.movementParams, this.motion.y, this.is, step, controls);
-    this.motion.x = this.getNewHorizontalVector(this.movementParams, this.motion.x, this.is, step, controls);
+    this.motion.y = this.getNewVerticalVector(this.movementParams, this.motion.y, this.is, step, controls, controlsLocked);
+    this.motion.x = this.getNewHorizontalVector(this.movementParams, this.motion.x, this.is, step, controls, controlsLocked);
 
     // [move this to the vector update function]
     this.is.moving = (this.motion.x !== 0);
@@ -237,9 +238,15 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
-  getNewVerticalVector(params, y, is, step, controls) {
+  finishGame() {
+    if (this.victoryConditionsMet()) this.nextGameState = 'gameWon';
+  }
+
+  /****************************************************************************/
+
+  getNewVerticalVector(params, y, is, step, controls, controlsLocked) {
     // Perform jump unless the player's already mid-air:
-    if(controls.jump && !is.jumping && !is.falling && !is.dead) {
+    if(!controlsLocked && controls && controls.jump && !is.jumping && !is.falling && !is.dead) {
       y -= params.jumpForce * step;
       is.jumping = true;
     }
@@ -252,13 +259,13 @@ export default class Player extends AnimatedEntity {
 
   /****************************************************************************/
 
-  getNewHorizontalVector(params, x, is, step, controls) {
+  getNewHorizontalVector(params, x, is, step, controls, controlsLocked) {
     let wasGoingLeft  = x < 0;
     let wasGoingRight = x > 0;
     let vMax = is.jumping || is.falling ? params.vMax.x * params.midAirControl : params.vMax.x;
 
     // Right key is pressed:
-    if(controls.right && !is.dead) {
+    if(!controlsLocked && controls.right && !is.dead) {
       x += params.acceleration * vMax + (1 - params.acceleration) * x * step;
       x = Math.min(x, vMax);  // Cap at vMax, if necessary.
 
@@ -273,7 +280,7 @@ export default class Player extends AnimatedEntity {
     }
 
     // Left key is pressed:
-    if(controls.left && !is.dead) {
+    if(!controlsLocked && controls.left && !is.dead) {
       x -= params.acceleration * vMax + (1 - params.acceleration) * x * step;
       x = Math.max(x, -vMax);
 
@@ -411,6 +418,7 @@ export default class Player extends AnimatedEntity {
       entities.spikes.some(this.resolveStandardInteraction.bind(this));
       entities.collectibles.some(this.resolveStandardInteraction.bind(this));
       entities.infoSigns.some(this.resolveStandardInteraction.bind(this));
+      entities.specialObjects.some(this.resolveStandardInteraction.bind(this));
     }
   }
 
@@ -507,6 +515,7 @@ export default class Player extends AnimatedEntity {
         case 'PUSH_AWAY': this.pushAway(); break;
         case 'HIT': this.gotHit(); break;
         case 'COLLECTIBLE_COLLECTED': this.updateScore(); break;
+        case 'REACH_FINISH': this.finishGame(); break;
         default: break;
       }
     });
