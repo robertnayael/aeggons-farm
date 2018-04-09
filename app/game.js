@@ -18,6 +18,11 @@ export default {
 
     this.sprites = new Sprites(gameData['sprites']);
 
+    this.score = new Score({
+      collectibleTypes: gameData['collectibleTypes'],
+      sprites: this.sprites
+    });
+
     this.map = new GameMap({
       data: {
         map: gameData['map'],
@@ -29,17 +34,13 @@ export default {
       sprites: this.sprites
     });
 
-    this.score = new Score({
-      collectibleTypes: gameData['collectibleTypes'],
-      sprites: this.sprites
-    });
-
     this.player = new Player({
       config: config.player,
       tileSize: config.tileSize,
       scale: config.scale,
       sprites: this.sprites,
-      updateScore: () => this.score.update(this.player.lives, this.map.entities.collectibles)
+      updateScore: () => this.score.update(this.player.lives, this.map.entities.collectibles),
+      victoryConditionsMet: () => this.score.victoryConditionsMet()
     });
 
     return this.sprites.loadImages(config.spritesDir, config.progressBarParent) // This one's important as it takes quite a while to load all images; returns a Promise
@@ -59,7 +60,7 @@ export default {
     // Update (move) all entities on the map
     if (props.updateEntities) {
       map.updateEntities(step);
-      nextState = player.update({step, controls, map});
+      nextState = player.update({step, controls, map, controlsLocked: props.controlsLocked});
     }
 
     map.updateVisibilityRange(player);
@@ -87,14 +88,15 @@ export default {
 
   initialization: function(config, controls, map, player) {
 
-    map.initializeEntities(config.tileSize, config.scale);
-    player.updateScore();
+    map.initializeEntities({victoryConditionsMet: () => this.score.victoryConditionsMet()});
 
     player.initialize({
       tileSize: config.tileSize,
       initialPos: map.initialPlayerPos,
       scale: config.scale
     });
+
+    player.updateScore(); // causes the score to reset
 
     return {
       nextState: 'welcomeScreen',
