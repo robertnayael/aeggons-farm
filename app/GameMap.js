@@ -59,7 +59,7 @@ export default class GameMap {
 
 /******************************************************************************/
 
-  initializeEntities() {
+  initializeEntities({victoryConditionsMet}) {
 
     this.entities = {
       platforms: [],
@@ -96,7 +96,7 @@ export default class GameMap {
         }
         case 'finish': {
           this.entities.specialObjects.push(
-            new SpecialObject(entity, this.tileSize, this.scale, this.sprites)
+            new SpecialObject(entity, this.tileSize, this.scale, this.sprites, victoryConditionsMet)
           );
           break;
         }
