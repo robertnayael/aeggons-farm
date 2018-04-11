@@ -239,7 +239,7 @@ export default class Player extends AnimatedEntity {
   /****************************************************************************/
 
   finishGame() {
-    if (this.victoryConditionsMet()) this.nextGameState = 'gameWon';
+    if (!this.is.dead && this.victoryConditionsMet()) this.nextGameState = 'gameWon';
   }
 
   /****************************************************************************/
