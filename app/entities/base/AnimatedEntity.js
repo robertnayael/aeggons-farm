@@ -59,7 +59,7 @@ export default class AnimatedEntity extends Entity {
 
     const effect = this.getEffectFrame(),
           animation = this.animation.frameIterator.next().value;
-    
+
     return effect
       ? [animation, effect]
       : animation;

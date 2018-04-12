@@ -105,8 +105,10 @@ export default class Sprites {
 /******************************************************************************/
 
   *frameIterator(frames, firstFrame, propertiesPartial, loop) {
+    let index = firstFrame < frames.length
+      ? firstFrame
+      : 0;
 
-    let index = firstFrame;
     while (index < frames.length) {
       const i = index;
       index++;
