@@ -164,11 +164,11 @@ export default {
     let props = {
       nextState: 'playerGotHit',
       renderers: ['gameplay', 'playerGotHit'],
-      updateEntities: true,
-      controlsLocked: false
+      updateEntities: false,
+      controlsLocked: true
     };
 
-    let waitFinished = (this.stateChanged + config.waitOnGameStateChange < new Date().getTime());
+    let waitFinished = (this.stateChanged + 500 < new Date().getTime());
 
     if (waitFinished) {
       props.nextState = 'gameplay';
