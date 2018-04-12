@@ -17,7 +17,7 @@ export default class ProgressBar {
         this.progress = Math.min(100, this.progress + 100 / this.stepsTotal);
         this.refresh();
 
-        if(this.progress === 100) this.elements.container.classList.add('completed');
+        if(this.stepsCompleted === this.stepsTotal) this.elements.container.classList.add('completed');
     }
 
     display() {
