@@ -8,10 +8,9 @@ export default class Mob extends LinearlyMovingEntity {
     this.spriteType = props.spriteType;
     this.hurtsPlayer = props.hurtsPlayer;
     this.isKillable = props.killable;
-    this.bodyRemovalDirection = props.bodyRemovalDirection;
-    this.bodyRemovalDelay = props.bodyRemovalDelay;
     this.isSquashable = props.squashable;
     this.recoversAfter = props.recoversAfter;
+    this.mapBounds = props.mapBounds;
 
     this.is = {
       squashed: false,        // State after one hit from the player
@@ -19,9 +18,9 @@ export default class Mob extends LinearlyMovingEntity {
       deadAndRemoved: false   // Killed and moved completely out of the visitibility range
     };
 
-    // TODO: Move these to a config file.
-    this.directionAfterDeath = -1;
-    this.speedAfterDeath = 20 * tileSize;
+    this.bodyRemovalDelay = props.bodyRemovalDelay;
+    this.directionAfterDeath = this.bodyRemovalVector(props.bodyRemovalDirection);
+    this.speedAfterDeath = props.bodyRemovalSpeed * tileSize;
   }
 
   /******************************************************************************/
@@ -135,9 +134,26 @@ export default class Mob extends LinearlyMovingEntity {
     this.bodyRemovalDelay -= step;
     if (this.bodyRemovalDelay > 0) return;
 
-    this.moveBy((this.speedAfterDeath * this.directionAfterDeath) * step, null);
-    if (this.right < 0) {
+    const vector = [this.directionAfterDeath.x, this.directionAfterDeath.y]
+      .map(v => v * this.speedAfterDeath * step);
+
+    this.moveBy(...vector);
+
+    if (this.bottom < this.mapBounds.top
+      || this.top > this.mapBounds.bottom
+      || this.right < this.mapBounds.left
+      || this.left > this.mapBounds.right
+    ) {
       this.is.deadAndRemoved = true;
+    }
+  }
+
+  /******************************************************************************/
+
+  bodyRemovalVector(direction) {
+    switch (direction) {
+      case 'down': return { x: 0, y: 1 };
+      case 'sideways': return { x: 1, y: 0 };
     }
   }
 

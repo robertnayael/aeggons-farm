@@ -76,7 +76,7 @@ export default class GameMap {
       new Platform(platform, this.tileSize, this.scale, this.sprites)
     ));
     this.data.entities.mobs.forEach(mob => this.entities.mobs.push(
-      new Mob({...this.data.mobTypes[mob.type], ...mob}, this.tileSize, this.scale, this.sprites)
+      new Mob({...this.data.mobTypes[mob.type], ...mob, mapBounds: this.getMapBounds()}, this.tileSize, this.scale, this.sprites)
     ));
     this.data.entities.spikes.forEach(spikes => this.entities.spikes.push(
       new Spikes(spikes, this.tileSize, this.scale, this.sprites)
@@ -102,6 +102,17 @@ export default class GameMap {
         }
       }
     });
+  }
+
+/******************************************************************************/
+
+  getMapBounds() {
+    return {
+      top: 0,
+      right: this.width.px,
+      bottom: this.height.px,
+      left: 0
+    };
   }
 
 /******************************************************************************/
@@ -146,6 +157,7 @@ export default class GameMap {
     this.entities.spikes.forEach(spikes => spikes.update(step));
     this.entities.collectibles.forEach(collectible => collectible.update(step));
     this.entities.infoSigns.forEach(infoSign => infoSign.update(step));
+    this.entities.specialObjects.forEach(infoSign => infoSign.update(step));
   }
 
 /******************************************************************************/
