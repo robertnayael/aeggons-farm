@@ -13,6 +13,7 @@ export default class Sprites {
       'collectibles': props.collectibles,
       'mapTiles': props.mapTiles,
       'infoSigns': props.infoSigns,
+      'specialObjects': props.specialObjects,
       'decorations': props.decorations,
       'score': props.score,
       "background": props.background,
