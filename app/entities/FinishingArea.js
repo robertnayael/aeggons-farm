@@ -2,7 +2,7 @@ import Entity from './base/Entity';
 
 /******************************************************************************/
 
-export default class SpecialObject extends Entity {
+export default class FinishingArea extends Entity {
 
     constructor(props, tileSize, scale, sprites, victoryConditionsMet) {
         super(props, tileSize, scale, sprites);
@@ -22,9 +22,7 @@ export default class SpecialObject extends Entity {
     }
 
     playerActions() {
-        switch (this.type) {
-            case 'finish': return ['REACH_FINISH'];
-        }
+        return ['REACH_FINISH'];
     }
 
 }

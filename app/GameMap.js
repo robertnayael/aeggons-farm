@@ -4,7 +4,7 @@ import Spikes from './entities/Spikes';
 import Collectible from './entities/Collectible';
 import InfoSign from './entities/InfoSign';
 import Decoration from './entities/Decoration';
-import SpecialObject from './entities/SpecialObject';
+import FinishingArea from './entities/FinishingArea';
 import Background from './Background';
 
 export default class GameMap {
@@ -96,7 +96,7 @@ export default class GameMap {
         }
         case 'finish': {
           this.entities.specialObjects.push(
-            new SpecialObject(entity, this.tileSize, this.scale, this.sprites, victoryConditionsMet)
+            new FinishingArea(entity, this.tileSize, this.scale, this.sprites, victoryConditionsMet)
           );
           break;
         }
