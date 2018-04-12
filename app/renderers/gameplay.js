@@ -12,13 +12,13 @@ export default class Gameplay extends Renderer {
     drawEntities(ctx, scale, 'mobs', offset.map, map.entitiesInRange.mobs);
     drawEntities(ctx, scale, 'platforms', offset.map, map.entitiesInRange.platforms);
     drawEntities(ctx, scale, 'infoSigns', offset.map, map.entitiesInRange.infoSigns);
+    drawEntities(ctx, scale, 'specialObjects', offset.map, map.entitiesInRange.specialObjects);
     drawEntities(ctx, scale, 'collectibles', offset.map, map.entitiesInRange.collectibles);
     drawPlayer(ctx, scale, offset, player);
     drawDecorationLayers(ctx, scale, 'foreground', offset.map, map);
     drawTileLayers(ctx, 'foreground', offset.map, map);
     drawScore(ctx, score);
     drawForeground(ctx, scale, offset.map, map);
-
   }
 
 }
