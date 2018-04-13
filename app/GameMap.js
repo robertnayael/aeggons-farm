@@ -171,33 +171,59 @@ export default class GameMap {
 
 /******************************************************************************/
 
-  updateTilesInRange(offset, tilesCount) {
+  updateTilesInRange(offsetPx, tilesCount) {
 
-    const margin = 5,
-    tileOffset = {
-      x: Math.floor(offset.x / this.tileSize),
-      y: Math.floor(offset.y / this.tileSize)
-    },
-    boundary = {
-      top: Math.max(Math.floor(offset.y / this.tileSize) - margin, 0),
-      bottom: Math.min(this.height.tiles, tileOffset.y + this.viewport.height.tiles + margin) - 1,
-      left: Math.max(0, tileOffset.x - margin),
-      right: Math.min(this.width.tiles, tileOffset.x + this.viewport.width.tiles + margin) - 1
+    // number of tiles outside the viewable area to include in the range
+    const margin = 5;
+
+    // tile-based map offset
+    const mapOffset = {
+      x: Math.floor(offsetPx.x / this.tileSize),
+      y: Math.max(Math.floor(offsetPx.y / this.tileSize), 0)
     };
 
-    const range = {
-      start: this.getTileIndexFromTileCoords(boundary.left, boundary.top),
-      end: this.getTileIndexFromTileCoords(boundary.right, boundary.bottom)
+    // tile-based viewport size
+    const viewport = {
+      width: this.viewport.width.tiles,
+      height: this.viewport.height.tiles,
     };
 
-    const tileDimensions = {width: this.tileSize, height: this.tileSize};
-    let tilesInRange = [];
+    // map dimensions
+    const map = {
+      width: this.width.tiles,
+      height: this.height.tiles
+    };
 
-    for (let i = range.start; i <= range.end; i++) {
-      tilesInRange.push(i);
+    // tile-based x and y coordinates of the range area's edges;
+    const edges = trimEdges({
+      top: mapOffset.y - margin,
+      bottom: mapOffset.y + viewport.height + margin,
+      left: mapOffset.x - margin,
+      right: mapOffset.x + viewport.width + margin
+    });
+  
+    // "trim" the edges so they don't go over map bounds
+    function trimEdges({top, bottom, left, right}) {
+      return {
+        top: Math.max(top, 0),
+        bottom: Math.min (bottom, map.height),
+        left: Math.max (left, 0),
+        right: Math.min (right, map.width),
+      }
+    };
+
+    // gather the (x, y) coords of all map tiles falling within the range
+    const tilesInRange = [];
+    for (let x = edges.left; x < edges.right; x++) {
+      for (let y = edges.top; y < edges.bottom; y++) {
+        tilesInRange.push([x, y]);
+      }
     }
 
-    return tilesInRange;
+    // return tile indexes
+    return tilesInRange.map(
+      ([x, y]) => this.getTileIndexFromTileCoords(x, y)
+    );
   }
 
 /******************************************************************************/
@@ -369,9 +395,15 @@ export default class GameMap {
             playerOffcenterRight = Math.max( 0, (player.x + viewport.width/2) - map.width),
             playerOffcenterX = playerOffcenterLeft + playerOffcenterRight;
 
-      const playerOffcenterTop = Math.min(0, player.y - viewport.height/2 + basePlayerOffsetY),
-            playerOffcenterBottom = Math.max( 0, (player.y + viewport.height/2 - basePlayerOffsetY) - map.height),
-            playerOffcenterY = playerOffcenterTop + playerOffcenterBottom + basePlayerOffsetY;
+      const playerOffcenterTop = Math.min(0 + basePlayerOffsetY, player.y - viewport.height/2 + basePlayerOffsetY),
+            playerOffcenterBottom = Math.max(0, (player.y + viewport.height/2 - basePlayerOffsetY) - map.height),
+            playerOffcenterY = playerOffcenterTop + playerOffcenterBottom //+ basePlayerOffsetY;
+
+            // console.log(
+            //   playerOffcenterY / 70
+            // );
+            // //console.log(((player.y - viewport.height/2) - playerOffcenterY) / 70)
+            // throw new Error();
 
       return {
         map: {
