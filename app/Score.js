@@ -9,7 +9,7 @@ export default class Score {
         // TODO: move this to an external file
         this.appearance = {
             position: {
-                x: 1300,
+                x: 1170,
                 y: 0
             },
             itemGroupWidth: 300,
