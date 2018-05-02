@@ -38,7 +38,6 @@ export default function App (config) {
       .then(() => prepareCanvas(gameData.overlays))
       .then(globalizeObjects)
       .then(setupEventListeners)
-      .then(hideWaitMessage)
       .then(frameLoop)
       .catch(showErrorMessage);
   };
@@ -119,23 +118,12 @@ export default function App (config) {
 /*----------------------------------------------------------------------------*/
 
   /**
-   * Hides the initial waiting message; called after loading all assets and
-   *     successfully inititializing the game.
-   */
-  function hideWaitMessage() {
-    const waitMessage = document.getElementById(config.initMessageID);
-    waitMessage.style.display = 'none';
-  }
-
-/*----------------------------------------------------------------------------*/
-
-  /**
    * Shows an error message to the user if anything goes wrong.
    */
   function showErrorMessage(error) {
     if(config.debug) console.error(error);
     const errorMessage = document.getElementById(config.errorMessageID);
-    errorMessage.style.display = 'block';
+    errorMessage.classList.add('is-active');
     if(canvas) canvas.element.style.display = 'none';
   }
 
