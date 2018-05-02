@@ -3,7 +3,6 @@ export default {
   tileSize: 70,
   canvasID: "canvas",
   progressBarParent: "#platformer",
-  initMessageID: "init-message",
   errorMessageID: "error-message",
   viewportWidth: 27,
   viewportHeight: 13,
@@ -22,7 +21,7 @@ export default {
   "debug": true,
 
   "player": {
-    "lives": 3,
+    "lives": 6,
     movementParams: {
       vMax: {
         x: 350,
