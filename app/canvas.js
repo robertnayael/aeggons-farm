@@ -80,12 +80,7 @@ export default function Canvas (config, overlayLayers) {
       vertical: Math.min(1, client.height / base.height)
     },
 
-    factor = Math.min(scale.horizontal, scale.vertical),
-
-    margin = {
-      top: (client.height - base.height * factor) / 2,
-      left: (client.width - base.width * factor) / 2
-    };
+    factor = Math.min(scale.horizontal, scale.vertical);
 
     this.element.width = base.width;
     this.element.height = base.height;
@@ -93,12 +88,12 @@ export default function Canvas (config, overlayLayers) {
     this.element.style.width = base.width * factor + 'px';
     this.element.style.height = base.height * factor + 'px';
 
-    this.element.style.marginTop = margin.top + 'px';
-    this.element.style.marginLeft = margin.left + 'px';
-
     this.ctx.imageSmoothingEnabled = false;
     this.ctx.mozImageSmoothingEnabled = false;
     this.ctx.webkitImageSmoothingEnabled = false;
+    this.ctx.oImageSmoothingEnabled = false;
+    this.ctx.msImageSmoothingEnabled = false;
+
   };
 
   /*****************************************************************************
