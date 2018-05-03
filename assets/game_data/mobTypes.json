@@ -1,0 +1,55 @@
+{
+    "snail": {
+        "width": 1,
+        "height": 1,
+        "speed": 1.5,
+        "spriteType": "snail_slow",
+        "hurtsPlayer": true,
+        "killable": true,
+        "bodyRemovalDirection": "sideways",
+        "bodyRemovalSpeed": 20,
+        "bodyRemovalDelay": 0.2,
+        "squashable": true,
+        "recoversAfter": 1000
+    },
+    "snailFast": {
+        "width": 1,
+        "height": 1,
+        "speed": 2.5,
+        "spriteType": "snail_fast",
+        "hurtsPlayer": true,
+        "killable": true,
+        "bodyRemovalDirection": "sideways",
+        "bodyRemovalSpeed": 20,
+        "bodyRemovalDelay": 0.2,
+        "squashable": true,
+        "recoversAfter": 1000
+    },
+    "mosquito": {
+        "width": 1,
+        "height": 2,
+        "speed": 2,
+        "spriteType": "mosquito",
+        "hurtsPlayer": true,
+        "killable": true,
+        "bodyRemovalDirection": "down",
+        "bodyRemovalSpeed": 8,
+        "bodyRemovalDelay": 0.3
+    },
+    "hedgehog": {
+        "width": 1,
+        "height": 1,
+        "speed": 2,
+        "spriteType": "hedgehog_big",
+        "hurtsPlayer": true,
+        "killable": false
+    },
+    "babyHedgehog": {
+        "width": 0.5,
+        "height": 0.5,
+        "speed": 1.5,
+        "spriteType": "hedgehog_small",
+        "hurtsPlayer": true,
+        "killable": false
+    }
+}

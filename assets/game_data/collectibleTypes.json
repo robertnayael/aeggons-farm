@@ -1,0 +1,9 @@
+{
+    "egg": {
+        "width": 1,
+        "height": 2,
+        "showTotal": true,
+        "requiredToWin": true,
+        "collectedEffect": "egg_collected"
+    }
+}

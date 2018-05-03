@@ -1,0 +1,320 @@
+{
+  "welcomeScreen": [
+    {
+      "color": "#111111",
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 50
+        }
+      }
+    },
+    {
+      "spriteName": "start_bg",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 50,
+          "steps": 50
+        }
+      }
+    },
+    {
+      "spriteName": "start_chicken",
+      "animated": true,
+      "position": [0.1, 0.3],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 30,
+          "steps": 100
+        }
+      }
+    },
+    {
+      "spriteName": "start_title",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 100
+        }
+      }
+    },
+    {
+      "spriteName": "start_keyboard",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 150
+        }
+      }
+    },
+    {
+      "spriteName": "start_controls",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 160
+        }
+      }
+    },
+    {
+      "spriteName": "start_walk_keys",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 170
+        }
+      }
+    },
+    {
+      "spriteName": "start_walk_arrows",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 220
+        }
+      }
+    },
+    {
+      "spriteName": "start_walk",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 250
+        }
+      }
+    },
+    {
+      "spriteName": "start_jump_keys",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 270
+        }
+      }
+    },
+    {
+      "spriteName": "start_jump_arrows",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 320
+        }
+      }
+    },
+    {
+      "spriteName": "start_jump",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 350
+        }
+      }
+    },
+
+    {
+      "spriteName": "start_press_to_start",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 400
+        }
+      }
+    },
+    {"WAIT_UNTIL_COMPLETED": false},
+    {
+      "spriteName": "start_enter",
+      "position": [0,0],
+      "transition": {
+        "type": "pulse",
+        "props": {
+          "minOpacity": 0.2,
+          "steps": 40,
+          "delay": 400
+        }
+      }
+    },
+
+    {
+      "spriteName": "start_performance_note",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 450
+        }
+      }
+    }
+  ],
+
+  "gameplayIntro": [
+    {
+      "color": "#111111",
+      "transition": {
+        "type": "fade-out",
+        "props": {
+          "steps": 100
+        }
+      }
+    },
+
+    {
+      "color": "#111111",
+      "transition": {
+        "type": "circle-out",
+        "props": {
+          "steps": 100
+        }
+      }
+    }
+
+  ],
+
+  "gameOver": [
+    {
+      "spriteName": "game_over_bg",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 200
+        }
+      }
+    },
+    {
+      "spriteName": "game_over_text",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 200
+        }
+      }
+    },
+
+    {
+      "spriteName": "game_over_try_again",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 100
+        }
+      }
+    },
+
+    {
+      "spriteName": "game_over_enter",
+      "position": [0,0],
+      "transition": {
+        "type": "pulse",
+        "props": {
+          "minOpacity": 0.2,
+          "steps": 40,
+          "delay": 100
+        }
+      }
+    }
+  ],
+
+  "gameWon": [
+    {
+      "color": "#ffffff",
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 200
+        }
+      }
+    },
+    {
+      "color": "#b28522",
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "steps": 100,
+          "delay": 200
+        }
+      }
+    },
+    {
+      "spriteName": "victory_eggcelent",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 300,
+          "steps": 100
+        }
+      }
+    },
+    {
+      "spriteName": "victory_egg1",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 350,
+          "steps": 50
+        }
+      }
+    },
+    {
+      "spriteName": "victory_egg2",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 400,
+          "steps": 50
+        }
+      }
+    },
+    {
+      "spriteName": "victory_egg3",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 450,
+          "steps": 50
+        }
+      }
+    },
+    {
+      "spriteName": "victory_egg4",
+      "position": [0, 0],
+      "transition": {
+        "type": "fade-in",
+        "props": {
+          "delay": 500,
+          "steps": 50
+        }
+      }
+    }
+  ]
+}

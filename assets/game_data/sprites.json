@@ -1,0 +1,3514 @@
+{
+
+  "FILELIST": [
+    "player.png",
+    "player_dead.png",
+    "snail.png",
+    "hedgehog.png",
+    "hedgehog_baby.png",
+    "mosquito.png",
+
+    "collectibles.png",
+
+    "puff.png",
+    "boom.png",
+    "sparkle.png",
+
+    "platforms.png",
+
+    "background1.png",
+    "background2.png",
+    "background3.png",
+    "background4.png",
+    "foreground1.png",
+    "bg_sky.png",
+    "bg_mountains_1.png",
+    "bg_mountains_2.png",
+    "bg_mountains_3.png",
+    "bg_mountains_4.png",
+    "bg_mountains_5.png",
+    "bg_mountains_6.png",
+    "bg_hills_1.png",
+
+    "clouds_1.png",
+    "clouds_2.png",
+
+    "ground.png",
+    "grass_basic.png",
+    "spikes.png",
+
+    "info-signs.png",
+    "info-collect-eggs.png",
+    "info-hitting-enemies.png",
+    "info-missing-eggs.png",
+
+    "score.png",
+
+    "props/tree1.png",
+    "props/tree2.png",
+    "props/bush1.png",
+    "props/bush2.png",
+    "props/fence_dark.png",
+    "props/fence_white.png",
+    "props/high_grass.png",
+    "props/flowers.png",
+    "props/flowers_small.png",
+
+    "props/barn.png",
+    "props/coop.png",
+    "props/mushrooms.png",
+    "props/mushrooms_small.png",
+
+    "start_screen/bg.png",
+    "start_screen/chicken.png",
+    "start_screen/controls.png",
+    "start_screen/enter.png",
+    "start_screen/jump.png",
+    "start_screen/jump_arrows.png",
+    "start_screen/jump_keys.png",
+    "start_screen/keyboard.png",
+    "start_screen/performance_note.png",
+    "start_screen/press_to_start.png",
+    "start_screen/title.png",
+    "start_screen/walk.png",
+    "start_screen/walk_arrows.png",
+    "start_screen/walk_keys.png",
+
+    "game_over/bg.png",
+    "game_over/enter.png",
+    "game_over/press_to_try_again.png",
+    "game_over/game_over.png",
+
+    "victory/eggcelent.png",
+    "victory/egg1.png",
+    "victory/egg2.png",
+    "victory/egg3.png",
+    "victory/egg4.png"
+  ],
+
+  "player":
+  {
+    "effect_hit":
+    {
+        "image": "boom.png",
+        "drawOffset": [-65,-125],
+        "dimensions": [200,200],
+        "frames": [[0,0],[200,0],[400,0],[600,0],[800,0],[1000,0],[1200,0],[1400,0],[1600,0],[1800,0],[0,200],[200,200],[400,200],[600,200],[800,200],[1000,200],[1200,200],[1400,200],[1600,200],[1800,200],[0,400]]
+    },
+    "walking_right":
+    {
+      "image": "player.png",
+      "drawOffset": [-54, -80],
+      "dimensions": [175, 158],
+      "frames": [[0,0], [175,0], [350,0], [525,0], [700,0], [875,0], [1050,0], [1225,0], [1400,0], [1575,0], [1750,0], [1925,0], [2100,0], [2275,0], [2450,0], [2625,0], [2800,0], [2975,0]]
+    },
+    "walking_left":
+    {
+      "image": "player.png",
+      "drawOffset": [-54, -80],
+      "dimensions": [175, 158],
+      "frames": [[0,158], [175,158], [350,158], [525,158], [700,158], [875,158], [1050,158], [1225,158], [1400,158], [1575,158], [1750,158], [1925,158], [2100,158], [2275,158], [2450,158], [2625,158], [2800,158], [2975,158]]
+    },
+    "standing_right":
+    {
+      "image": "player.png",
+      "drawOffset": [-54, -80],
+      "dimensions": [175, 158],
+      "frames": [[0,316]]
+    },
+    "standing_left":
+    {
+      "image": "player.png",
+      "drawOffset": [-54, -80],
+      "dimensions": [175, 158],
+      "frames": [[175,316]]
+    },
+    "dead":
+    {
+      "image": "player_dead.png",
+      "drawOffset": [-40, -15],
+      "dimensions": [141, 113],
+      "frames": [[0,0]]
+    }
+  },
+
+  "collectibles": {
+        "effects": {
+            "egg_collected": {
+                "image": "sparkle.png",
+                "drawOffset": [-15,-15],
+                "dimensions": [100,100],
+                "frames": [[0,0],[0,0],[100,0],[100,0],[200,0],[200,0],[300,0],[300,0],[400,0],[400,0],[500,0],[500,0],[600,0],[600,0],[700,0],[700,0],[800,0],[800,0],[900,0],[900,0],[0,100],[0,100],[100,100],[100,100],[200,100],[200,100],[300,100],[300,100],[400,100],[400,100],[500,100],[500,100],[600,100],[600,100],[700,100],[700,100],[800,100],[800,100],[900,100],[900,100],[0,200],[0,200],[100,200],[100,200],[200,200],[200,200],[300,200],[300,200],[400,200],[400,200],[500,200],[500,200],[600,200],[600,200],[700,200],[700,200],[800,200],[800,200],[900,200],[900,200],[0,300],[0,300],[100,300],[100,300],[200,300],[200,300],[300,300],[300,300],[400,300],[400,300],[500,300],[500,300],[600,300],[600,300],[700,300],[700,300],[800,300],[800,300],[900,300],[900,300],[0,400],[0,400],[100,400],[100,400],[200,400],[200,400],[300,400],[300,400],[400,400],[400,400],[500,400],[500,400],[600,400],[600,400],[700,400],[700,400],[800,400],[800,400],[900,400],[900,400],[0,500],[0,500],[100,500],[100,500],[200,500],[200,500],[300,500],[300,500],[400,500],[400,500],[500,500],[500,500],[600,500],[600,500],[700,500],[700,500],[800,500],[800,500],[900,500],[900,500]]
+            }
+        },
+        "egg": {
+            "default": {
+                "uncollected": {
+                    "image": "collectibles.png",
+                    "drawOffset": [0,0],
+                    "dimensions": [70,70],
+                    "frames": [[0,0],[70,0],[140,0],[210,0],[280,0],[350,0],[420,0],[490,0],[560,0],[630,0],[0,70],[70,70],[140,70],[210,70],[280,70],[350,70],[420,70],[490,70],[560,70],[0,140],[70,140],[140,140],[210,140],[280,140],[350,140],[420,140],[490,140],[560,140],[0,210],[70,210],[140,210],[210,210],[280,210],[350,210],[420,210],[490,210],[560,210],[0,280],[70,280],[140,280],[210,280],[280,280],[350,280],[420,280],[490,280],[560,280],[0,350],[70,350],[140,350],[210,350],[280,350],[350,350],[420,350],[490,350],[560,350]]
+                },
+                "collected": {
+                        "image": "collectibles.png",
+                        "drawOffset": [0,0],
+                        "dimensions": [70,70],
+                        "frames": [[0,420],[70,420],[140,420],[210,420],[280,420],[350,420],[420,420],[490,420],[560,420],[630,420],[0,490],[70,490],[140,490],[210,490],[280,490],[350,490],[420,490],[490,490],[560,490],[0,560],[70,560],[140,560],[210,560],[280,560],[350,560],[420,560],[490,560],[560,560],[0,630],[70,630],[140,630],[210,630],[280,630],[350,630],[420,630],[490,630],[560,630],[0,700],[70,700],[140,700],[210,700],[280,700],[350,700],[420,700],[490,700],[560,700],[0,770],[70,770],[140,770],[210,770],[280,770],[350,770],[420,770],[490,770],[560,770]]
+                }
+            }
+        }
+  },
+
+  "platforms":
+  {
+    "5":
+    {
+      "image": "platforms.png",
+      "drawOffset": [-35,-35],
+      "dimensions": [420,100],
+      "coords": [0,0]
+    },
+    "4":
+    {
+      "image": "platforms.png",
+      "drawOffset": [-35,-35],
+      "dimensions": [420,100],
+      "coords": [0,100]
+    },
+    "3":
+    {
+      "image": "platforms.png",
+      "drawOffset": [-35,-35],
+      "dimensions": [420,100],
+      "coords": [0,200]
+    },
+    "2":
+    {
+      "image": "platforms.png",
+      "drawOffset": [-35,-35],
+      "dimensions": [420,100],
+      "coords": [0,300]
+    },
+    "1":
+    {
+      "image": "platforms.png",
+      "drawOffset": [-35,-35],
+      "dimensions": [420,100],
+      "coords": [0,400]
+    }
+  },
+
+  "mobs":
+  {
+    "effect_hit":
+    {
+        "image": "puff.png",
+        "drawOffset": [-65,-65],
+        "dimensions": [200,200],
+        "frames": [
+            [0,0],
+            [200,0],
+            [400,0],
+            [600,0],
+            [800,0],
+            [1000,0],
+            [1200,0],
+            [1400,0],
+            [1600,0],
+            [1800,0],
+
+            [0,200],
+            [200,200],
+            [400,200],
+            [600,200],
+            [800,200],
+            [1000,200],
+            [1200,200],
+            [1400,200],
+            [1600,200],
+            [1800,200],
+
+            [0,400],
+            [200,400],
+            [400,400],
+            [600,400],
+            [800,400],
+            [1000,400],
+            [1200,400],
+            [1400,400],
+            [1600,400],
+            [1800,400],
+
+            [0,600],
+            [200,600],
+            [400,600],
+            [600,600],
+            [800,600],
+            [1000,600],
+            [1200,600],
+            [1400,600],
+            [1600,600],
+            [1800,600],
+
+            [0,800],
+            [200,800],
+            [400,800],
+            [600,800],
+            [800,800],
+            [1000,800],
+            [1200,800],
+            [1400,800],
+            [1600,800],
+            [1800,800],
+
+            [0,1000],
+            [200,1000],
+            [400,1000],
+            [600,1000],
+            [800,1000],
+            [1000,1000],
+            [1200,1000],
+            [1400,1000],
+            [1600,1000],
+            [1800,1000],
+
+            [0,1200],
+            [200,1200],
+            [400,1200],
+            [600,1200],
+            [800,1200],
+            [1000,1200],
+            [1200,1200],
+            [1400,1200],
+            [1600,1200],
+            [1800,1200],
+
+            [0,1400],
+            [200,1400],
+            [400,1400],
+            [600,1400],
+            [800,1400],
+            [1000,1400],
+            [1200,1400],
+            [1400,1400],
+            [1600,1400],
+            [1800,1400],
+
+            [0,1600],
+            [200,1600],
+            [400,1600],
+            [600,1600],
+            [800,1600],
+            [1000,1600],
+            [1200,1600],
+            [1400,1600]
+
+        ]
+    },
+    "snail_slow": {
+        "moving_right":
+        {
+          "image": "snail.png",
+          "drawOffset": [-50,-25],
+          "dimensions": [150,100],
+          "frames": [[0,0],[0,0],[150,0],[150,0],[300,0],[300,0],[450,0],[450,0],[600,0],[600,0],[750,0],[750,0],[900,0],[900,0],[1050,0],[1050,0],[1200,0],[1200,0],[1350,0],[1350,0],[1500,0],[1500,0],[1650,0],[1650,0],[1800,0],[1800,0],[1800,0],[1800,0],[1650,0],[1650,0],[1500,0],[1500,0],[1350,0],[1350,0],[1200,0],[1200,0],[1050,0],[1050,0],[900,0],[900,0],[750,0],[750,0],[600,0],[600,0],[450,0],[450,0],[300,0],[300,0],[150,0],[150,0]]
+        },
+        "moving_left":
+        {
+          "image": "snail.png",
+          "drawOffset": [-50,-25],
+          "dimensions": [150,100],
+          "frames": [[0,100],[0,100],[150,100],[150,100],[300,100],[300,100],[450,100],[450,100],[600,100],[600,100],[750,100],[750,100],[900,100],[900,100],[1050,100],[1050,100],[1200,100],[1200,100],[1350,100],[1350,100],[1500,100],[1500,100],[1650,100],[1650,100],[1800,100],[1800,100],[1800,100],[1800,100],[1650,100],[1650,100],[1500,100],[1500,100],[1350,100],[1350,100],[1200,100],[1200,100],[1050,100],[1050,100],[900,100],[900,100],[750,100],[750,100],[600,100],[600,100],[450,100],[450,100],[300,100],[300,100],[150,100],[150,100]]
+        },
+        "squashed":
+        {
+            "image": "snail.png",
+            "drawOffset": [0,10],
+            "dimensions": [70,57],
+            "frames": [[150,200]]
+        },
+        "dead":
+        {
+            "image": "snail.png",
+            "drawOffset": [0,10],
+            "dimensions": [70,57],
+            "frames": [[150,200]]
+        }
+    },
+
+    "snail_fast": {
+        "moving_right":
+        {
+          "image": "snail.png",
+          "drawOffset": [-50,-25],
+          "dimensions": [150,100],
+          "frames": [[0,0],[150,0],[300,0],[450,0],[600,0],[750,0],[900,0],[1050,0],[1200,0],[1350,0],[1500,0],[1650,0],[1800,0],[1800,0],[1650,0],[1500,0],[1350,0],[1200,0],[1050,0],[900,0],[750,0],[600,0],[450,0],[300,0],[150,0]]
+        },
+        "moving_left":
+        {
+          "image": "snail.png",
+          "drawOffset": [-50,-25],
+          "dimensions": [150,100],
+          "frames": [[0,100],[150,100],[300,100],[450,100],[600,100],[750,100],[900,100],[1050,100],[1200,100],[1350,100],[1500,100],[1650,100],[1800,100],[1800,100],[1650,100],[1500,100],[1350,100],[1200,100],[1050,100],[900,100],[750,100],[600,100],[450,100],[300,100],[150,100]]
+        },
+        "squashed":
+        {
+            "image": "snail.png",
+            "drawOffset": [0,10],
+            "dimensions": [70,57],
+            "frames": [[150,200]]
+        },
+        "dead":
+        {
+            "image": "snail.png",
+            "drawOffset": [0,10],
+            "dimensions": [70,57],
+            "frames": [[150,200]]
+        }
+    },
+    "mosquito": {
+        "moving_right":
+        {
+          "image": "mosquito.png",
+          "drawOffset": [-10,-10],
+          "dimensions": [90,90],
+          "frames": [[0,0],[90,0],[180,0],[270,0],[360,0],[450,0],[540,0],[630,0],[720,0],[810,0],[900,0],[990,0],[1080,0],[1170,0],[1260,0],[1350,0],[1440,0],[1530,0],[1620,0],[1710,0],[1800,0]]
+        },
+        "moving_left":
+        {
+          "image": "mosquito.png",
+          "drawOffset": [-10,-10],
+          "dimensions": [90,90],
+          "frames": [[0,90],[90,90],[180,90],[270,90],[360,90],[450,90],[540,90],[630,90],[720,90],[810,90],[900,90],[990,90],[1080,90],[1170,90],[1260,90],[1350,90],[1440,90],[1530,90],[1620,90],[1710,90],[1800,90]]
+        },
+        "dead":
+        {
+          "image": "mosquito.png",
+          "drawOffset": [-10,-10],
+          "dimensions": [90,90],
+          "frames": [[0,180]]
+        }
+
+    },
+    "hedgehog_big": {
+        "moving_right":
+        {
+          "image": "hedgehog.png",
+          "drawOffset": [-10,-20],
+          "dimensions": [90,90],
+          "frames": [[0,0],[0,0],[0,0],[90,0],[90,0],[90,0],[180,0],[180,0],[180,0],[270,0],[270,0],[270,0],[360,0],[360,0],[360,0],[450,0],[450,0],[450,0]]
+        },
+        "moving_left":
+        {
+          "image": "hedgehog.png",
+          "drawOffset": [-10,-20],
+          "dimensions": [90,90],
+          "frames": [[0,90],[0,90],[0,90],[90,90],[90,90],[90,90],[180,90],[180,90],[180,90],[270,90],[270,90],[270,90],[360,90],[360,90],[360,90],[450,90],[450,90],[450,90]]
+        }
+    },
+    "hedgehog_small": {
+        "moving_right":
+        {
+          "image": "hedgehog_baby.png",
+          "drawOffset": [-5,-10],
+          "dimensions": [45,45],
+          "frames": [[0,0],[0,0],[0,0],[45,0],[45,0],[45,0],[90,0],[90,0],[90,0],[135,0],[135,0],[135,0],[180,0],[180,0],[180,0],[225,0],[225,0],[225,0]]
+        },
+        "moving_left":
+        {
+          "image": "hedgehog_baby.png",
+          "drawOffset": [-5,-10],
+          "dimensions": [45,45],
+          "frames": [[0,45],[0,45],[0,45],[45,45],[45,45],[45,45],[90,45],[90,45],[90,45],[135,45],[135,45],[135,45],[180,45],[180,45],[180,45],[225,45],[225,45],[225,45]]
+        }
+    }
+  },
+
+  "mapTiles":
+  {
+
+    "GeL1": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,140]
+    },
+
+    "GeL2": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,210]
+    },
+
+    "GeL3": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,280]
+    },
+
+    "GeL4": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,350]
+    },
+
+    "GeR1": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [70,140]
+    },
+
+    "GeR2": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [70,210]
+    },
+
+    "GeR3": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [70,280]
+    },
+
+    "GeR4": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [70,350]
+    },
+
+    "GeL5": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [140,140]
+    },
+
+    "GeL6": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [140,210]
+    },
+
+    "GeL7": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [140,280]
+    },
+
+    "GeL8": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [140,350]
+    },
+
+    "GeR5": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [210,140]
+    },
+
+    "GeR6": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [210,210]
+    },
+
+    "GeR7": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [210,280]
+    },
+
+    "GeR8": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [210,350]
+    },
+
+    "GeL9": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [280,140]
+    },
+
+    "GeL10": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [280,210]
+    },
+
+    "GeL11": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [280,280]
+    },
+
+    "GeL12": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [280,350]
+    },
+
+    "GeR9": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,140]
+    },
+
+    "GeR10": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,210]
+    },
+
+    "GeR11": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,280]
+    },
+
+    "GeR12": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,350]
+    },
+
+    "GeL13": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [420,140]
+    },
+
+    "GeL14": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [420,210]
+    },
+
+    "GeL15": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [420,280]
+    },
+
+    "GeL16": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [420,350]
+    },
+
+    "GeR13": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [490,140]
+    },
+
+    "GeR14": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [490,210]
+    },
+
+    "GeR15": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [490,280]
+    },
+
+    "GeR16": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [490,350]
+    },
+
+    "GeL17": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [560,140]
+    },
+
+    "GeL18": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [560,210]
+    },
+
+    "GeL19": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [560,280]
+    },
+
+    "GeL20": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [560,350]
+    },
+
+    "GeR17": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [630,140]
+    },
+
+    "GeR18": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [630,210]
+    },
+
+    "GeR19": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [630,280]
+    },
+
+    "GeR20": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [630,350]
+    },
+
+    "GeL21": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [700,140]
+    },
+
+    "GeL22": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [700,210]
+    },
+
+    "GeL23": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [700,280]
+    },
+
+    "GeL24": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [700,350]
+    },
+
+    "GeR21": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [770,140]
+    },
+
+    "GeR22": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [770,210]
+    },
+
+    "GeR23": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [770,280]
+    },
+
+    "GeR24": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [770,350]
+    },
+
+    "GeT1": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,70]
+    },
+
+    "GeT2": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,70]
+    },
+
+    "GeT3": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,70]
+    },
+
+    "GeT4": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,70]
+    },
+
+    "GeT5": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,70]
+    },
+
+    "GeT6": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,70]
+    },
+
+    "GeT7": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1330,70]
+    },
+
+    "GeT8": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,70]
+    },
+
+    "GeT9": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,70]
+    },
+
+    "GeT10": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,70]
+    },
+
+    "GeT11": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1610,70]
+    },
+
+    "GeT12": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1680,70]
+    },
+
+    "GeT13": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,140]
+    },
+
+    "GeT14": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,140]
+    },
+
+    "GeT15": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,140]
+    },
+
+    "GeT16": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,140]
+    },
+
+    "GeT17": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,140]
+    },
+
+    "GeT18": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,140]
+    },
+
+    "GeT19": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1330,140]
+    },
+
+    "GeT20": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,140]
+    },
+
+    "GeT21": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,140]
+    },
+
+    "GeT22": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,140]
+    },
+
+    "GeT23": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1610,140]
+    },
+
+    "GeT24": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1680,140]
+    },
+
+    "GeT25": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,210]
+    },
+
+    "GeT26": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,210]
+    },
+
+    "GeT27": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,210]
+    },
+
+    "GeT28": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,210]
+    },
+
+    "GeT29": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,210]
+    },
+
+    "GeT30": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,210]
+    },
+
+    "GeT31": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1330,210]
+    },
+
+    "GeT32": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,210]
+    },
+
+    "GeT33": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,210]
+    },
+
+    "GeT34": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,210]
+    },
+
+    "GeT35": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1610,210]
+    },
+
+    "GeT36": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1680,210]
+    },
+
+    "GeT37": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,280]
+    },
+
+    "GeT38": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,280]
+    },
+
+    "GeT39": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,280]
+    },
+
+    "GeT40": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,280]
+    },
+
+    "GeT41": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,280]
+    },
+
+    "GeT42": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,280]
+    },
+
+    "GeT43": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1330,280]
+    },
+
+    "GeT44": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,280]
+    },
+
+    "GeT45": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,280]
+    },
+
+    "GeT46": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,280]
+    },
+
+    "GeT47": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1610,280]
+    },
+
+    "GeT48": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1680,280]
+    },
+
+    "G1": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1890,140]
+    },
+
+    "G2": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1960,140]
+    },
+
+    "G3": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2030,140]
+    },
+
+    "G4": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2100,140]
+    },
+
+    "G5": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2170,140]
+    },
+
+    "G6": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2240,140]
+    },
+
+    "G7": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2310,140]
+    },
+
+    "G8": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2380,140]
+    },
+
+    "G9": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2450,140]
+    },
+
+    "G10": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2520,140]
+      },
+
+      "G11": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1890,210]
+    },
+
+    "G12": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1960,210]
+    },
+
+    "G13": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2030,210]
+    },
+
+    "G14": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2100,210]
+    },
+
+    "G15": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2170,210]
+    },
+
+    "G16": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2240,210]
+    },
+
+    "G17": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2310,210]
+    },
+
+    "G18": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2380,210]
+    },
+
+    "G19": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2450,210]
+    },
+
+    "G20": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2520,210]
+    },
+
+    "G21": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1890,280]
+    },
+
+    "G22": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1960,280]
+    },
+
+    "G23": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2030,280]
+    },
+
+    "G24": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2100,280]
+    },
+
+    "G25": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2170,280]
+    },
+
+    "G26": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2240,280]
+    },
+
+    "G27": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2310,280]
+    },
+
+    "G28": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2380,280]
+    },
+
+    "G29": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2450,280]
+    },
+
+    "G30": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2520,280]
+    },
+
+    "G31": {
+      "image": "ground.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1890,350]
+    },
+
+    "G32": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1960,350]
+    },
+
+    "G33": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2030,350]
+    },
+
+    "G34": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2100,350]
+    },
+
+    "G35": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2170,350]
+    },
+
+    "G36": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2240,350]
+    },
+
+    "G37": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2310,350]
+    },
+
+    "G38": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2380,350]
+    },
+
+    "G39": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2450,350]
+    },
+
+    "G40": {
+        "image": "ground.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [2520,350]
+    },
+
+    "GRc1": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [280,70],
+      "coords": [0,0]
+    },
+    
+    "GRc2": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [280,0]
+    },
+    
+    "GRc3": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [560,0]
+    },
+    
+    "GRc4": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [0,70]
+    },
+    
+    "GRc5": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [280,70]
+    },
+    
+    "GRc6": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [560,70]
+    },
+    
+    "GRc7": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [0,140]
+    },
+    
+    "GRc8": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [280,140]
+    },
+    
+    "GRc9": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [560,140]
+    },
+    
+    "GRc10": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [0,210]
+    },
+    
+    "GRc11": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [280,210]
+    },
+    
+    "GRc12": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [280,70],
+        "coords": [560,210]
+    },
+
+    "GRo1": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,280]
+    },
+    
+    "GRo2": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [70,280]
+    },
+    
+    "GRo3": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [140,280]
+    },
+    
+    "GRo4": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [0,350]
+    },
+    
+    "GRo5": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [70,350]
+    },
+    
+    "GRo6": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [140,350]
+    },
+    
+    "GRo7": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [0,420]
+    },
+    
+    "GRo8": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [70,420]
+    },
+    
+    "GRo9": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [140,420]
+    },
+    
+    "GRo10": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [0,490]
+    },
+    
+    "GRo11": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [70,490]
+    },
+    
+    "GRo12": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [140,490]
+    },
+    
+    "GRo13": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [210,280]
+    },
+    
+    "GRo14": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [280,280]
+    },
+    
+    "GRo15": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [210,350]
+    },
+    
+    "GRo16": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [280,350]
+    },
+    
+    "GRo17": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [210,420]
+    },
+    
+    "GRo18": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [280,420]
+    },
+    
+    "GRo19": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [210,490]
+    },
+    
+    "GRo20": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [280,490]
+      },
+
+    "GRo21": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [350,280]
+    },
+    
+    "GRo22": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [420,280]
+    },
+    
+    "GRo23": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [490,280]
+    },
+    
+    "GRo24": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [560,280]
+    },
+    
+    "GRo25": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [630,280]
+    },
+    
+    "GRo26": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [700,280]
+    },
+    
+    "GRo27": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [770,280]
+    },
+    
+    "GRo28": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [840,280]
+      },
+
+      "GRo29": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [350,350]
+    },
+    
+    "GRo30": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [420,350]
+    },
+    
+    "GRo31": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [490,350]
+    },
+    
+    "GRo32": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [560,350]
+    },
+    
+    "GRo33": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [630,350]
+    },
+    
+    "GRo34": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [700,350]
+    },
+    
+    "GRo35": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [770,350]
+    },
+    
+    "GRo36": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [840,350]
+    },
+
+    "GRo37": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,420]
+    },
+    
+    "GRo38": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [420,420]
+    },
+    
+    "GRo39": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [490,420]
+    },
+    
+    "GRo40": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [560,420]
+    },
+    
+    "GRo41": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [630,420]
+    },
+    
+    "GRo42": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [700,420]
+    },
+    
+    "GRo43": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [770,420]
+    },
+    
+    "GRo44": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [840,420]
+    },
+
+    "GRo45": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,490]
+    },
+    
+    "GRo46": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [420,490]
+    },
+    
+    "GRo47": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [490,490]
+    },
+    
+    "GRo48": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [560,490]
+    },
+    
+    "GRo49": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [630,490]
+    },
+    
+    "GRo50": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [700,490]
+    },
+    
+    "GRo51": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [770,490]
+    },
+      
+    "GRo52": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [840,490]
+    },
+
+    "GRo53": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,280]
+    },
+    
+    "GRo54": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,280]
+    },
+    
+    "GRo55": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,280]
+    },
+    
+    "GRo56": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,280]
+    },
+    
+    "GRo57": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,280]
+    },
+    
+    "GRo58": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,280]
+    },
+
+    "GRo59": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,350]
+    },
+    
+    "GRo60": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,350]
+    },
+    
+    "GRo61": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,350]
+    },
+    
+    "GRo62": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,350]
+    },
+    
+    "GRo63": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,350]
+    },
+    
+    "GRo64": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,350]
+    },
+
+    "GRo66": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,420]
+    },
+    
+    "GRo67": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,420]
+    },
+    
+    "GRo68": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,420]
+    },
+    
+    "GRo69": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,420]
+    },
+    
+    "GRo70": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,420]
+    },
+    
+    "GRo71": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,420]
+    },
+
+    "GRo72": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [910,490]
+    },
+    
+    "GRo73": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [980,490]
+    },
+    
+    "GRo74": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1050,490]
+    },
+    
+    "GRo75": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1120,490]
+    },
+    
+    "GRo76": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1190,490]
+    },
+    
+    "GRo77": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1260,490]
+    },
+
+    "GRo78": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1330,280]
+    },
+    
+    "GRo79": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,280]
+    },
+    
+    "GRo80": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,280]
+    },
+    
+    "GRo81": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,280]
+    },
+
+    "GRo82": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1330,350]
+    },
+    
+    "GRo83": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,350]
+    },
+    
+    "GRo84": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,350]
+    },
+    
+    "GRo85": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,350]
+    },
+
+    "GRo86": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1330,420]
+    },
+
+    "GRo87": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,420]
+    },
+
+    "GRo88": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,420]
+    },
+
+    "GRo89": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,420]
+    },
+
+    "GRo90": {
+      "image": "grass_basic.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [1330,490]
+    },
+
+    "GRo91": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1400,490]
+    },
+
+    "GRo92": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1470,490]
+    },
+
+    "GRo93": {
+        "image": "grass_basic.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [1540,490]
+    },
+
+    "Spk": {
+        "image": "spikes.png",
+        "drawOffset": [0,0],
+        "dimensions": [70,70],
+        "coords": [0,0]
+      }
+
+  },
+
+  "decorations": {
+    "tree1":
+    {
+      "image": "props/tree1.png",
+      "drawOffset": [0,0],
+      "dimensions": [477,613],
+      "coords": [0,0]
+    },
+    "tree2":
+    {
+      "image": "props/tree2.png",
+      "drawOffset": [0,0],
+      "dimensions": [480,626],
+      "coords": [0,0]
+    },
+    "bush1":
+    {
+      "image": "props/bush1.png",
+      "drawOffset": [0,0],
+      "dimensions": [326,150],
+      "coords": [0,0]
+    },
+    "bush2":
+    {
+      "image": "props/bush2.png",
+      "drawOffset": [0,0],
+      "dimensions": [377,148],
+      "coords": [0,0]
+    },
+    "high_grass":
+    {
+      "image": "props/high_grass.png",
+      "drawOffset": [0,0],
+      "dimensions": [720,158],
+      "coords": [0,0]
+    },
+    "fence_dark":
+    {
+      "image": "props/fence_dark.png",
+      "drawOffset": [0,0],
+      "dimensions": [635,117],
+      "coords": [0,0]
+    },
+    "fence_white":
+    {
+      "image": "props/fence_white.png",
+      "drawOffset": [0,0],
+      "dimensions": [635,117],
+      "coords": [0,0]
+    },
+    "fl1_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,0]
+    },
+    "fl1_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,0]
+    },
+    "fl1_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,0]
+    },
+    "fl1_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,0]
+    },
+    "fl1_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,0]
+    },
+    "fl1_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,0]
+    },
+    "fl1_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,0]
+    },
+    "fl2_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,140]
+    },
+    "fl2_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,140]
+    },
+    "fl2_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,140]
+    },
+    "fl2_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,140]
+    },
+    "fl2_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,140]
+    },
+    "fl2_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,140]
+    },
+    "fl2_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,140]
+    },
+    "fl3_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,280]
+    },
+    "fl3_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,280]
+    },
+    "fl3_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,280]
+    },
+    "fl3_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,280]
+    },
+    "fl3_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,280]
+    },
+    "fl3_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,280]
+    },
+    "fl3_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,280]
+    },
+    "fl4_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,420]
+    },
+    "fl4_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,420]
+    },
+    "fl4_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,420]
+    },
+    "fl4_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,420]
+    },
+    "fl4_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,420]
+    },
+    "fl4_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,420]
+    },
+    "fl4_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,420]
+    },
+    "fl5_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,560]
+    },
+    "fl5_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,560]
+    },
+    "fl5_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,560]
+    },
+    "fl5_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,560]
+    },
+    "fl5_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,560]
+    },
+    "fl5_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,560]
+    },
+    "fl5_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,560]
+    },
+    "fl6_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,700]
+    },
+    "fl6_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,700]
+    },
+    "fl6_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,700]
+    },
+    "fl6_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,700]
+    },
+    "fl6_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,700]
+    },
+    "fl6_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,700]
+    },
+    "fl6_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,700]
+    },
+    "fl7_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,840]
+    },
+    "fl7_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,840]
+    },
+    "fl7_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,840]
+    },
+    "fl7_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,840]
+    },
+    "fl7_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,840]
+    },
+    "fl7_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,840]
+    },
+    "fl7_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,840]
+    },
+    "fl8_1":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [0,980]
+    },
+    "fl8_2":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [200,980]
+    },
+    "fl8_3":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [400,980]
+    },
+    "fl8_4":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [600,980]
+    },
+    "fl8_5":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [800,980]
+    },
+    "fl8_6":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1000,980]
+    },
+    "fl8_7":
+    {
+      "image": "props/flowers.png",
+      "drawOffset": [0,0],
+      "dimensions": [200,140],
+      "coords": [1200,980]
+    },
+    "fs1_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,0]
+    },
+    "fs1_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,0]
+    },
+    "fs1_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,0]
+    },
+    "fs1_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,0]
+    },
+    "fs1_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,0]
+    },
+    "fs1_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,0]
+    },
+    "fs1_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,0]
+    },
+    "fs2_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,140]
+    },
+    "fs2_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,140]
+    },
+    "fs2_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,140]
+    },
+    "fs2_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,140]
+    },
+    "fs2_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,140]
+    },
+    "fs2_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,140]
+    },
+    "fs2_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,140]
+    },
+    "fs3_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,280]
+    },
+    "fs3_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,280]
+    },
+    "fs3_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,280]
+    },
+    "fs3_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,280]
+    },
+    "fs3_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,280]
+    },
+    "fs3_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,280]
+    },
+    "fs3_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,280]
+    },
+    "fs4_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,420]
+    },
+    "fs4_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,420]
+    },
+    "fs4_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,420]
+    },
+    "fs4_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,420]
+    },
+    "fs4_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,420]
+    },
+    "fs4_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,420]
+    },
+    "fs4_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,420]
+    },
+    "fs5_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,560]
+    },
+    "fs5_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,560]
+    },
+    "fs5_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,560]
+    },
+    "fs5_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,560]
+    },
+    "fs5_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,560]
+    },
+    "fs5_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,560]
+    },
+    "fs5_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,560]
+    },
+    "fs6_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,700]
+    },
+    "fs6_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,700]
+    },
+    "fs6_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,700]
+    },
+    "fs6_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,700]
+    },
+    "fs6_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,700]
+    },
+    "fs6_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,700]
+    },
+    "fs6_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,700]
+    },
+    "fs7_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,840]
+    },
+    "fs7_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,840]
+    },
+    "fs7_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,840]
+    },
+    "fs7_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,840]
+    },
+    "fs7_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,840]
+    },
+    "fs7_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,840]
+    },
+    "fs7_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,840]
+    },
+    "fs8_1":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [0,980]
+    },
+    "fs8_2":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [150,980]
+    },
+    "fs8_3":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [300,980]
+    },
+    "fs8_4":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [450,980]
+    },
+    "fs8_5":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [600,980]
+    },
+    "fs8_6":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [750,980]
+    },
+    "fs8_7":
+    {
+      "image": "props/flowers_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [150,140],
+      "coords": [900,980]
+    },
+    "mushroom_1":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [0,0]
+    },
+    "mushroom_2":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [70,0]
+    },
+    "mushroom_3":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [140,0]
+    },
+    "mushroom_4":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [210,0]
+    },
+    "mushroom_5":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [280,0]
+    },
+    "mushroom_6":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [350,0]
+    },
+    "mushroom_7":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [420,0]
+    },
+    "mushroom_8":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [490,0]
+    },
+    "mushroom_9":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [560,0]
+    },
+    "mushroom_10":
+    {
+      "image": "props/mushrooms.png",
+      "drawOffset": [0,0],
+      "dimensions": [70,70],
+      "coords": [630,0]
+    },
+
+    "mushroomsmall_1":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [0,0]
+    },
+    "mushroomsmall_2":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [40,0]
+    },
+    "mushroomsmall_3":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [80,0]
+    },
+    "mushroomsmall_4":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [120,0]
+    },
+    "mushroomsmall_5":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [160,0]
+    },
+    "mushroomsmall_6":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [200,0]
+    },
+    "mushroomsmall_7":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [240,0]
+    },
+    "mushroomsmall_8":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [280,0]
+    },
+    "mushroomsmall_9":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [320,0]
+    },
+    "mushroomsmall_10":
+    {
+      "image": "props/mushrooms_small.png",
+      "drawOffset": [0,0],
+      "dimensions": [40,40],
+      "coords": [360,0]
+    },
+
+    "sign_up":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [100,0]
+    },
+    "sign_r":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [200,0]
+    },
+    "sign_l":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [300,0]
+    },
+    "sign_upr":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [400,0]
+    },
+    "sign_upl":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [500,0]
+    },
+    "sign_dr":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [600,0]
+    },
+    "sign_dl":
+    {
+      "image": "info-signs.png",
+      "drawOffset": [0,0],
+      "dimensions": [100,100],
+      "coords": [700,0]
+    },
+
+
+    "barn":
+    {
+      "image": "props/barn.png",
+      "drawOffset": [0,0],
+      "dimensions": [587,504],
+      "coords": [0,0]
+    },
+    "coop":
+    {
+      "image": "props/coop.png",
+      "drawOffset": [0,0],
+      "dimensions": [263,300],
+      "coords": [0,0]
+    }
+  },
+
+  "screenOverlays": {
+
+    "start_bg":
+    {
+      "image": "start_screen/bg.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_chicken":
+    {
+      "image": "start_screen/chicken.png",
+      "drawOffset": [0, 0],
+      "dimensions": [400, 361],
+      "frames": [[0,0],[400,0],[800,0],[1200,0],[1600,0],[2000,0],[2400,0],[2800,0],[3200,0],[3600,0],[4000,0],[4400,0],[4800,0],[5200,0],[5600,0],[6000,0],[6400,0],[6800,0]]
+    },
+
+    "start_controls":
+    {
+      "image": "start_screen/controls.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_enter":
+    {
+      "image": "start_screen/enter.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_jump":
+    {
+      "image": "start_screen/jump.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_jump_arrows":
+    {
+      "image": "start_screen/jump_arrows.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_jump_keys":
+    {
+      "image": "start_screen/jump_keys.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_keyboard":
+    {
+      "image": "start_screen/keyboard.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_press_to_start":
+    {
+      "image": "start_screen/press_to_start.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_performance_note":
+    {
+      "image": "start_screen/performance_note.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    
+    "start_title":
+    {
+      "image": "start_screen/title.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_walk":
+    {
+      "image": "start_screen/walk.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_walk_arrows":
+    {
+      "image": "start_screen/walk_arrows.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "start_walk_keys":
+    {
+      "image": "start_screen/walk_keys.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "chicken":
+    {
+      "image": "player.png",
+      "drawOffset": [0, 0],
+      "dimensions": [175, 158],
+      "frames": [[0,0], [175,0], [350,0], [525,0], [700,0], [875,0], [1050,0], [1225,0], [1400,0], [1575,0], [1750,0], [1925,0], [2100,0], [2275,0], [2450,0], [2625,0], [2800,0], [2975,0]]
+    },
+
+    "game_over_bg":
+    {
+      "image": "game_over/bg.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "game_over_text":
+    {
+      "image": "game_over/game_over.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "game_over_try_again":
+    {
+      "image": "game_over/press_to_try_again.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+
+    "game_over_enter":
+    {
+      "image": "game_over/enter.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    "victory_eggcelent":
+    {
+      "image": "victory/eggcelent.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    "victory_egg1":
+    {
+      "image": "victory/egg1.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    "victory_egg2":
+    {
+      "image": "victory/egg2.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    "victory_egg3":
+    {
+      "image": "victory/egg3.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    },
+    "victory_egg4":
+    {
+      "image": "victory/egg4.png",
+      "drawOffset": [0, 0],
+      "dimensions": [1890, 910],
+      "coords": [0,0]
+    }
+  },
+
+  "infoSigns": {
+    "signs": {
+        "tip": {
+            "image": "info-signs.png",
+            "drawOffset": [20,40],
+            "dimensions": [100,100],
+            "coords": [0,0]
+        }
+    },
+    "info": {
+        "collect_eggs": {
+            "image": "info-collect-eggs.png",
+            "drawOffset": [0,0],
+            "dimensions": [500,300],
+            "coords": [0,0]
+        },
+        "killing_mobs": {
+            "image": "info-hitting-enemies.png",
+            "drawOffset": [0,0],
+            "dimensions": [500,300],
+            "coords": [0,0]
+        }
+    }
+  },
+
+  "score": {
+      "life": {
+        "image": "score.png",
+        "drawOffset": [0,0],
+        "marginLeft": 20,
+        "marginRight": -10,
+        "marginTop": 7,
+        "dimensions": [41,38],
+        "coords": [0,0]
+      },
+      "egg": {
+        "image": "score.png",
+        "drawOffset": [0,0],
+        "marginRight": 10,
+        "marginTop": 7,
+        "dimensions": [38,38],
+        "coords": [0,38]
+      }
+  },
+
+  "specialObjects": {
+    "finishAreaReached": {
+      "image": "info-missing-eggs.png",
+      "drawOffset": [0,0],
+      "dimensions": [500,300],
+      "coords": [0,0]
+  }
+  },
+
+  "background": [
+    {
+      "image": "bg_sky.png",
+      "plane": "background",
+      "dimensions": [1890, 910],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0, 0],
+      "stickToBottom": false,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "clouds_1.png",
+      "plane": "background",
+      "dimensions": [1920, 1080],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.32, 0.32],
+      "stickToBottom": false,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "clouds_2.png",
+      "plane": "background",
+      "dimensions": [1920, 1080],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.35, 0.35],
+      "stickToBottom": false,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+
+    {
+      "image": "bg_mountains_2.png",
+      "plane": "background",
+      "dimensions": [1920, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.4, 0.4],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "bg_mountains_3.png",
+      "plane": "background",
+      "dimensions": [1920, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.45, 0.45],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "bg_mountains_4.png",
+      "plane": "background",
+      "dimensions": [1920, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.5, 0.5],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "bg_mountains_5.png",
+      "plane": "background",
+      "dimensions": [1920, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.55, 0.55],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    },
+
+    {
+      "image": "bg_mountains_6.png",
+      "plane": "background",
+      "dimensions": [1920, 1000],
+      "drawOffset": [0,0],
+      "coords": [0,0],
+      "speed": [0.6, 0.6],
+      "stickToBottom": true,
+      "repeatHorizontally": true,
+      "offset": [0,0],
+      "marginLeft": 0
+    }
+  ]
+
+
+}
