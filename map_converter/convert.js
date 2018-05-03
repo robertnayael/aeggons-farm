@@ -60,7 +60,7 @@ function addTilePropertiesToObjects(map) {
         if (!gid) return {};
 
         const tileSet = 
-            tileSets.find(tileSet => gid >= tileSet.firstGid && gid <= tileSet.firstGid + tileSet.tiles.length)
+            tileSets.find(tileSet => gid >= tileSet.firstGid && gid < tileSet.firstGid + tileSet.tiles.length)
             || tileSets[tileSets.length - 1];
         const tile = tileSet.tiles.find((tile, index) => gid == tileSet.firstGid + index);
         return tile ? tile.properties : {};
