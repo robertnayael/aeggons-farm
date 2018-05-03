@@ -27,7 +27,6 @@ export default class BackgroundLayer {
     this.sprite = props.image;
 
 
-
     /* These dimensions will be used for calculating background position;
      * note that they can be different from the actual image dimensions.
      */
@@ -49,7 +48,6 @@ export default class BackgroundLayer {
       x: this.width - this.actualImageDimensions.width,
       y: this.height - this.actualImageDimensions.height
     };
-
 
   }
 
@@ -79,11 +77,24 @@ export default class BackgroundLayer {
     if ( !this.repeatHorizontally || xEnd > viewport.width ) repeatX = false;
     else repeatX = xEnd;
 
+    x = x - this.offset.x;
+    y = y - this.offset.y;
+
+    const sprite = this.actualImageDimensions;
+
     return {
       image: this.sprite,
-      x: x - this.offset.x,
-      y: y - this.offset.y,
-      repeatX: repeatX
+      x: x,// - this.offset.x,
+      y: y,// - this.offset.y,
+      repeatX: repeatX,
+      sX: x,
+      sY: ( y < 0 ? 0 : y),
+      sWidth: viewport.width,
+      sHeight: viewport.height,
+      dX: 0,
+      dY: ( y < 0 ? -y : 0),
+      dWidth: viewport.width,
+      dHeight: viewport.height
     };
   }
 

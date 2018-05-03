@@ -5,7 +5,7 @@ export default class Gameplay extends Renderer {
   draw(ctx, scale, {player, map, score}) {
 
     const offset = map.getOffset(player);
-
+ 
     drawBackground(ctx, scale, offset.map, map);
     drawTileLayers(ctx, 'background', offset.map, map);
     drawDecorationLayers(ctx, scale, 'background', offset.map, map);
@@ -117,8 +117,6 @@ function drawScore (ctx, score) {
     drawScoreItemGroup(ctx, group, x, y);
     x = x + groupWidth;
   });
-
-  //throw new Error('------');
 };
 
 /*----------------------------------------------------------------------------*/
@@ -190,18 +188,21 @@ function drawBackgroundLayer(ctx, scale, mapOffset, map, backgroundLayer) {
 
     ctx.drawImage(
       layer.image,
-      layer.x, layer.y,
-      map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
-      0, 0,
-      map.viewport.width.px, map.viewport.height.px);
+      layer.sX, layer.sY,
+      layer.sWidth, layer.sHeight,
+      layer.dX, layer.dY,
+      layer.dWidth, layer.dHeight,
+    );
+
 
     if (layer.repeatX !== false) {
       ctx.drawImage(
         layer.image,
-        0, layer.y,
-        map.viewport.width.px * (1/scale), map.viewport.height.px * (1/scale),
-        layer.repeatX, 0,
-        map.viewport.width.px, map.viewport.height.px);
+        0, layer.sY,
+        layer.sWidth, layer.sHeight,
+        layer.repeatX, layer.dY,
+        layer.dWidth, layer.dHeight,
+      );
     }
 }
 
