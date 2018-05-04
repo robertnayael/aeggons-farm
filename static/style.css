@@ -1,0 +1,103 @@
+body {
+    overflow: hidden;
+    background: #111;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    font-family: Bangers;
+    font-size: 2vw;
+}
+
+#platformer {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-message {
+    display: none;
+}
+
+.error-message.is-active {
+    display: block;
+}
+
+.error-message.is-active ~ #canvas {
+    display: none;
+}
+
+.error-message__heading {
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+.error-message__description {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error-message__description::before {
+    content: '';
+    display: block;
+    background-image: url('../assets/sprites/player_dead.png');
+    width: 141px;
+    height: 113px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    position: absolute;
+    min-width: 500px;
+    width: 50vw;
+    transition: opacity 1s ease-in;
+}
+
+.error-message.is-active ~ .progress-bar {
+    transition: all 0.5s ease-in;
+    transform:  translateY(-100vh)
+}
+
+.progress-bar.data-files.completed {
+    display: none;
+}
+
+.progress-bar.images.completed {
+    opacity: 0;
+}
+
+.progress-bar__label {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.progress-bar__bar {
+    height: 25px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    transition: width 1s ease-in-out;
+    position: relative;
+}
+
+.progress-bar::before {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #3a3428;
+}
+
+#canvas {
+    position: relative;
+    z-index: 10;
+}
