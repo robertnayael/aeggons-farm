@@ -1,6 +1,6 @@
-const MAP_FILE = './map.tmx',
-      OUTPUT_FILE_TILES = '../dist/data/map.json',
-      OUTPUT_FILE_ENTITIES = '../dist/data/entities.json',
+const MAP_FILE = '../assets/map/map.tmx',
+      OUTPUT_FILE_TILES = '../assets/game_data/map.json',
+      OUTPUT_FILE_ENTITIES = '../assets/game_data/entities.json',
       BASE_TILE_SIZE = 70;
 
 const tmx = require('tmx-parser'),
