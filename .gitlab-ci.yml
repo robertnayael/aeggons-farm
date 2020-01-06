@@ -1,0 +1,20 @@
+image: node
+
+stages:
+  - build
+  - deploy
+
+build-master:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - build/
+  cache:
+    paths:
+    - node_modules/
+    policy: pull-push
+  only: [master]
